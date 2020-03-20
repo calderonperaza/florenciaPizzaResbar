@@ -1,0 +1,14 @@
+/* Inicia estilo del div contenedor de la tabla */
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+
+/* Termina estilo del div contenedor de la tabla */
