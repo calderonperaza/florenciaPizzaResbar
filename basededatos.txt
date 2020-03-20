@@ -1,0 +1,43 @@
+Este es un ejemplo de lo que sera la base de datos
+
+CATEGORIAS - Coleccion o Tabla
+{id:"12312312", nombre:"Entradas"},
+{id:"12322222", nombre:"Platos"},
+{id:"12333333", nombre:"Bebidas"},
+
+PRODUCTOS
+{id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
+{id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
+{id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}},
+{id:"2312a1444",nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"}},
+{id:"2312a5555",nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
+{id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}},
+
+
+ORDENES
+{id:"2345ab54c1111", fecha:"2020-10-31", mesero:"Juan",mesa:"2",cliente:"", estado:"A",total:21.10, observacion:"", 
+detalleOrden:[
+	{cantidad: 1,nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}, subtotal:7.25},
+	{cantidad: 1,nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"},subtotal:6.75},
+	{cantidad:2,nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"},subtotal:2}
+]},
+{id:"2345ab54c2222", fecha:"2020-10-31", mesero:"Luis",mesa:"1",cliente:"Don Carlos", estado:"C",total:16.00, observacion:"Sin Cebolla", 
+detalleOrden:[
+	{cantidad: 1,nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}, subtotal:7.25},
+	{cantidad: 2,nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"},subtotal:11.10},
+	{cantidad:1,nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"},subtotal:1.00},
+	{cantidad:2,nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"},subtotal:1.75}
+]},
+
+//en el momento que se cobra una orden se actualiza
+RESUMENDEVENTAS
+{fecha:"2020-10-31", total:32.55, productos:[
+{cantidad:1,nombre:"Soda Fanta 12 onz"},
+{cantidad:2,nombre:"Refresco de Horchata"},
+]},
+{fecha:"2020-10-28", total:32.55, productos:[
+{cantidad:1,nombre:"Hamburguesa Big"},
+{cantidad:2,nombre:"Pizza Suprema"},
+]},
+
+
