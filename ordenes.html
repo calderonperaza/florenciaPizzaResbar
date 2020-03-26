@@ -90,91 +90,53 @@
                     </div>
                     <!-- Termina seccion de alertas -->
 
+                    <!-- Toggle para mostrar activos -->
+                    <label>Mostrar activas</label>
+                    <label class="switch" >
+                        <input type="checkbox" >
+                        <span class="slider round"  v-on:click = "mostrarActivos"></span>
+                      </label>
+                      <!-- -->
                     <!-- Incia Tabla -->
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-sm table-bordered table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col"># Orden</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col" v-on:click = "ordenar" v-if = "ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click = "ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col">Mesero</th>
+                                    <th scope="col">Observaciones</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td> <button class="btn btn-primary btn-sm" id="modalButton" onclick="alerta()"><i class="fas fa-exclamation"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                            <tbody >
+                                <tr v-if = "activos" v-for = "orden in ordenes">
+                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.cliente}}</td>
+                                    <td>{{orden.mesa}}</td>
+                                    <td>{{orden.mesero}}</td>
+                                    <td>{{orden.observacion}}</td>
+                                    <td>${{orden.total}}</td>
+                                    <td><i class="fas fa-plus-circle"></i></td>
+                                </tr>       
+                                
+                                <tr v-else v-for = "orden in lactivos">
+                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.cliente}}</td>
+                                    <td>{{orden.mesa}}</td>
+                                    <td>{{orden.mesero}}</td>
+                                    <td>{{orden.observacion}}</td>
+                                    <td>${{orden.total}}</td>
+                                    <td><i class="fas fa-plus-circle"></i></td>
+                                </tr>       
+                                
                             </tbody>
                         </table>
                     </div>
                     <!-- Termina Tabla -->
-
-
-                    <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
-                    <!--Despues borramos esto-->
-                    <br>
-                    <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
-                    <pre>{{ $data }}</pre>
-
 
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
