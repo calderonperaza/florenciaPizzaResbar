@@ -75,7 +75,7 @@
                         </div>
 
                         <!-- Boton Agregar nueva orden  -->
-						<!--Se va al archivo nuevaorden.html -->
+                        <!--Se va al archivo nuevaorden.html -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
                             <button class="btn btn-primary" type="button"><i class="fa fa-plus-circle mr-2"></i>Agregar</button>
                         </div>
@@ -174,6 +174,99 @@
                     <br>
                     <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
                     <pre>{{ $data }}</pre>
+
+
+                    <!-- Modal modificar orden -->
+                    <!-- Button trigger modal este boton se debe borrar y activar mediante doble click sobre una orden -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modificar Orden</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <!-- <form class="form-inline"> -->
+                                        <form>
+                                            <div class="form-group row my-0">
+                                                <label for="lblMesa" class="col-sm-1 col-form-label">Mesa: </label>
+                                                <div class="col-sm-2 mr-md-5">
+                                                    <input type="text" class="form-control form-control-sm" id="lblMesa">
+                                                </div>
+                                                <label class="col-sm-2 col-form-label ml-md-5 d-none d-lg-block ">Id Orden: </label>
+                                            </div>
+                                            <div class="form-group row my-0">
+                                                <label for="lblCliente" class="col-sm-1 col-form-label">Cliente: </label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control form-control-sm" id="iptCliente">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row my-0">
+                                                <label for="lblMesero" class="col-sm-1 col-form-label">Mesero: </label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control form-control-sm" id="lblMesero">
+                                                </div>
+                                                <button type="button" class="btn btn-danger ml-auto mr-3" id="btnEliminarOrden">Eliminar Orden</button>
+                                            </div>
+                                        </form>
+                                        <!-- </form> -->
+                                        <!-- tabla de datos modal body -->
+                                        <div class="table-responsive">
+                                            <table class="table mt-2 border">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Precio Unitario</th>
+                                                        <th scope="col">Cantidad</th>
+                                                        <th class="d-none d-xl-table-cell" scope="col">Sub Total</th>
+                                                        <th scope="col">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
+                                                        <td class="d-none d-xl-table-cell">@mdo</td>
+                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
+                                                        <td class="d-none d-xl-table-cell">@fat</td>
+                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
+                                                        <td class="d-none d-xl-table-cell">@twitter</td>
+                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="container"><label>Total: ${{nuevoTotal}} </label></div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Termina modal modificar orden -->
 
 
                 </div>
