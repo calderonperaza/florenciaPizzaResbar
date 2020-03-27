@@ -40,7 +40,7 @@ new Vue({
         
         {cantidad:2,nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"},subtotal:1.75}
         
-        ]},{id:"2345ab54c2222", fecha:"2020-10-31", mesero:"Luis",mesa:"10",cliente:"Don Carlos", estado:"A",total:16.00, observacion:"Sin Cebolla",
+        ]},{id:"2345ab54c2222", fecha:"2020-10-31", mesero:"Luis",mesa:"10",cliente:"Don Carlos", estado:"C",total:16.00, observacion:"Sin Cebolla",
         
         detalleOrden:[
         
@@ -61,19 +61,18 @@ new Vue({
         //aqui van los metodos que vamos a necesitar
         ordenar: function() {
             this.ascendente = !this.ascendente
-            this.ordenes.sort( function(a,b){
-                if (a.mesa < b.mesa){
-                    return a.mesa-b.mesa
-                }else{
-                    return b.mesa-a.mesa
-                }
-            })
+            if(this.ascendente == true){
+                this.ordenes.sort((a,b) => {return b.mesa-a.mesa})   
+            }else{
+                this.ordenes.sort((a,b) => {return a.mesa-b.mesa})
+            }
+            
         },
         mostrarActivos: function(){
             this.lactivos = this.ordenes.filter(orden => orden.estado == "A")
-            console.log(this.lactivos[0].mesa)
-            this.activos = !this.activos
-            return this.lactivos        }
+            this.activos = !this.activos 
+            console.log(this.activos)
+        }
         
     }
 
