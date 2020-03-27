@@ -66,14 +66,36 @@ new Vue({
             }else{
                 this.ordenes.sort((a,b) => {return a.mesa-b.mesa})
             }
-            
         },
-        mostrarActivos: function(){
+        mostrarActivos: function() {
             this.lactivos = this.ordenes.filter(orden => orden.estado == "A")
             this.activos = !this.activos 
             console.log(this.activos)
+        },
+        cobrarOrden: function(orden) {
+            $('#cobrarOrden').modal('show');
+            $('#mesa').html('Mesa: ' + orden.mesa);
+            $('#mesero').html('Mesero: ' + orden.mesero);
+            $('#cliente').html('Cliente: ' + orden.cliente);
+            let cadena = "";
+            for (let i = 0; i < orden.detalleOrden.length; i++) {
+                cadena += "<tr>";
+                cadena += "<td>" + orden.detalleOrden[i].nombre + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].categoria.nombre + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].cantidad + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].precio + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].subtotal + "</td>";
+                cadena += "</tr>";
+                cadena += "<tr>";
+                cadena += "<td>" + orden.detalleOrden[i].nombre + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].categoria.nombre + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].cantidad + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].precio + "</td>";
+                cadena += "<td>" + orden.detalleOrden[i].subtotal + "</td>";
+                cadena += "</tr>";
+            }
+            $('#detalleOrden').html(cadena);
         }
-        
     }
 
 })

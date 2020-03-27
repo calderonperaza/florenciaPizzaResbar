@@ -75,7 +75,7 @@
                         </div>
 
                         <!-- Boton Agregar nueva orden  -->
-						<!--Se va al archivo nuevaorden.html -->
+                        <!--Se va al archivo nuevaorden.html -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
                             <button class="btn btn-primary" type="button"><i class="fa fa-plus-circle mr-2"></i>
                             <a class="text-white" href="nuevaorden.html" >Agregar</a>
@@ -98,7 +98,7 @@
                         <input type="checkbox" >
                         <span class="slider round"  v-on:click = "mostrarActivos"></span>
                       </label>
-                      <!-- -->
+                    <!-- -->
                     <!-- Incia Tabla -->
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table v-if = "activos" class="table table-sm table-bordered table-striped mb-0">
@@ -106,8 +106,8 @@
                                 <tr>
                                     <th scope="col"># Orden</th>
                                     <th scope="col">Cliente</th>
-                                    <th scope="col" v-on:click = "ordenar" v-if = "ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click = "ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col">Mesero</th>
                                     <th scope="col">Observaciones</th>
                                     <th scope="col">Total</th>
@@ -122,7 +122,12 @@
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
-                                    <td><i class="fas fa-plus-circle"></i></td>
+                                    <td>
+                                        <i class="fas fa-plus-circle" style="margin: 5px;"></i>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                            <i class="fas fa-money-bill"></i>
+                                          </button>
+                                        </td>
                                 </tr>       
                                 
                              
@@ -150,11 +155,11 @@
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
-                                    <td><i class="fas fa-plus-circle"></i></td>
+                                    <td><i class="fas fa-plus-circle" style="margin: 5px;"></i><i class="fas fa-money-bill"></i></td>
                                 </tr>       
                                 
                              
-                            </tbody>
+                          </tbody>
                         </table>
                         
                     
@@ -176,6 +181,46 @@
             <!-- Termina el pie de pagina -->
 
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+
+    <!-- Modal de cobrar orden -->
+    <div class="modal fade bd-example-modal-xl" id="cobrarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Cobrar Orden</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title" id="mesa"></h5>
+                    <h5 class="modal-title" id="mesero">Mesero: {{orden.mesero}}</h5>
+                    <h5 class="modal-title" id="cliente">Cliente: {{orden.cliente}}</h5>
+                    </br>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-sm table-bordered table-striped mb-0 table-fixed">
+                            <thead style="position: sticky;">
+                                <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalleOrden">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Cobrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.easing.js"></script>
