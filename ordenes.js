@@ -93,7 +93,8 @@ new Vue({
         ],
         ascendente: true,
         activos: true,
-        lactivos: null
+        lactivos: null,
+        textoBusqueda: ""
     },
     methods: {
         //aqui van los metodos que vamos a necesitar
@@ -133,7 +134,27 @@ new Vue({
                 cadena += "</tr>";
             }
             $('#detalleOrden').html(cadena);
+        },
+        buscar:function(x){
+            
+            if(this.textoBusqueda=="")
+                return true;
+            var cad=this.ordenes[x].id+ 
+                this.ordenes[x].cliente+
+                this.ordenes[x].mesa+
+                this.ordenes[x].mesero+
+                this.ordenes[x].observacion+
+                this.ordenes[x].total;        
+            
+            cad=cad.toUpperCase();
+            
+            if(cad.indexOf(this.textoBusqueda.toUpperCase())>=0)
+                        return true;
+            else
+                return false;
         }
+        
+
     }
 
 })

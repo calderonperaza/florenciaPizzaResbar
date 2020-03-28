@@ -71,13 +71,13 @@
                         <!-- Filtro buscar -->
                         <div class="col-md-4 ">
                             <label class="col-form-label mx-3">Buscar:</label>
-                            <input type="text">
+                            <input type="text" v-model="textoBusqueda">
                         </div>
 
                         <!-- Boton Agregar nueva orden  -->
                         <!--Se va al archivo nuevaorden.html -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
-                            <button class="btn btn-primary" type="button"><i class="fa fa-plus-circle mr-2"></i>
+                            <button class="btn btn-primary" type="button" title="Nueva orden"><i class="fa fa-plus-circle mr-2"></i>
                             <a class="text-white" href="nuevaorden.html" >Agregar</a>
                             </button>
                         </div>
@@ -115,17 +115,25 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-on:click="ordenSelected=orden">
+                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
-                                    <td><i class="fas fa-plus-circle"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                            <i class="fas fa-money-bill"></i>
+                                        </button>
+                                        </i><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden">Modificar</button>
+                                        </td>
                                 </tr>
 
-                                <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden">
+                                <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
@@ -154,7 +162,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "orden in lactivos" v-on:click="ordenSelected=orden">
+                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -162,11 +170,13 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
-                                        <i class="fas fa-money-bill"></i>
-                                        </i><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#mdlModificarOrden">Modificar</button>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                            <i class="fas fa-money-bill"></i>
+                                        </button>
+                                        </i><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden">Modificar</button>
                                         </td>
                                 </tr>
 
