@@ -113,17 +113,17 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-if = "activos" v-for = "orden in ordenes">
+                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-on:click="ordenSelected=orden">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
-                                    <td><i class="fas fa-plus-circle"></i></td>
+                                    <td><i class="fas fa-plus-circle"></i><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Modificar</button></td>
                                 </tr>
 
-                                <tr v-else v-for="orden in lactivos">
+                                <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -147,11 +147,6 @@
 
 
                     <!-- Modal modificar orden -->
-                    <!-- Button trigger modal este boton se debe borrar y activar mediante doble click sobre una orden -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button>
-
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
@@ -167,60 +162,59 @@
                                         <!-- <form class="form-inline"> -->
                                         <form>
                                             <div class="form-group row my-0">
-                                                <label for="lblMesa" class="col-sm-1 col-form-label">Mesa: </label>
-                                                <div class="col-sm-2 mr-md-5">
-                                                    <input type="text" class="form-control form-control-sm" id="lblMesa">
+                                                <label for="lblMesa" class="col-sm-2 col-lg-1 col-form-label">Mesa: </label>
+                                                <div class="col-sm-3 mr-md-5 col-lg-3">
+                                                    <input type="text" class="form-control form-control-sm" id="lblMesa" v-model="ordenSelected.mesa">
                                                 </div>
-                                                <label class="col-sm-2 col-form-label ml-md-5 d-none d-lg-block ">Id Orden: </label>
+                                                <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id}} </label>
                                             </div>
-                                            <div class="form-group row my-0">
-                                                <label for="lblCliente" class="col-sm-1 col-form-label">Cliente: </label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control form-control-sm" id="iptCliente">
+                                            <div class="form-group row my-0 ">
+                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                                    <label for="iptCliente " class="col-form-label ">Cliente: </label>
                                                 </div>
+                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                                    <input type="text " class="form-control form-control-sm " id="iptCliente " v-model="ordenSelected.cliente ">
+                                                </div>
+                                                <div class="col-md-4 col-sm-6 col-lg-6 "></div>
                                             </div>
-                                            <div class="form-group row my-0">
-                                                <label for="lblMesero" class="col-sm-1 col-form-label">Mesero: </label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control form-control-sm" id="lblMesero">
+                                            <div class="form-group row ">
+                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                                    <label for="lblMesero " class="col-form-label ">Mesero: </label>
                                                 </div>
-                                                <button type="button" class="btn btn-danger ml-auto mr-3" id="btnEliminarOrden">Eliminar Orden</button>
+                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                                    <input type="text " class="form-control form-control-sm " id="lblMesero " v-model="ordenSelected.mesero">
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 col-lg-2 "></div>
+                                                <div class="col-md-3 col-sm-5 col-lg-4 d-flex justify-content-end mt-2">
+                                                    <button type="button" class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none" id="btnEliminarOrdenIcon" onClick="$('#mdlEliminarOrden').modal('show')"><i class="far fa-trash-alt"></i></button>
+                                                    <button type="button" class="btn btn-danger ml-auto d-none d-md-inline-block" id="btnEliminarOrden " onClick="$('#mdlEliminarOrden').modal('show')">Eliminar Orden</button>
+                                                </div>
                                             </div>
                                         </form>
                                         <!-- </form> -->
                                         <!-- tabla de datos modal body -->
-                                        <div class="table-responsive">
-                                            <table class="table mt-2 border">
-                                                <thead>
+                                        <div class="table-responsive ">
+                                            <table class="table table-sm table-bordered mt-2 ">
+                                                <thead class="text-center ">
                                                     <tr>
-                                                        <th scope="col">Nombre</th>
-                                                        <th scope="col">Precio Unitario</th>
-                                                        <th scope="col">Cantidad</th>
-                                                        <th class="d-none d-xl-table-cell" scope="col">Sub Total</th>
-                                                        <th scope="col">Eliminar</th>
+                                                        <th scope="col ">Nombre</th>
+                                                        <th scope="col ">Precio Unitario</th>
+                                                        <th scope="col ">Cantidad</th>
+                                                        <th class="d-none d-xl-table-cell " scope="col ">Sub Total</th>
+                                                        <th scope="col ">Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
-                                                        <td class="d-none d-xl-table-cell">@mdo</td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
-                                                        <td class="d-none d-xl-table-cell">@fat</td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td><button type="button" class="btn btn-secondary btn-sm">-</button><label class="px-1">2</label><button type="button" class="btn btn-secondary btn-sm">+</button></td>
-                                                        <td class="d-none d-xl-table-cell">@twitter</td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                                    <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
+                                                        <th class="small">{{detalleOrdenAux.nombre}}</th>
+                                                        <td>$ {{detalleOrdenAux.precio}}</td>
+                                                        <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0">-</button>{{detalleOrdenAux.cantidad}}<button type="button" class="btn btn-secondary btn-sm"
+                                                                @click="detalleOrdenAux.cantidad++">+</button></td>
+                                                        <td class=" d-none d-xl-table-cell ">$ {{detalleOrdenAux.precio*detalleOrdenAux.cantidad}}</td>
+                                                        <td class="text-center ">
+                                                            <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
+                                                            <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -228,16 +222,37 @@
                                     </div>
 
                                 </div>
-                                <div class="modal-footer">
-                                    <div class="container"><label>Total: ${{nuevoTotal}} </label></div>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                <div class="modal-footer ">
+                                    <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
+                                    <button type="button " class="btn btn-secondary " onClick="$( '#exampleModal').modal( 'hide') ">Cancelar</button>
+                                    <button type="button " class="btn btn-success ">Guardar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Termina modal modificar orden -->
 
+                    <!-- modal de confirmacion eliminar orden -->
+                    <div class="modal fade " id="mdlEliminarOrden " tabindex="-1 " role="dialog " aria-labelledby="tituloEliminar " aria-hidden="true ">
+                        <div class="modal-dialog " role="document ">
+                            <div class="modal-content ">
+                                <div class="modal-header ">
+                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar orden # {{ordenSelected.id}}</h5>
+                                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                                     <span aria-hidden="true ">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body ">
+                                    ¿Desea eliminar la orden con codigo {{ordenSelected.id}} ?
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button " class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
+                                    <button type="button " class="btn btn-danger " data-dismiss="modal " onClick="$( '#exampleModal').modal( 'hide') ">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fin modal eliminar  -->
 
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
@@ -245,23 +260,23 @@
             </div>
 
             <!-- Inicia el pie de pagina -->
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Diseño I 2020</span></div>
+            <footer class="bg-white sticky-footer ">
+                <div class="container my-auto ">
+                    <div class="text-center my-auto copyright "><span>Copyright © Diseño I 2020</span></div>
                 </div>
             </footer>
             <!-- Termina el pie de pagina -->
 
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.easing.js"></script>
+        </div><a class="border rounded d-inline scroll-to-top " href="#page-top "><i class="fas fa-angle-up "></i></a></div>
+    <script src="assets/js/jquery.min.js "></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js "></script>
+    <script src="assets/js/jquery.easing.js "></script>
     <script src="assets/js/vue.js "></script>
     <script src="assets/js/axios.min.js "></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="assets/js/Script.js"></script>
+    <script src="assets/js/theme.js "></script>
+    <script src="assets/js/Script.js "></script>
     <!--Aqui va tu codigo de vue js-->
-    <script src="ordenes.js"></script>
+    <script src="ordenes.js "></script>
 
 
 </body>
