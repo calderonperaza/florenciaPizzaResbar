@@ -77,13 +77,15 @@
                         <!-- Boton Agregar nueva orden  -->
                         <!--Se va al archivo nuevaorden.html -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
-                            <button class="btn btn-primary" type="button"><i class="fa fa-plus-circle mr-2"></i>Agregar</button>
+                            <button class="btn btn-primary" type="button"><i class="fa fa-plus-circle mr-2"></i>
+                            <a class="text-white" href="nuevaorden.html" >Agregar</a>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Inicia seccion de alertas -->
                     <div class="alert alert-success collapse" role="alert" id="buttonAlert">
-                        <strong>Success!</strong> Acabas de mostrar una alerta.
+                        <strong>Success!</strong> Productos Agregados Correctamente.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,7 +93,7 @@
                     <!-- Termina seccion de alertas -->
 
                     <!-- Toggle para mostrar activos -->
-                    <label>Mostrar activas</label>
+                    <label class="text-primary">Mostrar activas</label>
                     <label class="switch">
                         <input type="checkbox" >
                         <span class="slider round"  v-on:click = "mostrarActivos"></span>
@@ -99,8 +101,8 @@
                     <!-- -->
                     <!-- Incia Tabla -->
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-sm table-bordered table-striped mb-0">
-                            <thead>
+                        <table v-if="activos" class="table table-sm table-bordered table-striped mb-0">
+                            <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col"># Orden</th>
                                     <th scope="col">Cliente</th>
@@ -124,17 +126,54 @@
                                 </tr>
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden">
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                            <i class="fas fa-money-bill"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                        </table>
+
+                        <table v-else class="table table-sm table-bordered table-striped mb-0">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th scope="col"># Orden</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col">Mesero</th>
+                                    <th scope="col">Observaciones</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr v-for = "orden in lactivos">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
-                                    <td><i class="fas fa-plus-circle"></i></td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                        <i class="fas fa-money-bill"></i>
+                                        </td>
                                 </tr>
+
 
                                 </tbody>
                         </table>
+
+
                     </div>
                     <!-- Termina Tabla -->
 
@@ -259,6 +298,139 @@
 
             </div>
 
+            <!-- AGREGAR PRODUCTOS-->
+            <div class="container">
+                <!-- Inicio: Modal Agregar Productos  -->
+                <div class="modal fade" id="mdlAgregarAlaOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <!-- Inicio: Cabecera Modal-->
+                            <div class="modal-header">
+                                <div class="sidebar-brand-text mx-3"><span>AGREGAR PRODUCTOS</span></div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                            </div>
+                            <!-- Fin: Cabecera Modal-->
+
+                            <div class="modal-body">
+                                <div class="container mb-2">
+                                    <div class="sidebar-brand-text mx-3"><span>CATEGORIAS</span></div>
+                                    <div class="row m-3">
+
+                                        <!-- Inicio: Barra Navegacion -->
+                                        <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
+                                            <div class="container">
+                                                <div class="col-md-3">
+                                                    <input class="form-control my-2" type="text" placeholder="Buscar">
+                                                </div>
+                                                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                                <div class="collapse navbar-collapse" id="navcol-1">
+                                                    <ul class="nav navbar-nav">
+                                                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Entradas</a></li>
+                                                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Platos</a></li>
+                                                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Bebidas</a></li>
+                                                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Postres</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </nav>
+                                        <!-- Fin: Barra Navegacion -->
+
+                                    </div>
+                                </div>
+
+                                <!-- Inicio: Tabla-->
+                                <div style="display: flex; justify-content: center;">
+                                    <table v-else class="table table-sm table-bordered table-striped mb-0">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th scope="col">id Producto</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Precio unitario</th>
+                                                <th scope="col">Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="orden in lactivos">
+                                                <td>000001</td>
+                                                <td>Papas Fritas</td>
+                                                <td>$ 2.00</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary">-</button>
+                                                    <span>2</span>
+                                                    <button type="button" class="btn btn-primary">+</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Fin: Tabla-->
+                            </div>
+                            <!-- Inicio: Botones Modal-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="$('#modalResumen').modal('show')">Agregar</button>
+                            </div>
+                            <!-- Fin: Botones Modal-->
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin: Modal Agregar Productos-->
+
+                <!-- Inicio: Modal Resumen -->
+                <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <div class="sidebar-brand-text mx-3"><span>RESUMEN DE PRODUCTOS</span></div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <table v-else class="table table-sm table-bordered table-striped mb-0">
+                                    <thead class="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Precio Unitario</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Sub Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="orden in lactivos">
+                                            <td>Papas Fritas</td>
+                                            <td>$ 2.00</td>
+                                            <td>2</td>
+                                            <td>$ 4.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row justify-content-lg-end my-4 ml-2 mr-3">
+                                    <label for="total">Total:</label>
+                                    <input class="ml-1 justify-content-center" type="text" disabled id="total">
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="alerta()">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin: Modal Resumen -->
+            </div>
+            <!-- FIN AGREGAR PRODUSCTOS-->
+
             <!-- Inicia el pie de pagina -->
             <footer class="bg-white sticky-footer ">
                 <div class="container my-auto ">
@@ -267,10 +439,56 @@
             </footer>
             <!-- Termina el pie de pagina -->
 
-        </div><a class="border rounded d-inline scroll-to-top " href="#page-top "><i class="fas fa-angle-up "></i></a></div>
-    <script src="assets/js/jquery.min.js "></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js "></script>
-    <script src="assets/js/jquery.easing.js "></script>
+            <<<<<<< HEAD </div><a class="border rounded d-inline scroll-to-top " href="#page-top "><i class="fas fa-angle-up "></i></a></div>
+        <script src="assets/js/jquery.min.js "></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js "></script>
+        <script src="assets/js/jquery.easing.js "></script>
+        =======
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+
+    <!-- Modal de cobrar orden -->
+    <div class="modal fade bd-example-modal-xl" id="cobrarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Cobrar Orden</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title" id="mesa"></h5>
+                    <h5 class="modal-title" id="mesero">Mesero: {{orden.mesero}}</h5>
+                    <h5 class="modal-title" id="cliente">Cliente: {{orden.cliente}}</h5>
+                    </br>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-sm table-bordered table-striped mb-0 table-fixed">
+                            <thead style="position: sticky;">
+                                <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalleOrden">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Cobrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.easing.js"></script>
+    >>>>>>> 95f41a9ba2f6d2aa55f04901b21be9cac081ec79
     <script src="assets/js/vue.js "></script>
     <script src="assets/js/axios.min.js "></script>
     <script src="assets/js/theme.js "></script>
