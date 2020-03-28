@@ -168,7 +168,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden">
+                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -243,7 +243,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden">
+                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -262,12 +262,6 @@
                     </div>
                     <!-- Termina Tabla -->
 
-
-                    <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
-                    <!--Despues borramos esto-->
-                    <br>
-                    <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
-                    <pre>{{ $data }}</pre>
 
 
                     <!-- Modal modificar orden -->
