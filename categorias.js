@@ -9,34 +9,37 @@ new Vue({
             {id: "1445667", nombre: "Postres"},
         ],
         categoria: {
-            id: 0,
+            id: "0",
             nombre: ""
         },
-        displayOption: ""
-
-
+        displayOption: "",
+        searchDisplay: ""
     },
     methods: {
-        updateCreate: function() {
+        updateCreate() {
             this.categorias.push(this.categoria);
             this.clearData();
         },
 
-        clearData: function () {
+        clearData() {
             this.categoria = {
-                id: 0,
+                id: "0",
                 nombre: ""
             }
         },
-        addMode: function(){
+        addMode(){
             this.clearData();
             this.displayOption='Agregue una nueva Categoria';
         },
-        getCategoriaSelected: function(cat){
+        getCategoriaSelected(cat){
             this.displayOption="Modifique la Categoria";
             this.categoria=cat;
-        }
+        },
+        filtro(valor){
+            if(this.searchDisplay=="") return true;
+            let array=(this.categorias[valor].id+this.categorias[valor].nombre).toUpperCase();
+            if(array.indexOf(this.searchDisplay.toUpperCase())>=0) return true; else return false;
+        }  
         //aqui van los metodos que vamos a necesitar
     }
-
 })
