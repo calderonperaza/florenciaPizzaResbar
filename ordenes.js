@@ -125,13 +125,6 @@ new Vue({
                 cadena += "<td>" + orden.detalleOrden[i].precio + "</td>";
                 cadena += "<td>" + orden.detalleOrden[i].subtotal + "</td>";
                 cadena += "</tr>";
-                cadena += "<tr>";
-                cadena += "<td>" + orden.detalleOrden[i].nombre + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].categoria.nombre + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].cantidad + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].precio + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].subtotal + "</td>";
-                cadena += "</tr>";
             }
             $('#detalleOrden').html(cadena);
         },
