@@ -82,7 +82,7 @@
                                     <a class="text-white" href="nuevaorden.html" >Agregar</a>
                                  </button>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -130,13 +130,13 @@
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
                                             <i class="fas fa-money-bill"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                    </td>
+                                        </td>
                                 </tr>
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
@@ -144,10 +144,10 @@
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden">
                                             <i class="fas fa-money-bill"></i>
                                         </button>
-                                        </td>
+                                    </td>
                                 </tr>
 
 
@@ -179,20 +179,20 @@
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
                                             <i class="fas fa-money-bill"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                    </td>
+                                        </td>
                                 </tr>
 
 
                                 </tbody>
                         </table>
                     </div>
-                    
+
                     <!--Tabla para smartphone y tablet-->
                     <div class="table-wrapper-scroll-y my-custom-scrollbar d-sm-block d-lg-none">
                         <table v-if="activos" class="table table-sm table-bordered table-striped mb-0">
@@ -212,9 +212,9 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>
                                         <i class="fas fa-plus-circle" style="color: rgb(28,200,138);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
-                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)"></i>
-                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden"></i>
-                                    </td>
+                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
+                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        </td>
                                 </tr>
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
@@ -222,10 +222,10 @@
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden">
                                             <i class="fas fa-money-bill"></i>
                                         </button>
-                                        </td>
+                                    </td>
                                 </tr>
 
 
@@ -249,9 +249,9 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>
                                         <i class="fas fa-plus-circle" style="color: rgb(28,200,138);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
-                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden" v-on:click="cobrarOrden(orden)"></i>
-                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden"  data-target="#mdlModificarOrden"></i>
-                                    </td>
+                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
+                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        </td>
                                 </tr>
 
 
@@ -262,7 +262,56 @@
                     </div>
                     <!-- Termina Tabla -->
 
-
+                    <!-- Modal de cobrar orden -->
+                    <div class="modal fade bd-example-modal-xl" id="cobrarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="exampleModalLabel">Cobrar Orden</h2>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5 class="modal-title" id="mesero">Mesa: {{ordenSelected.mesa}}</h5>
+                                    <h5 class="modal-title" id="mesero">Mesero: {{ordenSelected.mesero}}</h5>
+                                    <h5 class="modal-title" id="cliente">Cliente: {{ordenSelected.cliente}}</h5>
+                                    </br>
+                                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                        <table class="table table-sm table-bordered table-striped mb-0 table-fixed">
+                                            <thead style="position: sticky;">
+                                                <tr>
+                                                    <th scope="col">Producto</th>
+                                                    <th scope="col">Categoria</th>
+                                                    <th scope="col">Cantidad</th>
+                                                    <th scope="col">Precio</th>
+                                                    <th scope="col">Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
+                                                    <th class="small">{{detalleOrdenAux.nombre}}</th>
+                                                    <td>{{detalleOrdenAux.categoria.nombre}}</td>
+                                                    <td>{{detalleOrdenAux.cantidad}}</td>
+                                                    <td>$ {{detalleOrdenAux.precio}}</td>
+                                                    <td>$ {{detalleOrdenAux.subtotal}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <label for="lblEfectivo" class="col-form-label">Ingrese el efectivo: </label>
+                                    <div class="col-sm-3 mr-md-5 col-lg-3">
+                                        <input type="text" class="form-control form-control-sm" id="lblEfectivo" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-success">Cobrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal modificar orden -->
 
@@ -373,6 +422,7 @@
                     <!-- fin modal eliminar  -->
 
                 </div>
+
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
 
             </div>
@@ -507,6 +557,7 @@
                     </div>
                 </div>
                 <!-- Fin: Modal Resumen -->
+
             </div>
             <!-- FIN AGREGAR PRODUSCTOS-->
 
@@ -519,45 +570,6 @@
             <!-- Termina el pie de pagina -->
 
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-
-    <!-- Modal de cobrar orden -->
-    <div class="modal fade bd-example-modal-xl" id="cobrarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Cobrar Orden</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <h5 class="modal-title" id="mesa"></h5>
-                    <h5 class="modal-title" id="mesero">Mesero: {{orden.mesero}}</h5>
-                    <h5 class="modal-title" id="cliente">Cliente: {{orden.cliente}}</h5>
-                    </br>
-                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-sm table-bordered table-striped mb-0 table-fixed">
-                            <thead style="position: sticky;">
-                                <tr>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody id="detalleOrden">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success">Cobrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

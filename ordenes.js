@@ -111,42 +111,25 @@ new Vue({
             this.activos = !this.activos
             console.log(this.activos)
         },
-        cobrarOrden: function(orden) {
-            $('#cobrarOrden').modal('show');
-            $('#mesa').html('Mesa: ' + orden.mesa);
-            $('#mesero').html('Mesero: ' + orden.mesero);
-            $('#cliente').html('Cliente: ' + orden.cliente);
-            let cadena = "";
-            for (let i = 0; i < orden.detalleOrden.length; i++) {
-                cadena += "<tr>";
-                cadena += "<td>" + orden.detalleOrden[i].nombre + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].categoria.nombre + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].cantidad + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].precio + "</td>";
-                cadena += "<td>" + orden.detalleOrden[i].subtotal + "</td>";
-                cadena += "</tr>";
-            }
-            $('#detalleOrden').html(cadena);
-        },
-        buscar:function(x){
-            
-            if(this.textoBusqueda=="")
+        buscar: function(x) {
+
+            if (this.textoBusqueda == "")
                 return true;
-            var cad=this.ordenes[x].id+ 
-                this.ordenes[x].cliente+
-                this.ordenes[x].mesa+
-                this.ordenes[x].mesero+
-                this.ordenes[x].observacion+
-                this.ordenes[x].total;        
-            
-            cad=cad.toUpperCase();
-            
-            if(cad.indexOf(this.textoBusqueda.toUpperCase())>=0)
-                        return true;
+            var cad = this.ordenes[x].id +
+                this.ordenes[x].cliente +
+                this.ordenes[x].mesa +
+                this.ordenes[x].mesero +
+                this.ordenes[x].observacion +
+                this.ordenes[x].total;
+
+            cad = cad.toUpperCase();
+
+            if (cad.indexOf(this.textoBusqueda.toUpperCase()) >= 0)
+                return true;
             else
                 return false;
         }
-        
+
 
     }
 
