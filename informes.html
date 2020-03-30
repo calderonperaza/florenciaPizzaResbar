@@ -98,10 +98,10 @@
                             <label class="d-flex justify-content-center text-centro">Platos vendidos</label><i
                                 class="fas fa-drumstick-bite d-flex justify-content-center"
                                 style="width: 100%;font-size: x-large;color: #585858;"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">231</label>
+                                class="d-flex justify-content-center text-centro text-bold">{{numPlatosVendidos}}</label>
                             <label class="d-flex justify-content-center subtitulo">Platos</label><a
-                                class="d-flex justify-content-center text-centro" href="#"
-                                style="text-decoration: underline;">Ver todos</a>
+                                class="d-flex justify-content-center text-centro" 
+                                style="text-decoration: underline;" data-toggle="modal" href="#exampleModalCenter">Ver todos</a>
                         </div>
                         <!-- Fin del primer div -->
                         <span class="stretch" class="divFull"></span>
@@ -109,7 +109,7 @@
                         <div id="segundoDiv" class="border rounded contenedor-trabajos espacio-margen">
                             <label class="d-flex justify-content-center text-centro">Ordenes finalizadas</label><i
                                 class="fa fa-check-square d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">127</label><label
+                                class="d-flex justify-content-center text-centro text-bold">{{numOrdenesFin}}</label><label
                                 class="d-flex justify-content-center subtitulo">Ordenes</label>
                             <a class="d-flex justify-content-center text-centro" href="#"
                                 style="text-decoration: underline;">Ver todos</a>
@@ -120,8 +120,8 @@
                         <div id="tercerDiv" class="border rounded contenedor-trabajos espacio-margen">
                             <label class="d-flex justify-content-center text-centro">Mas vendido</label><i
                                 class="fa fa-coffee d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">Carne Asada</label><label
-                                class="d-flex justify-content-center subtitulo">100 veces vendida</label>
+                                class="d-flex justify-content-center text-centro text-bold">{{platoMasVendido}}</label><label
+                                class="d-flex justify-content-center subtitulo">{{pmvCantidad}} veces vendida</label>
                             <a class="d-flex justify-content-center" href="#"
                                 style="width: 100%;text-decoration: underline;">Ver todos</a>
                         </div>
@@ -131,7 +131,7 @@
                         <div id="cuartoDiv" class="border rounded contenedor-trabajos espacio-margen">
                             <label class="d-flex justify-content-center text-centro">Ordenes Activas</label><i
                                 class="fa fa-gears d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">30</label><label
+                                class="d-flex justify-content-center text-centro text-bold">{{ordenesActivas}}</label><label
                                 class="d-flex justify-content-center subtitulo">Platos</label>
                             <a class="d-flex justify-content-center text-centro" href="#"
                                 style="text-decoration: underline;">Ver todos</a>
@@ -150,13 +150,13 @@
                                 <nav class="tabs-inf">
                                     <div class="selector-inf"></div>
                                     <!-- cambiar icono xddddd ------------- -->
-                                    <a href="#" id="reference" class="active a-inf" @click="fillData()"><i
+                                    <a href="#" id="reference" class="active a-inf" @click="fillData(0)"><i
                                             class="fas fa-calendar"></i></i>Mes</a>
-                                    <a href="#" class="a-inf" @click="fillData()"><i
+                                    <a href="#" class="a-inf" @click="fillData(1)"><i
                                             class="fas fa-calendar-week"></i></i>Semana</a>
-                                    <a href="#" class="a-inf" @click="fillData()"><i
+                                    <a href="#" class="a-inf" @click="fillData(2)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
-                                    <a href="#" class="a-inf" @click="fillData()"><i
+                                    <a href="#" class="a-inf" @click="fillData(3)"><i
                                             class="fas fa-clock"></i></i>Hora</a>
                                 </nav>
                             </div>
@@ -177,15 +177,15 @@
                                 <div id="despacho">
                                     <div id="textoEmp"
                                         style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">Mesero A</label>
+                                        <label class="d-flex reziseText">{{meseroOrdenes}}</label>
                                         <label class="d-flex empName">Mas ordenes
                                             despachadas</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
                                         <label
-                                            class="d-flex justify-content-center text-centro reziseText">Ordenes:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">23-01-20 Hasta
-                                            23-02-20</label>
+                                            class="d-flex justify-content-center text-centro reziseText">Ordenes: {{mesOrCantidad}}</label>
+                                        <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}} Hasta
+                                            {{mesOrFechaFin}}</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -199,13 +199,14 @@
                                 <div id="despacho">
                                     <div id="textoEmp"
                                         style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">Mesero B</label>
+                                        <label class="d-flex reziseText">{{meseroTiempo}}</label>
                                         <label class="d-flex empName">Mas tiempo trabajando</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label
-                                            class="d-flex justify-content-center text-centro reziseText">Inició: 01-01-12</label>
-                                        <label class="d-flex justify-content-center text-centro empName">Hasta fecha actual</label>
+                                        <label class="d-flex justify-content-center text-centro reziseText">Inició:
+                                            {{mesTimIn}}</label>
+                                        <label class="d-flex justify-content-center text-centro empName">Hasta fecha
+                                            actual</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -219,13 +220,13 @@
                                 <div id="despacho">
                                     <div id="textoEmp"
                                         style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">Mesero C</label>
+                                        <label class="d-flex reziseText">{{menosFaltas}}</label>
                                         <label class="d-flex empName">Menos faltas a trabajar</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label
-                                            class="d-flex justify-content-center text-centro reziseText">Número de faltas:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">0</label>
+                                        <label class="d-flex justify-content-center text-centro reziseText">Número de
+                                            faltas:</label>
+                                        <label class="d-flex justify-content-center text-centro empName">{{numeroFaltas}}</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -239,13 +240,13 @@
                                 <div id="despacho">
                                     <div id="textoEmp"
                                         style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">Mesero D</label>
+                                        <label class="d-flex reziseText">{{masPuntual}}</label>
                                         <label class="d-flex empName">Mas puntual</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label
-                                            class="d-flex justify-content-center text-centro reziseText">Venidas tarde:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">0</label>
+                                        <label class="d-flex justify-content-center text-centro reziseText">Venidas
+                                            tarde:</label>
+                                        <label class="d-flex justify-content-center text-centro empName">{{venidasTarde}}</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -259,6 +260,35 @@
                     </div>
 
                 </div>
+
+
+                <!-- --------------------Modales----------------- -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                jijiji
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -------------------- Fin de Modales----------------- -->
+
+
+
+
                 <!-- Termina el contenedor de la pagina y el dominio de VUE--------------------------------------------------------------------->
             </div>
 

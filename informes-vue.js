@@ -46,15 +46,38 @@ Vue.component('reactive', {
     }
 });
 
+//-------------------- Fin de vue componen que es el chart ------------------------
+
 var vm = new Vue({
     el: '#appRESBAR',
-    data() {
-        return {
-            datacollection: null
-        };
+    data: {
+        datacollection: null,
+        numPlatosVendidos: 231,
+        numOrdenesFin: 127,
+        platoMasVendido: "Carne Asada",
+        pmvCantidad: 104,
+        ordenesActivas: 30,
+        //mejor mesero block a
+        meseroOrdenes: "Mesero A",
+        mesOrCantidad: 320,
+        mesOrFechaIn: "23-01-20",
+        mesOrFechaFin: "23-02-20",
+        //mejor mesero block b
+        meseroTiempo: "Mesero B",
+        mesTimIn: "01-01-12",
+        //mejor mesero bloc c
+        menosFaltas: "Mesero C",
+        numeroFaltas: 0,
+        //mejor mesero bloc d
+        masPuntual: "Mesero D",
+        venidasTarde: 0,
+        //Comienza char
+        chartRange: '',
+        rangoInt:1,
+
     },
     created() {
-        this.fillData();
+        this.fillData(0);
     },
     mounted() {
         this.$nextTick(function () {
@@ -64,18 +87,38 @@ var vm = new Vue({
         })
     },
     methods: {
-        fillData() {
+        fillData(rango) {
+            this.chartRange=this.setRange();
             this.datacollection = {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                labels: this.chartRange[rango].labels,
                 datasets: [{
                     label: 'Data One',
                     backgroundColor: '#4e73df',
-                    data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                    data: this.chartRange[rango].datos
                 }]
             };
         },
         getRandomInt() {
             return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+        },
+        setRange() {
+            return [{
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                },
+                {
+                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                },
+                {
+                    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),this.getRandomInt()]
+                },
+                {
+                    labels: ['00:00 a.m.', '04:00 a.m.', '08:00 a.m.', '12:00 m.', '04:00 p.m.', '08:00 p.m.', '12:00 p.m.'],
+                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),this.getRandomInt()]
+                }
+            ];
         },
         resizeOrOnload() {
             /*
@@ -100,7 +143,7 @@ var vm = new Vue({
                       
 
             */
-           document.getElementById("bar-chart").style.width=(document.getElementById("idPalChar").clientWidth-10) + "px";
+            document.getElementById("bar-chart").style.width = (document.getElementById("idPalChar").clientWidth - 10) + "px";
 
         }
     }
