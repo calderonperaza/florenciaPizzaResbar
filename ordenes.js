@@ -93,7 +93,7 @@ new Vue({
         ],
         ascendente: true,
         activos: true,
-        lactivos: null,
+        lactivos: [],
         textoBusqueda: ""
     },
     methods: {
@@ -102,8 +102,10 @@ new Vue({
             this.ascendente = !this.ascendente
             if (this.ascendente == true) {
                 this.ordenes.sort((a, b) => { return b.mesa - a.mesa })
+                this.lactivos.sort((a, b) => { return b.mesa - a.mesa })
             } else {
                 this.ordenes.sort((a, b) => { return a.mesa - b.mesa })
+                this.lactivos.sort((a, b) => { return a.mesa - b.mesa })
             }
         },
         mostrarActivos: function() {
@@ -151,6 +153,7 @@ new Vue({
 
     },
     mounted(){
+        this.ordenar()
         this.mostrarActivos()
         this.alertLauncher()
     }

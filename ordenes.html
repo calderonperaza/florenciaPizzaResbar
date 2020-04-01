@@ -222,7 +222,7 @@
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" ">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" >
                                             <i class="fas fa-plus-circle "></i>
                                         </button>
                                         <button type="button " class="btn btn-success btn-sm " data-toggle="modal " data-target="#cobrarOrden ">
@@ -251,7 +251,7 @@
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <i class="fas fa-plus-circle " style="color: rgb(78, 115, 223); " data-toggle="modal " title="Agregar mas productos " "></i>
+                                        <i class="fas fa-plus-circle " style="color: rgb(78, 115, 223); " data-toggle="modal " title="Agregar mas productos " ></i>
                                         <i class="fas fa-edit" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
                                         <i class="fas fa-money-bill" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
                                     </td>
