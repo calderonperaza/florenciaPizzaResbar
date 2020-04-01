@@ -41,3 +41,14 @@ RESUMENDEVENTAS
 ]},
 
 
+
+
+
+{nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
+{nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"}},
+{nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
+{nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}}
+
+
+
+
