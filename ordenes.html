@@ -76,6 +76,7 @@
 
                         <!-- Boton Agregar nueva orden  -->
                         <!--Se va al archivo nuevaorden.html -->
+                        <!--
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
                             <div>
                                 <button class="btn btn-primary" type="button" title="Nueva orden"><i class="fa fa-plus-circle mr-2"></i>
@@ -83,7 +84,7 @@
                                  </button>
                             </div>
 
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Inicia seccion de alertas -->
@@ -127,14 +128,14 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                            <i class="fas fa-plus-circle" style="color: rgb(255, 255, 255);"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
+                                            <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
-                                            <i class="fas fa-edit"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
+                                            <i class="fas fa-money-bill" style="color: rgb(255, 255, 255);"></i>
                                         </button>
                                         </td>
                                 </tr>
@@ -176,14 +177,14 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
+                                            <i class="fas fa-plus-circle" style="color: rgb(255,255,255);"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
+                                            <i class="fas fa-edit" style="color: rgb(255,255,255);"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
-                                            <i class="fas fa-edit"></i>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgb(0, 9, 114);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
+                                            <i class="fas fa-money-bill" style="color: rgb(255,255,255);"></i>
                                         </button>
                                         </td>
                                 </tr>
@@ -211,9 +212,9 @@
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <i class="fas fa-plus-circle" style="color: rgb(28,200,138);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
-                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
-                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        <i class="fas fa-plus-circle" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
+                                        <i class="fas fa-edit" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        <i class="fas fa-money-bill" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
                                         </td>
                                 </tr>
 
@@ -248,9 +249,9 @@
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <i class="fas fa-plus-circle" style="color: rgb(28,200,138);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
-                                        <i class="fas fa-money-bill" style="color: rgb(28,200,138);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
-                                        <i class="fas fa-edit" style="color: rgb(28,200,138);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        <i class="fas fa-plus-circle" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
+                                        <i class="fas fa-edit" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
+                                        <i class="fas fa-money-bill" style="color: rgb(0, 9, 114);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
                                         </td>
                                 </tr>
 
