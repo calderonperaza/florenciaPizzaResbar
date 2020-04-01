@@ -128,8 +128,11 @@ new Vue({
                 return true;
             else
                 return false;
-        }
+        },
 
+        modificarOrden() {
+            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+        }
 
     }
 
