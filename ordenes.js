@@ -143,6 +143,10 @@ new Vue({
                     alert(getVars.alert)
                 }
                         
+        },
+
+        modificarOrden(){
+            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
         }
 
     },
