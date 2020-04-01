@@ -1,0 +1,237 @@
+.contenedor-trabajos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /*background: grey;*/
+  float: left;
+  width: 25%;
+}
+
+.espacio-margen {
+  background: #e8e8e8;
+  margin: 10px;
+  padding: 10px;
+}
+
+.rounded {
+  border-radius: 0.7rem !important;
+}
+
+.text-centro {
+  width: 100%;
+  text-align: center;
+}
+
+.text-bold {
+  font-size: xx-large;
+  font-weight: 900;
+  color: #272727;
+}
+
+.iconos {
+  width: 100%;
+  font-size: 25px;
+  color: #585858;
+}
+
+.subtitulo {
+  width: 100%;
+  color: #a5a5a5;
+  text-align: center;
+}
+
+.border {
+  border: 1px solid #dee2e6 !important;
+}
+
+.divFull {
+  width: 100%;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
+}
+
+.empName {
+  color: #fff;
+}
+
+.leyendas {
+  color: #272727;
+  font-weight: 800;
+  margin-left: 12px;
+  font-size: x-large;
+}
+
+/* Esto es de la parte de día, semana, mes del char */
+.tabs-inf {
+  margin: 10px;
+  font-size: 15px;
+  padding: 0px;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  border-radius: 50px;
+  position: relative;
+}
+
+.tabs-inf .a-inf {
+  text-decoration: none;
+  color: #777;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition-duration: 0.6s;
+}
+
+.tabs-inf .a-inf.active {
+  color: #fff;
+}
+
+.tabs-inf .a-inf i {
+  margin-right: 5px;
+}
+
+.tabs-inf .selector-inf {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  border-radius: 50px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  background: #05abe0;
+  background: -moz-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+  background: -webkit-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+  background: linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#8200f4', GradientType=1);
+}
+
+/* Fin de estilos del char */
+.tresPuntos {
+  text-align: center;
+  display: inline-block;
+  height: 100%;
+  width: 4%;
+  vertical-align: 50%;
+}
+
+.chartCss {
+  width: 60%;
+  text-align: left;
+  display: inline-block;
+}
+
+.bestEmployees {
+  width: 39%;
+  text-align: left;
+  display: inline-block;
+}
+
+.mobilScreen {
+  display: flex;
+}
+
+.chartEmp {
+  display: flex;
+  margin-top: 10px;
+}
+
+@media (min-width: 994px) and (max-width: 1069px) {
+
+  .empName {
+    font-size: 12px;
+  }
+
+  .reziseText {
+    font-size: 12px;
+  }
+
+  label {
+    margin-bottom: 0px;
+  }
+
+  .tresPuntos {
+    vertical-align: 10%;
+  }
+
+
+}
+
+@media (max-width: 993px) {
+  .navbar-transparent{
+    display: flex!important;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+
+  .mobilScreen {
+    display: grid;
+  }
+
+  .contenedor-trabajos {
+    width: 100%;
+  }
+
+  .chartCss {
+    width: 95%;
+  }
+
+  .bestEmployees {
+    width: 100%;
+  }
+
+  .chartEmp {
+    display: grid;
+    padding-left: 1.2rem;
+    /* justify-content: center; */
+  }
+
+  .container-fluid {
+    padding-left: 0px;
+  }
+
+  .tabs-inf .a-inf {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .tabs-inf {
+    margin: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    flex-flow: row wrap;
+    display: flex;
+    justify-content: space-around;
+    height: 40px;
+    align-content: center;
+  }
+
+  .fillBlank {
+    width: 100;
+  }
+}
+
+/* lo del top nav bar  */
+
+.topNavLink {
+  display: block;
+  padding: .5rem 1rem;
+  color: #585858;
+  margin-left: 20px;
+}
+
+.navbar-transparent {
+  display: none;
+  background-color: transparent;
+  background: transparent;
+  border-color: transparent;
+}
