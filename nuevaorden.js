@@ -1,13 +1,71 @@
 new Vue({
     el: "#appRESBAR",
     data: {
-        // Aqui inician las propiedades que vamos a necesitar
-        //para almacenar nuestros objetos de trabajo
-        propiedad1: "solo es una prueba",
-        propiedad2: ["a", "b", "c"],
+        nuevaOrden:{
+            fecha: "2020-10-31", //fecha de sistema
+            mesero: null,
+            mesa: null,
+            cliente: null,
+            estado: "C",
+            total: null,
+            observacion: null,
+
+            detalleOrden: [
+               // formato--> { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 }
+               //subtotal calculado
+            ]
+        }
+        
+
     },
+    created(){ 
+        this.fetchProductos();
+    },
+
     methods: {
-        //aqui van los metodos que vamos a necesitar
-    },
+        fetchProductos(){
+            let productos = [
+
+                {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
+    
+                {id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
+    
+                {id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}},
+    
+                {id:"2312a1444",nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"}},
+    
+                {id:"2312a5555",nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
+    
+                {id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}},
+
+
+                {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
+    
+                {id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
+    
+                {id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}}
+    
+
+            ];
+     
+            //llenar y dar formato al detalle de orden 
+            this.nuevaOrden.detalleOrden = productos.map(function(obj){ 
+                var rObj = { cantidad: 0, nombre: obj.nombre , precio: obj.precio, categoria: obj.categoria, subtotal: 0 };
+                return rObj;
+            });
+    
+        },
+        decProducto(detalleProducto){
+            if(detalleProducto.cantidad >0) {
+                detalleProducto.cantidad--;
+                detalleProducto.subtotal = detalleProducto.cantidad*detalleProducto.precio;
+            }
+        },
+        incProducto(detalleProducto){
+            detalleProducto.cantidad++;
+            detalleProducto.subtotal = detalleProducto.cantidad*detalleProducto.precio;
+        }
+
+    }
 
 })
