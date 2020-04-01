@@ -109,7 +109,6 @@ new Vue({
         mostrarActivos: function() {
             this.lactivos = this.ordenes.filter(orden => orden.estado == "A")
             this.activos = !this.activos
-            console.log(this.activos)
         },
         buscar: function(x) {
 
@@ -128,9 +127,28 @@ new Vue({
                 return true;
             else
                 return false;
+        },
+        alertLauncher: function () {
+                let uri = window.location.href.split('?')
+                if(uri.length==2){
+                    let vars = uri[1].split('&')
+                    let getVars ={}
+                    let tmp=""
+                    vars.forEach(function (v) {
+                        tmp=v.split('=')
+                        if(tmp.length == 2){
+                            getVars[tmp[0]]=tmp[1]
+                        }
+                    })
+                    alert(getVars.alert)
+                }
+                        
         }
 
-
+    },
+    mounted(){
+        this.mostrarActivos()
+        this.alertLauncher()
     }
 
 })
