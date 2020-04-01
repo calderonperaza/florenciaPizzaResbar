@@ -149,6 +149,9 @@ new Vue({
 
         modificarOrden(){
             window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+        },
+        cobrarOrden(){
+            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
         }
 
     },
