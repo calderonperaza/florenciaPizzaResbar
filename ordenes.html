@@ -76,7 +76,7 @@
 
                         <!-- Boton Agregar nueva orden  -->
                         <!--Se va al archivo nuevaorden.html -->
-                        
+
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
                             <div>
                                 <button class="btn btn-primary" type="button" title="Nueva orden"><i class="fa fa-plus-circle mr-2"></i>
@@ -128,25 +128,26 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <button type="button" class="btn btn-primary btn-sm"  title="Agregar mas productos">
+                                                <a class="text-white" href="addmasproductos.html"><i class="fas fa-plus-circle"></i></a>
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
-                                            <i class="fas fa-edit"></i>
+
+                                        <button type="button" class="btn btn-primary btn-sm" title="Modificar Orden">
+                                                <a class="text-white" href="modificarorden.html"><i class="fas fa-edit"></i></a>
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
+                                        <button type="button" class="btn btn-primary btn-sm" title="Cobrar Orden">
+                                                <a class="text-white" href="cobrarorden.html"><i class="fas fa-money-bill"></i></a>
                                         </button>
                                         </td>
                                 </tr>
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal">
+                                            <i class="fas fa-plus-circle "></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
+                                        <button type="button " class="btn btn-success btn-sm " data-toggle="modal " data-target="#cobrarOrden ">
+                                            <i class="fas fa-money-bill "></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -155,21 +156,21 @@
                                 </tbody>
                         </table>
 
-                        <table v-else class="table table-sm table-bordered table-striped mb-0">
-                            <thead class="bg-primary text-white">
+                        <table v-else class="table table-sm table-bordered table-striped mb-0 ">
+                            <thead class="bg-primary text-white ">
                                 <tr>
-                                    <th scope="col"># Orden</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
-                                    <th scope="col">Mesero</th>
-                                    <th scope="col">Observaciones</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col "># Orden</th>
+                                    <th scope="col ">Cliente</th>
+                                    <th scope="col " v-on:click="ordenar " v-if="ascendente ">Mesa <i class="far fa-arrow-alt-circle-down "></i></th>
+                                    <th scope="col " v-on:click="ordenar " v-else>Mesa <i class="far fa-arrow-alt-circle-up "></th>
+                                    <th scope="col ">Mesero</th>
+                                    <th scope="col ">Observaciones</th>
+                                    <th scope="col ">Total</th>
+                                    <th scope="col ">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
+                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -177,15 +178,16 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle" ></i>
+                                            <button type="button" class="btn btn-primary btn-sm"  title="Agregar mas productos">
+                                                    <a class="text-white" href="addmasproductos.html"><i class="fas fa-plus-circle"></i></a>
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
-                                        </button>
+
+                                        <button type="button" class="btn btn-primary btn-sm" title="Modificar Orden">
+                                                    <a class="text-white" href="modificarorden.html"><i class="fas fa-edit"></i></a>
+                                            </button>
+                                        <button type="button" class="btn btn-primary btn-sm" title="Cobrar Orden">
+                                                    <a class="text-white" href="cobrarorden.html"><i class="fas fa-money-bill"></i></a>
+                                            </button>
                                         </td>
                                 </tr>
 
@@ -212,7 +214,7 @@
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <i class="fas fa-plus-circle" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
+                                        <i class="fas fa-plus-circle" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Agregar mas productos" "></i>
                                         <i class="fas fa-edit" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
                                         <i class="fas fa-money-bill" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
                                         </td>
@@ -220,11 +222,11 @@
 
                                 <tr v-else v-for="(orden, index) in lactivos" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onClick="$('#mdlAgregarAlaOrden').modal('show')">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" ">
+                                            <i class="fas fa-plus-circle "></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cobrarOrden">
-                                            <i class="fas fa-money-bill"></i>
+                                        <button type="button " class="btn btn-success btn-sm " data-toggle="modal " data-target="#cobrarOrden ">
+                                            <i class="fas fa-money-bill "></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -233,26 +235,26 @@
                                 </tbody>
                         </table>
 
-                        <table v-else class="table table-sm table-bordered table-striped mb-0">
-                            <thead class="bg-primary text-white">
+                        <table v-else class="table table-sm table-bordered table-striped mb-0 ">
+                            <thead class="bg-primary text-white ">
                                 <tr>
-                                    <th scope="col"># Orden</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col "># Orden</th>
+                                    <th scope="col ">Cliente</th>
+                                    <th scope="col " v-on:click="ordenar " v-if="ascendente ">Mesa <i class="far fa-arrow-alt-circle-down "></i></th>
+                                    <th scope="col " v-on:click="ordenar " v-else>Mesa <i class="far fa-arrow-alt-circle-up "></th>
+                                    <th scope="col ">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
+                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <i class="fas fa-plus-circle" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Agregar mas productos" onClick="$('#mdlAgregarAlaOrden').modal('show')"></i>
+                                        <i class="fas fa-plus-circle " style="color: rgb(78, 115, 223); " data-toggle="modal " title="Agregar mas productos " "></i>
                                         <i class="fas fa-edit" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Modificar Orden" data-target="#mdlModificarOrden"></i>
                                         <i class="fas fa-money-bill" style="color: rgb(78, 115, 223);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i>
-                                        </td>
+                                    </td>
                                 </tr>
 
 
@@ -577,6 +579,8 @@
     <script src="assets/js/jquery.easing.js"></script>
     <script src="assets/js/vue.js "></script>
     <script src="assets/js/axios.min.js "></script>
+    <!--se ha cargado vue-router para la lectura del parametro, si usas javascript puro en su lugar, quita esta libreria-->
+    <script src="assets/js/vue-router.js"></script>
     <script src="assets/js/theme.js "></script>
     <script src="assets/js/Script.js "></script>
     <!--Aqui va tu codigo de vue js-->

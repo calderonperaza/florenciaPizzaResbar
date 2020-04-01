@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RESBAR</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/googlefonts.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+
+                <!-- Inicia el contenedor de la pagina (Codigo nuevo aquí)-->
+                <div class="container-fluid" id="appRESBAR">
+
+                    <!-- TITULO -->
+                    <div class="row my-4">
+                        <h1 class="text-center col-12">Titulo del modulo o de la accion</h1>
+                    </div>
+
+
+                    <!-- Inicia seccion de alertas -->
+                    <div class="alert alert-success collapse" role="alert" id="buttonAlert">
+                        <strong>Success!</strong> Registro eliminado correctamente.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Termina seccion de alertas -->
+
+
+                    <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
+                    <!--Despues borramos esto-
+                    <br>
+                    <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
+                    -->
+                </div>
+                <!-- Termina el contenedor de la pagina y el dominio de VUE-->
+
+            </div>
+
+
+
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.easing.js"></script>
+    <script src="assets/js/vue.js "></script>
+    <script src="assets/js/axios.min.js "></script>
+    <!--se ha cargado vue-router para la lectura del parametro, si usas javascript puro en su lugar, quita esta libreria-->
+    <script src="assets/js/vue-router.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/Script.js"></script>
+    <!--Aqui va tu codigo de vue js-->
+    <script src="./addmasproductos.js"></script>
+
+
+</body>
+
+</html>
