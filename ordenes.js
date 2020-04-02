@@ -132,44 +132,45 @@ new Vue({
             else
                 return false;
         },
-        alertLauncher: function () {
-                let uri = window.location.href.split('?')
-                if(uri.length==2){
-                    let vars = uri[1].split('&')
-                    let getVars ={}
-                    let tmp=""
-                    vars.forEach(function (v) {
-                        tmp=v.split('=')
-                        if(tmp.length == 2){
-                            getVars[tmp[0]]=tmp[1]
-                        }
-                    })
-                    this.alerta = getVars.alertt
-                    this.timer()
+        alertLauncher: function() {
+            let uri = window.location.href.split('?')
+            if (uri.length == 2) {
+                let vars = uri[1].split('&')
+                let getVars = {}
+                let tmp = ""
+                vars.forEach(function(v) {
+                    tmp = v.split('=')
+                    if (tmp.length == 2) {
+                        getVars[tmp[0]] = tmp[1]
+                    }
+                })
+                this.alerta = getVars.alertt
+                this.timer()
 
-                    
-                }else{
-                    this.alertBool = false
-                }
-                        
+
+            } else {
+                this.alertBool = false
+            }
+
         },
 
-        modificarOrden(){
+        modificarOrden() {
             window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
         },
-        timer: function (){
+        timer: function() {
             window.setTimeout(function() {
-                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                $(".alert").fadeTo(500, 0).slideUp(500, function() {
                     $(this).remove();
-                     
+
                 });
             }, 4000);
-    
+
+        },
+        cobrarOrden() {
+            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+        },
     },
-    cobrarOrden(){
-        window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
-    },
-    mounted(){
+    mounted() {
         this.ordenar()
         this.mostrarActivos()
         this.alertLauncher()
