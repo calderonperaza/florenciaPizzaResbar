@@ -94,7 +94,9 @@ new Vue({
         ascendente: true,
         activos: true,
         lactivos: [],
-        textoBusqueda: ""
+        textoBusqueda: "",
+        alerta: "",
+        alertBool: true
     },
     methods: {
         //aqui van los metodos que vamos a necesitar
@@ -142,13 +144,26 @@ new Vue({
                             getVars[tmp[0]]=tmp[1]
                         }
                     })
-                    alert(getVars.alert)
+                    this.alerta = getVars.alert
+                    this.timer()
+
+                    
+                }else{
+                    this.alertBool = false
                 }
                         
         },
 
         modificarOrden(){
             window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+        },
+        timer: function (){
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                     
+                });
+            }, 4000);
         }
 
     },

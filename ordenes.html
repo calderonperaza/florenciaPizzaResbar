@@ -103,6 +103,12 @@
                         <span class="slider round"  v-on:click = "mostrarActivos"></span>
                       </label>
                     <!-- -->
+
+                    <div v-if="alertBool" class="alert alert-success" role="alert">
+                        {{alerta}}
+                      </div>
+                    
+
                     <!-- Incia Tabla -->
                     <!--Tabla para desktop-->
                     <div class="table-wrapper-scroll-y my-custom-scrollbar d-none d-lg-block">
