@@ -135,18 +135,13 @@ new Vue({
         alertLauncher: function() {
             let uri = window.location.href.split('?')
             if (uri.length == 2) {
-                let vars = uri[1].split('&')
-                let getVars = {}
-                let tmp = ""
-                vars.forEach(function(v) {
-                    tmp = v.split('=')
-                    if (tmp.length == 2) {
-                        getVars[tmp[0]] = tmp[1]
-                    }
-                })
-                this.alerta = getVars.alertt
-                this.timer()
+                let vars = uri[1].split('=')
+                if (vars[0].toUpperCase() == 'ALERT') {
 
+                    this.alerta = vars[1].replace(/%20/g, " ")
+                    this.timer()
+
+                }
 
             } else {
                 this.alertBool = false
@@ -155,7 +150,7 @@ new Vue({
         },
 
         modificarOrden() {
-            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+            window.location = "./modificarorden.html?id=" + this.ordenSelected.id;
         },
         timer: function() {
             window.setTimeout(function() {
@@ -167,7 +162,7 @@ new Vue({
 
         },
         cobrarOrden() {
-            window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
+            window.location = "./cobrarorden.html?id=" + this.ordenSelected.id;
         },
     },
     mounted() {
