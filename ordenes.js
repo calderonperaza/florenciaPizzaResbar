@@ -135,6 +135,7 @@ new Vue({
         alertLauncher: function() {
             let uri = window.location.href.split('?')
             if (uri.length == 2) {
+
                 let vars = uri[1].split('=')
                 if (vars[0].toUpperCase() == 'ALERT') {
 
@@ -152,6 +153,7 @@ new Vue({
         modificarOrden() {
             window.location = "./modificarorden.html?id=" + this.ordenSelected.id;
         },
+        
         timer: function() {
             window.setTimeout(function() {
                 $(".alert").fadeTo(500, 0).slideUp(500, function() {
