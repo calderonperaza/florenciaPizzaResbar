@@ -144,7 +144,7 @@ new Vue({
                             getVars[tmp[0]]=tmp[1]
                         }
                     })
-                    this.alerta = getVars.alert
+                    this.alerta = getVars.alertt
                     this.timer()
 
                     
@@ -164,8 +164,10 @@ new Vue({
                      
                 });
             }, 4000);
-        }
-
+    
+    },
+    cobrarOrden(){
+        window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
     },
     mounted(){
         this.ordenar()

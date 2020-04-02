@@ -41,21 +41,19 @@
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
+    </div>
         <!-- Termina navbar lateral -->
 
-        <div class="d-flex flex-column" id="content-wrapper">
+        <div class="d-flex flex-column" id="content">
             <div id="content">
                
-
                 <!-- Inicia el contenedor de la pagina (Codigo nuevo aquí)-->
                 <div class="container-fluid" id="appRESBAR">
 
-
                     <!-- TITULO -->
                     <div class="row my-4">
-                        <h1 class="text-center col-12">Nueva Orden</h1>
+                        <h1 class="text-center col-12">Detalle Nueva Orden</h1>
                     </div>
-
 
                     <!-- Inicia seccion de alertas -->
                     <div class="alert alert-success collapse" role="alert" id="buttonAlert">
@@ -64,6 +62,9 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
                     <!-- Termina seccion de alertas -->
                     <div class="col-md-8" id= "content">
 
@@ -71,8 +72,8 @@
                         <div class="col-md-8">
                         <!-- Incia Tabla -->
                         <div class="form-group">
-                            <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
-                                <table class="table table-sm table-bordered table-striped mt-2 ">
+                            <div class="table-bordered" style=" overflow: auto">
+                                <table class="table table-sm table-bordered mt-2 ">
                                     <thead class="text-center ">
                                         <tr>
                                             <th scope="col ">Nombre</th>
@@ -91,8 +92,12 @@
                                             <td class="text-center px-0 ">
                                                 {{detalleProducto.cantidad}}
                                             </td>
-                   <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
-                                <table class="table table-sm table-bordered table-striped mt-2 ">
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>
+                   <div class="table-bordered" style="overflow: auto">
+                                <table class="table table-sm table-bordered  mt-2 ">
                                     <thead class="text-center ">
                                         <tr>
                                             <th scope="col ">Total</th>
@@ -110,16 +115,17 @@
                                         </tr>
                                     </tbody>
                                        <div class="form-group row">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary col">
-                                <a class="text-white" href="nuevaorden.html" >Atras</a>
-                            </button>
-                            <button type="button" class="btn btn-secondary col">
-                                <a class="text-white" href="ordenes.html" >Crear Orden</a>
-                            </button>
-                        </div>
+                        
                                 </table>
-                            </div>     
+                            </div> 
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary col">
+                                    <a class="text-white" href="nuevaorden.html" >Atras</a>
+                                </button>
+                                <button type="button" class="btn btn-secondary col">
+                                    <a class="text-white" href="ordenes.html" >Crear Orden</a>
+                                </button>
+                            </div>    
                                     <!-- Inicia el pie de pagina -->
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -128,7 +134,7 @@
             </footer>
             <!-- Termina el pie de pagina -->
 
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.easing.js"></script>
