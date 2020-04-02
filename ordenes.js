@@ -144,7 +144,7 @@ new Vue({
                         getVars[tmp[0]] = tmp[1]
                     }
                 })
-                this.alerta = getVars.alertt
+                this.alerta = getVars.alert
                 this.timer()
 
 
@@ -157,6 +157,7 @@ new Vue({
         modificarOrden() {
             window.location = "/modificarorden.html?id=" + this.ordenSelected.id;
         },
+        
         timer: function() {
             window.setTimeout(function() {
                 $(".alert").fadeTo(500, 0).slideUp(500, function() {
