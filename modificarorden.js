@@ -102,11 +102,7 @@ new Vue({
     },
     methods: {
 
-        /**
-         * obtenine el valor de un parametro enviado por url
-         * @param String name nombre del parametro
-         * @return String  el parametro 
-         */
+        // aqui van los metodos que vamos a necesitar
         getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
             var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
