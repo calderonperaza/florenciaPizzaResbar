@@ -134,10 +134,10 @@
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm"  title="Agregar mas productos">
-                                                <a class="text-white" href="addmasproductos.html"></a><i class="fas fa-plus-circle"></i></a>
+                                        
+                                        <button type="button" class="btn btn-primary btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
+                                            <i class="fas fa-plus-circle"></i></a>
                                         </button>
-
                                         <button type="button" class="btn btn-primary btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
                                                 <i class="fas fa-edit"></i></a>
                                         </button>

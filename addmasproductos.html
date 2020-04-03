@@ -13,7 +13,6 @@
 
 <body id="page-top">
     <div id="wrapper">
-
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
 
@@ -21,34 +20,184 @@
                 <div class="container-fluid" id="appRESBAR">
 
                     <!-- TITULO -->
-                    <div class="row my-4">
-                        <h1 class="text-center col-12">Titulo del modulo o de la accion</h1>
+                    <div class="row my-5">
+                        <h1 class="text-center col-12">AGREGAR PRODUCTOS A LA ORDEN</h1>
                     </div>
 
 
                     <!-- Inicia seccion de alertas -->
                     <div class="alert alert-success collapse" role="alert" id="buttonAlert">
-                        <strong>Success!</strong> Registro eliminado correctamente.
+                        <strong>Success!</strong> Producto Agregado Correctamente.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <!-- Termina seccion de alertas -->
 
+                    <!-- Inicio: Informacion  Orden-->
+                    <form class="">
+                        <div class="form-group row" style="margin: 0px 20px 20px 20px;">
 
-                    <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
-                    <!--Despues borramos esto-
+                            <label for="" class="col-sm-0 col-form-label col-form-label-sm">Orden:</label>
+                            <div class="col-sm-2">
+                                <input type="text" readonly class="form-control form-control-sm form-control-plaintext">
+                            </div>
+
+                            <label for="" class="col-sm-0 col-form-label col-form-label-sm">Mesa:</label>
+                            <div class="col-sm-2">
+                                <input type="text" readonly class="form-control form-control-sm form-control-plaintext">
+                            </div>
+
+                            <label for="" class="col-sm-0 col-form-label col-form-label-sm">Mesero:</label>
+                            <div class="col-sm-2">
+                                <input type="text" readonly class="form-control form-control-sm form-control-plaintext">
+                            </div>
+
+                            <label for="" class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
+                            <div class="col-sm-2">
+                                <input type="text" readonly class="form-control form-control-sm form-control-plaintext">
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- Fin: Informacion Orden-->
+
+                    <h1 class="text-center">Menu</h1>
+                    <!-- Inicio: Barra Navegacion -->
+                    <nav class="navbar navbar-light navbar-expand-md mb-4 navigation-clean-search" style="border-radius: 10px; ">
+                        <div class="col-md-3">
+                            <input class="form-control my-2" type="text" v-model="nombre" placeholder="Buscar producto">
+                        </div>
+                        <div class="container" style="margin-left:5px; margin-right: 5px;">
+                            <div class="sidebar-brand-text mx-3"><span>CATEGORIAS</span></div>
+                            <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navcol-1">
+                                <ul class="nav">
+                                    <li class="nav-item btn btn-primary btn-sm ml-1" href="#" v-on:click.prevent="categoriaSelected=categoria.nombre;" v-for="categoria in categorias"><a class="nav-link" href="#" style="color: white;" v-on:click.prevent="categoriaSelected=categoria.nombre;" v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  'text-dark': categoriaSelected==categoria.nombre }">{{ categoria.nombre }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- Fin: Barra Navegacion -->
+
+                    <!-- Inicio: Tabla-->
+                    <div style="display: flex; justify-content: center; overflow-y:auto; height: 300px; margin: 0px 20px 20px 20px;">
+                        <table class="table table-sm table-bordered table-striped mb-0 " style="width: 100%;">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Nombre</th>
+                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Precio unitario</th>
+                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(producto, index) in searchProductos" v-show="producto.categoria.nombre==categoriaSelected" v-on:click.prevent="productoSelected = index;" v-bind:class="{ 'font-weight-bold' : productoSelected==index }">
+                                    <td>{{producto.nombre}}</td>
+                                    <td>${{producto.precio}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" v-on:click="cantidad -= 1">-</button>
+                                        <span>{{cantidad}}</span>
+                                        <button type="button" class="btn btn-primary" v-on:click="productoSelected=index; agregarAdetalle(productoSelected);">+</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Fin: Tabla-->
+
+                    <!-- Inicio: Botones Cancelar Siguiente-->
+                    <div style="margin-right: 25px;" class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @Click="cancelar();">Cancelar</button>
+                        
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="$('#modalResumen').modal('show')">Siguiente</button>
+                    </div>
+                    <!-- Fin: Botones Cancelar Siguiente-->
+
+                    <!-- Inicio: Modal Resumen -->
+                    <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                            <div class="modal-content">
+
+                                <!-- Inicio: Cabecera Modal Resumen-->
+                                <div class="modal-header">
+                                    <div class="sidebar-brand-text mx-3"><span>RESUMEN DE PRODUCTOS</span></div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <!-- Fin: Cabecera Modal Resumen-->
+
+                                <!-- Inicio: Informacion Orden Modal Resumen-->
+                                <div class="container" style="margin: 10px auto;">
+                                    <div class="sidebar-brand-text mx-3"><span>Orden : 12345</span></div>
+                                    <div class="sidebar-brand-text mx-3"><span>Mesa : 22</span></div>
+                                    <div class="sidebar-brand-text mx-3"><span>Mesero : Pedro</span></div>
+                                    <div class="sidebar-brand-text mx-3"><span>Cliente : Jose</span></div>
+                                    <hr />
+                                </div>
+                                <!-- Fin: Informacion Orden Modal Resumen-->
+
+                                <!-- Inicio: Tabla Modal Resumen-->
+                                <div class="modal-body">
+                                    <div style="display: flex; justify-content: center; overflow-y:auto; height: 300px; margin: 0px 20px 20px 20px;">
+                                        <table class="table table-sm table-bordered table-striped mb-0 " style="width: 100%;">
+                                            <thead class="bg-primary text-white">
+                                                <tr>
+                                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Nombre</th>
+                                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Precio unitario
+                                                    </th>
+                                                    <th style="position: sticky; top: 0; background-color: rgb(78, 115, 223);" scope="col">Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="producto in productos">
+                                                    <td>{{producto.nombre}}</td>
+                                                    <td>${{producto.precio}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" v-on:click="counter -= 1">-</button>
+                                                        <span>{{counter}}</span>
+                                                        <button type="button" class="btn btn-primary" v-on:click="counter += 1">+</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <!-- Fin: Tabla Modal Resumen-->
+
+                                <!-- Inicio: Botones Modal Resumen-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" @Click="regresarOrdenes();">Guardar</button>
+                                   
+                                </div>
+                                <!-- Inicio: Botones Modal Resumen-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin: Modal Resumen -->
+
+                </div>
+                <!-- FIN AGREGAR PRODUCTOS-->
+
+
+                <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
+                <!--Despues borramos esto-
                     <br>
                     <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
                     -->
-                </div>
-                <!-- Termina el contenedor de la pagina y el dominio de VUE-->
-
             </div>
+            <!-- Termina el contenedor de la pagina y el dominio de VUE-->
+        </div>
 
 
 
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

@@ -166,6 +166,9 @@ new Vue({
         cobrarOrden() {
             window.location = "./cobrarorden.html?id=" + this.ordenSelected.id;
         },
+        agregarProductos() {
+            window.location = "./addmasproductos.html?id=" + this.ordenSelected.id;
+        },
     },
     mounted() {
         this.ordenar()
