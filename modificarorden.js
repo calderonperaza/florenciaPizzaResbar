@@ -22,15 +22,6 @@ new Vue({
                     { cantidad: 1, nombre: "Pizza Suprema", precio: 6.35, categoria: { nombre: "Platos" }, subtotal: 6.75 },
 
                     { cantidad: 2, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 2 },
-                    { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 },
-
-                    { cantidad: 2, nombre: "Ensalada Cesar", precio: 5.55, categoria: { nombre: "Platos" }, subtotal: 11.10 },
-
-                    { cantidad: 1, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 1.00 },
-
-                    { cantidad: 2, nombre: "Refresco de Horchata", precio: 1.75, categoria: { nombre: "Bebidas" }, subtotal: 1.75 }
-
-
 
                 ]
             },
@@ -122,12 +113,11 @@ new Vue({
 
         obtenerSelected() {
             this.ordenSelected = this.ordenes.find(item => {
-                console.log(location.href);
                 return item.id == this.getParameterByName("id");
             })
         },
         redireccionarAOrdenes() {
-            window.location = "/ordenes.html?alert=este%20es%20un%20mensaje"
+            window.location = "./ordenes.html?alert=se modifico la orden 12312asc Satisfactoriamente"
         }
 
     },
