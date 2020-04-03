@@ -27,7 +27,7 @@
                 <hr class="sidebar-divider my-0" />
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="index.html"><i
+                        <a class="nav-link active" href="ordenes.html"><i
                                 class="fas fa-list-ol"></i><span>ORDENES</span></a>
                         <a class="nav-link active" href="productos.html"><i
                                 class="fas fa-box"></i><span>PRODUCTOS</span></a>
@@ -47,8 +47,7 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- Inicia navbar top -->
-                <nav class="navbar navbar-default navbar-transparent navbar-fixed-top"
-                    style="box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);margin-bottom: 10px;" role="navigation">
+                <nav class="navbar navbar-default navbar-transparent navbar-fixed-top" style="box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);margin-bottom: 10px;" role="navigation">
                     <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" style="
                     color: #585858;
                 " href="#">
@@ -59,9 +58,7 @@
                     </a>
 
                     <div class="navbar-header page-scroll">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target=".navbar-ex1-collapse"
-                            style="position: relative;padding: 9px 10px;background-color: transparent;background-image: none;border: 1px solid transparent;border-radius: 4px;border-color: #ddd;"
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse" style="position: relative;padding: 9px 10px;background-color: transparent;background-image: none;border: 1px solid transparent;border-radius: 4px;border-color: #ddd;"
                             aria-expanded="false">
                             <span style="color: #585858;"><i class="fas fa-bars"></i></span>
                         </button>
@@ -71,14 +68,13 @@
                     <div class="navbar-collapse navbar-ex1-collapse collapse">
                         <ul class="nav navbar-nav text-light" id="accordionSidebar">
                             <li class="nav-item" role="presentation">
-                                <a class="topNavLink active" href="index.html"><i
+                                <a class="topNavLink active" href="ordenes.html"><i
                                         class="fas fa-list-ol"></i><span>ORDENES</span></a>
                                 <a class="topNavLink active" href="productos.html"><i
                                         class="fas fa-box"></i><span>PRODUCTOS</span></a>
                                 <a class="topNavLink active" href="categorias.html"><i
                                         class="fas fa-sitemap"></i><span>CATEGORÍAS</span></a>
-                                <a class="topNavLink active" href="informes.html"
-                                    style="background-color: #585858;color: white;"><i
+                                <a class="topNavLink active" href="informes.html" style="background-color: #585858;color: white;"><i
                                         class="fas fa-file-alt"></i><span>INFORMES</span></a>
                             </li>
                         </ul>
@@ -95,46 +91,32 @@
                         <span class="stretch" class="divFull"></span>
                         <!-- Primer div -->
                         <div id="primerDiv" class="border rounded contenedor-trabajos espacio-margen">
-                            <label class="d-flex justify-content-center text-centro">Platos vendidos</label><i
-                                class="fas fa-drumstick-bite d-flex justify-content-center"
-                                style="width: 100%;font-size: x-large;color: #585858;"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">{{numPlatosVendidos}}</label>
-                            <label class="d-flex justify-content-center subtitulo">Platos</label><a
-                                class="d-flex justify-content-center text-centro" 
-                                style="text-decoration: underline;" data-toggle="modal" href="#exampleModalCenter">Ver todos</a>
+                            <label class="d-flex justify-content-center text-centro">Platos vendidos</label><i class="fas fa-drumstick-bite d-flex justify-content-center" style="width: 100%;font-size: x-large;color: #585858;"></i><label class="d-flex justify-content-center text-centro text-bold">{{numPlatosVendidos}}</label>
+                            <label class="d-flex justify-content-center subtitulo">Platos</label><a class="d-flex justify-content-center text-centro" style="text-decoration: underline;" data-toggle="modal" href="#exampleModalCenter">Ver todos</a>
                         </div>
                         <!-- Fin del primer div -->
                         <span class="stretch" class="divFull"></span>
                         <!-- Segundo div -->
                         <div id="segundoDiv" class="border rounded contenedor-trabajos espacio-margen">
-                            <label class="d-flex justify-content-center text-centro">Ordenes finalizadas</label><i
-                                class="fa fa-check-square d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">{{numOrdenesFin}}</label><label
-                                class="d-flex justify-content-center subtitulo">Ordenes</label>
-                            <a class="d-flex justify-content-center text-centro" href="#"
-                                style="text-decoration: underline;">Ver todos</a>
+                            <label class="d-flex justify-content-center text-centro">Ordenes finalizadas</label><i class="fa fa-check-square d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{numOrdenesFin}}</label>
+                            <label class="d-flex justify-content-center subtitulo">Ordenes</label>
+                            <a class="d-flex justify-content-center text-centro" href="#" style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del segundo div -->
                         <span class="stretch" class="divFull"></span>
                         <!-- Tercer div -->
                         <div id="tercerDiv" class="border rounded contenedor-trabajos espacio-margen">
-                            <label class="d-flex justify-content-center text-centro">Mas vendido</label><i
-                                class="fa fa-coffee d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">{{platoMasVendido}}</label><label
-                                class="d-flex justify-content-center subtitulo">{{pmvCantidad}} veces vendida</label>
-                            <a class="d-flex justify-content-center" href="#"
-                                style="width: 100%;text-decoration: underline;">Ver todos</a>
+                            <label class="d-flex justify-content-center text-centro">Mas vendido</label><i class="fa fa-coffee d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{platoMasVendido}}</label>
+                            <label class="d-flex justify-content-center subtitulo">{{pmvCantidad}} veces vendida</label>
+                            <a class="d-flex justify-content-center" href="#" style="width: 100%;text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del tercer div -->
                         <span class="stretch" class="divFull"></span>
                         <!-- Cuarto div -->
                         <div id="cuartoDiv" class="border rounded contenedor-trabajos espacio-margen">
-                            <label class="d-flex justify-content-center text-centro">Ordenes Activas</label><i
-                                class="fa fa-gears d-flex justify-content-center iconos"></i><label
-                                class="d-flex justify-content-center text-centro text-bold">{{ordenesActivas}}</label><label
-                                class="d-flex justify-content-center subtitulo">Platos</label>
-                            <a class="d-flex justify-content-center text-centro" href="#"
-                                style="text-decoration: underline;">Ver todos</a>
+                            <label class="d-flex justify-content-center text-centro">Ordenes Activas</label><i class="fa fa-gears d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{ordenesActivas}}</label>
+                            <label class="d-flex justify-content-center subtitulo">Platos</label>
+                            <a class="d-flex justify-content-center text-centro" href="#" style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del cuarto div -->
                         <span class="stretch" class="divFull"></span>
@@ -175,15 +157,13 @@
                             <!-- Bloque 1 de best empleados  -->
                             <div class="border rounded" style="background-color: #4e4e4e;">
                                 <div id="despacho">
-                                    <div id="textoEmp"
-                                        style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{meseroOrdenes}}</label>
                                         <label class="d-flex empName">Mas ordenes
                                             despachadas</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label
-                                            class="d-flex justify-content-center text-centro reziseText">Ordenes: {{mesOrCantidad}}</label>
+                                        <label class="d-flex justify-content-center text-centro reziseText">Ordenes: {{mesOrCantidad}}</label>
                                         <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}} Hasta
                                             {{mesOrFechaFin}}</label>
                                     </div>
@@ -197,8 +177,7 @@
                             <!-- Bloque 2 de best empleados  -->
                             <div class="border rounded" style="background-color: #4e4e4e;margin-top: 10px;">
                                 <div id="despacho">
-                                    <div id="textoEmp"
-                                        style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{meseroTiempo}}</label>
                                         <label class="d-flex empName">Mas tiempo trabajando</label>
                                     </div>
@@ -218,8 +197,7 @@
                             <!-- Bloque 3 de best empleados  -->
                             <div class="border rounded" style="background-color: #4e4e4e;margin-top: 10px;">
                                 <div id="despacho">
-                                    <div id="textoEmp"
-                                        style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{menosFaltas}}</label>
                                         <label class="d-flex empName">Menos faltas a trabajar</label>
                                     </div>
@@ -238,8 +216,7 @@
                             <!-- Bloque 4 de best empleados  -->
                             <div class="border rounded" style="background-color: #4e4e4e;margin-top: 10px;">
                                 <div id="despacho">
-                                    <div id="textoEmp"
-                                        style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{masPuntual}}</label>
                                         <label class="d-flex empName">Mas puntual</label>
                                     </div>
@@ -263,8 +240,7 @@
 
 
                 <!-- --------------------Modales----------------- -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

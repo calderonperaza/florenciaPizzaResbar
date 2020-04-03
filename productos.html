@@ -23,7 +23,7 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="index.html"><i class="fas fa-list-ol"></i><span>ORDENES</span></a>
+                        <a class="nav-link active" href="ordenes.html"><i class="fas fa-list-ol"></i><span>ORDENES</span></a>
                         <a class="nav-link active" href="productos.html"><i class="fas fa-box"></i><span>PRODUCTOS</span></a>
                         <a class="nav-link active" href="categorias.html"><i class="fas fa-sitemap"></i><span>CATEGORÍAS</span></a>
                         <a class="nav-link active" href="informes.html"><i class="fas fa-file-alt"></i><span>INFORMES</span></a>
@@ -103,34 +103,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(producto, index) in productos " v-show="buscar(index)"  v-on:click="productoSelected=producto" v-bind:class="{ 'font-weight-bold' : productoSelected==producto, 'text-dark': productoSelected==producto }">
+                                <tr v-for="(producto, index) in productos " v-show="buscar(index)" v-on:click="productoSelected=producto" v-bind:class="{ 'font-weight-bold' : productoSelected==producto, 'text-dark': productoSelected==producto }">
                                     <td style="text-align: center;">{{producto.id}}</td>
                                     <td style="text-align: center;">{{producto.nombre}}</td>
                                     <td style="text-align: center;">$ {{producto.precio}}</td>
                                     <td style="text-align: center;">{{producto.categoria.nombre}}</td>
-                                    <td> 
-                                <button class="btn btn-danger btn-sm" id="btnborrar" onclick="alerta()" title="Eliminar Orden" ><i
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" id="btnborrar" onclick="alerta()" title="Eliminar Orden"><i
                                         class="fa fa-trash-alt mr-2"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#frmmodificar"  >
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#frmmodificar">
                                     <i class="fa fa-edit mr-2"></i>
                                 </button>
-                                   
-                                    
+
+
                                 </tr>
                             </tbody>
                         </table>
-                        
+
                     </div>
                     <!-- Termina Tabla -->
 
-                    
 
-                   
 
-                    
-                    
+
+
+
+
 
 
                     <!--Solo para depuracion y desarrollo mostramos el vue.Data
@@ -141,75 +141,74 @@
 
                     Modal modificar orden -->
 
- <div class="modal fade" id="frmmodificar" tabindex="-1" role="dialog" aria-labelledby="tituloModificar" aria-hidden="true">
-                        
-    <div class="modal-dialog modal-xl" role="document">
-       
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <h5 class="modal-title" id="tituloModificar">Modificar Orden</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal fade" id="frmmodificar" tabindex="-1" role="dialog" aria-labelledby="tituloModificar" aria-hidden="true">
+
+                        <div class="modal-dialog modal-xl" role="document">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="tituloModificar">Modificar Orden</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
+                                </div>
 
-            <div class="modal-body">
-                <div class="container">
-                    <!-- <form class="form-inline"> -->
-                    <form>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <!-- <form class="form-inline"> -->
+                                        <form>
 
-                        <div class="form-group row my-0">
-                            <label for="lblnombre" class="col-sm-2 col-lg-1 col-form-label">Nombre: </label>
-                            
-                            <div class="col-sm-3 mr-md-5 col-lg-3">
-                                <input type="text"  class="form-control form-control-sm" id="lblnombre" v-model="productoSelected.nombre">
+                                            <div class="form-group row my-0">
+                                                <label for="lblnombre" class="col-sm-2 col-lg-1 col-form-label">Nombre: </label>
+
+                                                <div class="col-sm-3 mr-md-5 col-lg-3">
+                                                    <input type="text" class="form-control form-control-sm" id="lblnombre" v-model="productoSelected.nombre">
+                                                </div>
+                                                <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productoSelected.id}} </label>
+                                            </div>
+
+                                            <div class="form-group row my-0 ">
+
+                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                                    <label for="lblprecio " class="col-form-label ">Precio: </label>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                                    <input type="number" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productoSelected.precio ">
+                                                </div>
+
+                                                <div class="col-md-4 col-sm-6 col-lg-6 ">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row ">
+
+                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                                    <label for="lblcategoria " class="col-form-label ">Categoria: </label>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                                    <input type="text " class="form-control form-control-sm " id="lblcategoria " v-model="productoSelected.categoria.nombre">
+                                                </div>
+
+                                                <div class="col-md-1 col-sm-1 col-lg-2 ">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        <!-- termina formulario-->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer ">
+                                    <button type="button " class="btn btn-secondary " onClick="$( '#frmmodificar').modal( 'hide') ">Cancelar</button>
+                                    <button type="button " class="btn btn-success " v-on:click="clearData" data-dismiss="modal">Guardar</button>
+                                </div>
                             </div>
-                            <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productoSelected.id}} </label>
                         </div>
-
-                        <div class="form-group row my-0 ">
-                            
-                            <div class="col-md-2 col-sm-2 col-lg-1 ">
-                                <label for="lblprecio " class="col-form-label ">Precio: </label>
-                            </div>
-
-                            <div class="col-md-6 col-sm-4 col-lg-5 ">
-                                <input type="number"  pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productoSelected.precio ">
-                            </div>
-
-                            <div class="col-md-4 col-sm-6 col-lg-6 ">
-                            </div>
-                        </div>
-
-                        <div class="form-group row ">
-
-                            <div class="col-md-2 col-sm-2 col-lg-1 ">
-                                <label for="lblcategoria " class="col-form-label ">Categoria: </label>
-                            </div>
-
-                            <div class="col-md-6 col-sm-4 col-lg-5 ">
-                                <input type="text " class="form-control form-control-sm " id="lblcategoria " v-model="productoSelected.categoria.nombre">
-                            </div>
-
-                            <div class="col-md-1 col-sm-1 col-lg-2 ">
-                            </div>
-                        </div>
-
-                    </form>
-                    <!-- termina formulario-->
-                </div>
-            </div>
-
-            <div class="modal-footer ">
-                <button type="button " class="btn btn-secondary " onClick="$( '#frmmodificar').modal( 'hide') ">Cancelar</button>
-                <button type="button " class="btn btn-success " v-on:click="clearData"
-                data-dismiss="modal">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Termina modal modificar orden -->
+                    </div>
+                    <!-- Termina modal modificar orden -->
 
 
                 </div>
@@ -218,72 +217,66 @@
             </div>
 
             <!-- AGREGAR PRODUCTOS-->
-<div class="modal fade" id="frmagregar" tabindex="-1" role="dialog"
-aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="frmagregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-<div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">
+                    <div class="modal-content">
 
-        <div class="modal-header bg-primary">
-            <h5 class="modal-title text-white" id="exampleModalLongTitle"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-        </div>
+                        </div>
 
-        <div class="modal-body">
-            
-            <!-- formulario-->
-            <form>
+                        <div class="modal-body">
 
-            <div class="form-group">
-                <label for="id">id del producto:</label>
-                <input v-model="producto.id" type="text" pattern="[[0-9]{4,4}[a-z][0-9]{4,4}" class="form-control"
-                id="idproducto" placeholder="0000a0000">
-            </div>
+                            <!-- formulario-->
+                            <form>
 
-            <div class="form-group">
-                <label for="nombre">Nombre del producto:</label>
-                <input v-model="producto.id" type="text" class="form-control"
-                id="idproducto" placeholder="Producto x">
-            </div>
+                                <div class="form-group">
+                                    <label for="id">id del producto:</label>
+                                    <input v-model="producto.id" type="text" pattern="[[0-9]{4,4}[a-z][0-9]{4,4}" class="form-control" id="idproducto" placeholder="0000a0000">
+                                </div>
 
-            <div class="form-group">
-                <label for="categoria">Categoria</label>
-                <select v-model="categoriaSeleccionada" class="form-control" id="inputcategoria">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre del producto:</label>
+                                    <input v-model="producto.id" type="text" class="form-control" id="idproducto" placeholder="Producto x">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="categoria">Categoria</label>
+                                    <select v-model="categoriaSeleccionada" class="form-control" id="inputcategoria">
                 <option value="Bebidas">bebidas</option>
                 <option value="Platos">Platos</option>
                 <option value="Entradas">Entradas</option>
-                </select>   
+                </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="precio"> Ingrese el precio:</label>
+                                    <input v-model="producto.precio" type="number" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control" id="precioholder" placeholder="$0.00">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearData">Cancelar</button>
+                            <button type="button" class="btn btn-primary" v-on:click="clearData" data-dismiss="modal">Guardar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="precio"> Ingrese el precio:</label>
-                <input v-model="producto.precio" type="number" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control"
-                id="precioholder" placeholder="$0.00">
-            </div>
-            </form>
-        </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-            @click="clearData">Cancelar</button>
-            <button type="button" class="btn btn-primary" v-on:click="clearData"
-            data-dismiss="modal">Guardar</button>
-        </div>
-    </div>
-</div>
-</div>
+            <!--fin de agregar-->
 
 
-<!--fin de agregar-->
-
- 
 
 
-           
-            
+
+
 
             <!-- Inicia el pie de pagina -->
             <footer class="bg-white sticky-footer">
