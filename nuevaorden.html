@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
-        margin: 0; 
+        
+        .inp-cantidad{
+            width: 3em;
+            -webkit-appearance: none; 
+            margin: 0; 
+            border: none;
+            text-align: center;
+            -moz-appearance:textfield; 
         }
-
-        input[type=number] { -moz-appearance:textfield; }
     </style>
 </head>
 
@@ -106,33 +108,81 @@
                         <!-- Incia Tabla -->
                         <div class="form-group">
                             <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
-                                <table class="table table-sm table-bordered table-striped mt-2 ">
-                                    <thead class="text-center ">
-                                        <tr>
-                                            <th scope="col ">Nombre</th>
-                                            <th scope="col ">Precio</th>
-                                            <th scope="col ">Cantidad</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="detalleProducto in nuevaOrden.detalleOrden">
-                                            <td>
-                                                {{detalleProducto.nombre}}
-                                            </td>
-                                            <td>
-                                                ${{detalleProducto.precio}}
-                                            </td>
-                                            <td class="text-center px-0 ">
-                                                
-                                                <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(detalleProducto)">-</button>
-                                                <input type="number"  class=" input-sm" v-model.lazy.number="detalleProducto.cantidad" min="0" max="99" step="1" disabled>
-                                                <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(detalleProducto)">+</button>
 
-                                            </td>
-                                            
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li v-for="categoria in categorias" class="nav-item">
+                                      <a v-if="categorias.indexOf(categoria) === 0" class="nav-link active" data-toggle="tab" v-bind:id="categoria.nombre+'-tab'" v-bind:href="'#'+categoria.nombre" role="tab" >
+                                          {{categoria.nombre}}
+                                        </a>
+                                      <a v-else class="nav-link"  v-bind:id="categoria.nombre+'-tab'"  data-toggle="tab"  v-bind:href="'#'+categoria.nombre" role="tab"  >
+                                          {{categoria.nombre}}
+                                      </a>
+                                    </li>
+
+                                </ul>
+                                  <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="Entradas" role="tabpanel" >
+                                        <table class="table table-sm table-bordered table-striped mt-2 ">
+                                            <thead class="text-center ">
+                                                <tr>
+                                                    <th scope="col ">Nombre</th>
+                                                    <th scope="col ">Precio</th>
+                                                    <th scope="col ">Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                       
+        
+                                                <tr v-if='detalleProducto.categoria.nombre == categorias[0].nombre ' v-for="detalleProducto in nuevaOrden.detalleOrden">
+                                                    <td>
+                                                        {{detalleProducto.nombre}}
+                                                    </td>
+                                                    <td>
+                                                        ${{detalleProducto.precio}}
+                                                    </td>
+                                                    <td class="text-center px-0 ">
+                                                        
+                                                        <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(detalleProducto)">-</button>
+                                                        <input type="number"  class="inp-cantidad input-sm" v-model.lazy.number="detalleProducto.cantidad" min="0" max="99" step="1" disabled>
+                                                        <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(detalleProducto)">+</button>
+        
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div v-for="categoria in categorias" class="tab-pane fade" v-bind:id="categoria.nombre" role="tabpanel" >
+                                        <table class="table table-sm table-bordered table-striped mt-2 ">
+                                            <thead class="text-center ">
+                                                <tr>
+                                                    <th scope="col ">Nombre</th>
+                                                    <th scope="col ">Precio</th>
+                                                    <th scope="col ">Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                       
+        
+                                                <tr v-if='detalleProducto.categoria.nombre == categoria.nombre ' v-for="detalleProducto in nuevaOrden.detalleOrden">
+                                                    <td>
+                                                        {{detalleProducto.nombre}}
+                                                    </td>
+                                                    <td>
+                                                        ${{detalleProducto.precio}}
+                                                    </td>
+                                                    <td class="text-center px-0 ">
+                                                        
+                                                        <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(detalleProducto)">-</button>
+                                                        <input type="number"  class="inp-cantidad input-sm" v-model.lazy.number="detalleProducto.cantidad" min="0" max="99" step="1" disabled>
+                                                        <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(detalleProducto)">+</button>
+        
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+
+                               
                             </div>  
                         </div>
                         <!-- Termina Tabla -->
@@ -142,14 +192,17 @@
                     <!--fin formulario nueva orden-->
 
                     <!-- Botones de accion-->
-                    <div class="form-group row">
+                    <div class="form-group row mt-5">
                         <div class="col">
                             <button type="button" class="btn btn-secondary col">
                                 <a class="text-white" href="ordenes.html" >Cancelar</a>
                             </button>
                         </div>
                         <div class="col">
-                            <button type="submit" class="btn btn-primary col"><i class="fa fa-plus-circle mr-2"></i>Verificar</button>
+                            <button type="submit" class="btn btn-primary col">
+                                <i class="fa fa-plus-circle mr-2"></i>
+                                <a class="text-white" href="detallenuevaorden.html" >Verificar</a>
+                            </button>
                         </div>
                     </div>
                     <!-- /Botones de accion-->
@@ -164,7 +217,7 @@
                     <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
                     <pre>{{ $data }}</pre>
 
-
+                    
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
 

@@ -1,4 +1,4 @@
-new Vue({
+var app = new Vue({
     el: "#appRESBAR",
     data: {
         nuevaOrden:{
@@ -9,13 +9,19 @@ new Vue({
             estado: "C",
             total: null,
             observacion: null,
-
             detalleOrden: [
                // formato--> { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 }
                //subtotal calculado
             ]
-        }
-        
+        },
+        categorias:[
+
+            {id:"12312312", nombre:"Entradas"},
+
+            {id:"12322222", nombre:"Platos"},
+
+            {id:"12333333", nombre:"Bebidas"}
+        ]            
 
     },
     created(){ 
@@ -36,15 +42,7 @@ new Vue({
     
                 {id:"2312a5555",nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
     
-                {id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}},
-
-
-                {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
-    
-                {id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
-    
-                {id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}}
-    
+                {id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}}
 
             ];
      
