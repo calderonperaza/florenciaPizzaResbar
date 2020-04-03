@@ -44,86 +44,78 @@
 
                     <!--modificar orden -->
                     <div class="" id="mdlModificarOrden" tabindex="-1" role="dialog" aria-labelledby="tituloModificar" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="tituloModificar">Modificar Orden</h5>
-                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-                                    <!-- <span aria-hidden="true">&times;</span> -->
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container">
-                                        <!-- <form class="form-inline"> -->
-                                        <form>
-                                            <div class="form-group row my-0">
-                                                <label for="lblMesa" class="col-sm-2 col-lg-1 col-form-label">Mesa: </label>
-                                                <div class="col-sm-3 mr-md-5 col-lg-3">
-                                                    <input type="text" class="form-control form-control-sm" id="lblMesa" v-model="ordenSelected.mesa">
-                                                </div>
-                                                <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id}} </label>
-                                            </div>
-                                            <div class="form-group row my-0 ">
-                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
-                                                    <label for="iptCliente " class="col-form-label ">Cliente: </label>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
-                                                    <input type="text " class="form-control form-control-sm " id="iptCliente " v-model="ordenSelected.cliente ">
-                                                </div>
-                                                <div class="col-md-4 col-sm-6 col-lg-6 "></div>
-                                            </div>
-                                            <div class="form-group row ">
-                                                <div class="col-md-2 col-sm-2 col-lg-1 ">
-                                                    <label for="lblMesero " class="col-form-label ">Mesero: </label>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4 col-lg-5 ">
-                                                    <input type="text " class="form-control form-control-sm " id="lblMesero " v-model="ordenSelected.mesero">
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-lg-2 "></div>
-                                                <div class="col-md-3 col-sm-5 col-lg-4 d-flex justify-content-end mt-2">
-                                                    <button type="button" class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none" id="btnEliminarOrdenIcon" onClick="$('#mdlEliminarOrden').modal('show')"><i class="far fa-trash-alt"></i></button>
-                                                    <button type="button" class="btn btn-danger ml-auto d-none d-md-inline-block" id="btnEliminarOrden " onClick="$('#mdlEliminarOrden').modal('show')">Eliminar Orden</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- </form> -->
-                                        <!-- tabla de datos modal body -->
-                                        <div class="table-responsive ">
-                                            <table class="table table-sm table-bordered mt-2 ">
-                                                <thead class="text-center ">
-                                                    <tr>
-                                                        <th scope="col ">Nombre</th>
-                                                        <th scope="col ">Precio Unitario</th>
-                                                        <th scope="col ">Cantidad</th>
-                                                        <th class="d-none d-xl-table-cell " scope="col ">Sub Total</th>
-                                                        <th scope="col ">Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
-                                                        <th class="small">{{detalleOrdenAux.nombre}}</th>
-                                                        <td>$ {{detalleOrdenAux.precio}}</td>
-                                                        <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0">-</button>{{detalleOrdenAux.cantidad}}<button type="button" class="btn btn-secondary btn-sm"
-                                                                @click="detalleOrdenAux.cantidad++">+</button></td>
-                                                        <td class=" d-none d-xl-table-cell ">$ {{detalleOrdenAux.precio*detalleOrdenAux.cantidad}}</td>
-                                                        <td class="text-center ">
-                                                            <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
-                                                            <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                        <!-- <div class="container border"> -->
+                        <div class="mt-5">
+                            <!-- <form class="form-inline"> -->
+                            <form>
+                                <div class="form-group row my-0">
+                                    <label for="lblMesa" class="col-sm-2 col-lg-1 col-form-label">Mesa: </label>
+                                    <div class="col-sm-3 mr-md-5 col-lg-3">
+                                        <input type="text" class="form-control form-control-sm" id="lblMesa" v-model="ordenSelected.mesa">
                                     </div>
-
+                                    <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id}} </label>
                                 </div>
-                                <div class="modal-footer ">
-                                    <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
-                                    <button type="button " class="btn btn-secondary " onClick="$( '#mdlModificarOrden').modal( 'hide') "><a class="text-white" href="./ordenes.html">Cancelar</a></button>
-                                    <button type="button " class="btn btn-primary" @click="redireccionarAOrdenes();">Guardar</button>
+                                <div class="form-group row my-0 ">
+                                    <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                        <label for="iptCliente " class="col-form-label ">Cliente: </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                        <input type="text " class="form-control form-control-sm " id="iptCliente " v-model="ordenSelected.cliente ">
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-lg-6 "></div>
                                 </div>
+                                <div class="form-group row ">
+                                    <div class="col-md-2 col-sm-2 col-lg-1 ">
+                                        <label for="lblMesero " class="col-form-label ">Mesero: </label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-4 col-lg-5 ">
+                                        <input type="text " class="form-control form-control-sm " id="lblMesero " v-model="ordenSelected.mesero">
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-lg-2 "></div>
+                                    <div class="col-md-3 col-sm-5 col-lg-4 d-flex justify-content-end mt-2">
+                                        <button type="button" class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none" id="btnEliminarOrdenIcon" onClick="$('#mdlEliminarOrden').modal('show')"><i class="far fa-trash-alt"></i></button>
+                                        <button type="button" class="btn btn-danger ml-auto d-none d-md-inline-block" id="btnEliminarOrden " onClick="$('#mdlEliminarOrden').modal('show')">Eliminar Orden</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- </form> -->
+                            <!-- tabla de datos modal body -->
+                            <div class="table-responsive ">
+                                <table class="table table-sm table-bordered mt-2 table-striped ">
+                                    <thead class="bg-primary text-white text-center ">
+                                        <tr>
+                                            <th scope="col ">Nombre</th>
+                                            <th scope="col ">Precio Unitario</th>
+                                            <th scope="col ">Cantidad</th>
+                                            <th class="d-none d-xl-table-cell " scope="col ">Sub Total</th>
+                                            <th scope="col ">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
+                                            <th class="small">{{detalleOrdenAux.nombre}}</th>
+                                            <td>$ {{detalleOrdenAux.precio}}</td>
+                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0">-</button>{{detalleOrdenAux.cantidad}}<button type="button" class="btn btn-secondary btn-sm"
+                                                    @click="detalleOrdenAux.cantidad++">+</button></td>
+                                            <td class=" d-none d-xl-table-cell ">$ {{detalleOrdenAux.precio*detalleOrdenAux.cantidad}}</td>
+                                            <td class="text-center ">
+                                                <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
+                                                <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+
+                        <!-- </div> -->
+                        <div class="modal-footer ">
+                            <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
+                            <button type="button " class="btn btn-secondary " onClick="$( '#mdlModificarOrden').modal( 'hide') " @click="redireccionarAOrdenes();">Cancelar</button>
+                            <button type="button " class="btn btn-primary" @click="redireccionarAOrdenes();">Guardar</button>
+                        </div>
+                        <!-- </div> -->
+                        <!-- </div> -->
                     </div>
                     <!-- Termina modificar orden -->
 
