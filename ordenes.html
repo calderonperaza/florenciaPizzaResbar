@@ -220,7 +220,7 @@
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos"></i></button>
+                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos" @click="ordenSelected=orden; modificarOrden();"></i></button>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
                                         </td>

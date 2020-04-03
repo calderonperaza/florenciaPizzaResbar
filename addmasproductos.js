@@ -53,7 +53,7 @@ new Vue({
             },
             {
                 id: "2312a1222",
-                nombre: "Hamburguesa Media Libra",
+                nombre: "Hamburguesa  Media Libra",
                 precio: 7.25,
                 categoria: {
                     nombre: "Platos"
