@@ -117,7 +117,7 @@ new Vue({
             })
         },
         redireccionarAOrdenes() {
-            window.location = "/ordenes.html?alert=este%20es%20un%20mensaje"
+            window.location = "./ordenes.html?alert=se modifico la orden 12312asc Satisfactoriamente"
         }
 
     },
