@@ -222,7 +222,7 @@
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos"></i></button>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
-                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i></button>
+                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
                                         </td>
                                 </tr>
 
@@ -231,7 +231,7 @@
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal">
                                             <i class="fas fa-plus-circle "></i>
                                         </button>
-                                        <button type="button " class="btn btn-success btn-sm " data-toggle="modal " data-target="#cobrarOrden ">
+                                        <button type="button " class="btn btn-success btn-sm " data-toggle="modal ">
                                             <i class="fas fa-money-bill "></i>
                                         </button>
                                     </td>
@@ -259,7 +259,7 @@
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos"></i></button>
                                         <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
-                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" data-toggle="modal" title="Cobrar Orden" data-target="#cobrarOrden"></i></button>
+                                        <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
                                         </td>
                                 </tr>
 
