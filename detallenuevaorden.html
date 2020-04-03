@@ -72,8 +72,9 @@
                         <div class="col-md-8">
                         <!-- Incia Tabla -->
                         <div class="form-group">
-                            <div class="table-bordered" style=" overflow: auto">
-                                <table class="table table-sm table-bordered mt-2 ">
+                            <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="Entradas" role="tabpanel" >
+                                        <table class="table table-sm table-bordered table-striped mt-2 ">
                                     <thead class="text-center ">
                                         <tr>
                                             <th scope="col ">Nombre</th>
@@ -83,15 +84,18 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="detalleProducto in nuevaOrden.detalleOrden">
-                                            <td>
+                                            <td id="nombre">
                                                 {{detalleProducto.nombre}}
                                             </td>
-                                            <td>
+                                            <td id="precio">
                                                 ${{detalleProducto.precio}}
                                             </td>
-                                            <td class="text-center px-0 ">
+                                            <td class="text-center px-0 ", id="cantidad">
                                                 {{detalleProducto.cantidad}}
                                             </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                         </div> 
                                     </div> 
                                 </div> 
@@ -105,11 +109,11 @@
                                              </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="detalleProducto in nuevaOrden.detalleOrden">
+                                        <tr v-show="detalleProducto in nuevaOrden.detalleOrden">
                                             <td>
                                                 <h2>Toltal a Pagar</h2>
                                             </td>
-                                            <td>
+                                            <td id="Total">
                                                 ${{detalleProducto.Total}}
                                              </td>
                                         </tr>
