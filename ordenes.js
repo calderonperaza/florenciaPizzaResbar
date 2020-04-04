@@ -63,7 +63,8 @@ new Vue({
 
             if (this.textoBusqueda == "")
                 return true;
-            var cad = this.ordenes[x].id +
+            if (this.activos) {
+                var cad = this.ordenes[x].id +
                 this.ordenes[x].cliente +
                 this.ordenes[x].mesa +
                 this.ordenes[x].mesero +
@@ -75,7 +76,23 @@ new Vue({
             if (cad.indexOf(this.textoBusqueda.toUpperCase()) >= 0)
                 return true;
             else
+                return false;    
+            } else {
+                var cad = this.lactivos[x].id +
+                this.lactivos[x].cliente +
+                this.lactivos[x].mesa +
+                this.lactivos[x].mesero +
+                this.lactivos[x].observacion +
+                this.lactivos[x].total;
+
+            cad = cad.toUpperCase();
+
+            if (cad.indexOf(this.textoBusqueda.toUpperCase()) >= 0)
+                return true;
+            else
                 return false;
+            }
+            
         },
         alertLauncher: function() {
             let uri = window.location.href.split('?')
@@ -87,7 +104,6 @@ new Vue({
                     this.alerta = vars[1].replace(/%20/g, " ")
                     console.log(this.alerta)
                     this.timer()
-
                 }
 
             } else {
