@@ -88,20 +88,40 @@
                 <!-- Termina navbar top -->
 
                 <!-- Inicia el contenedor de la pagina (Codigo nuevo aquí)---------------------------------------------------------------------->
+                <label class="leyendas" style="margin-top: 20px;">Reportes</label>
                 <div class="container-fluid" id="appRESBAR">
-                    <label class="leyendas" style="margin-top: 20px;">Reportes</label>
+                    <!-- input del datepicker -->
+                    <!-- <input type="date" id="start" name="trip-start"
+                    value="2018-07-22"
+                    min="2018-01-01" max="2018-12-31"> -->
+                    <div class="div-encapsula-dates">
+                        <div class="espacio-divs">
+                            Desde:
+                            <div class="div-date">
+                                <input type="date" id="start" class="date-css" value="2020-01-01"><br>
+                            </div>
+                        </div>
+                        <div class="espacio-divs">
+                            Hasta: <div class="div-date">
+                                <input type="date" id="end" class="date-css" value="2020-03-01"><br>
+                            </div>
+                        </div>
+                        <button class="btn-hover color-9">ACEPTAR</button>
+                    </div>
+
+                    <!-- Fin del input del datepicker -->
                     <!-- Inicio del top informes 4 divs -->
                     <div id="cuatro-divs" class="mobilScreen">
                         <span class="stretch" class="divFull"></span>
                         <!-- Primer div -->
                         <div id="primerDiv" class="border rounded contenedor-trabajos espacio-margen">
-                            <label class="d-flex justify-content-center text-centro">Platos vendidos</label><i
-                                class="fas fa-drumstick-bite d-flex justify-content-center"
+                            <label class="d-flex justify-content-center text-centro">Ordenes eliminadas</label><i
+                                class="fa fa-window-close d-flex justify-content-center"
                                 style="width: 100%;font-size: x-large;color: #585858;"></i><label
                                 class="d-flex justify-content-center text-centro text-bold">{{numPlatosVendidos}}</label>
-                            <label class="d-flex justify-content-center subtitulo">Platos</label><a
-                                class="d-flex justify-content-center text-centro" 
-                                style="text-decoration: underline;" data-toggle="modal" href="#exampleModalCenter">Ver todos</a>
+                            <label class="d-flex justify-content-center subtitulo">ordenes</label><a
+                                class="d-flex justify-content-center text-centro" style="text-decoration: underline;"
+                                data-toggle="modal" href="#exampleModalCenter" id="productosRef">Ver todos</a>
                         </div>
                         <!-- Fin del primer div -->
                         <span class="stretch" class="divFull"></span>
@@ -111,8 +131,8 @@
                                 class="fa fa-check-square d-flex justify-content-center iconos"></i><label
                                 class="d-flex justify-content-center text-centro text-bold">{{numOrdenesFin}}</label><label
                                 class="d-flex justify-content-center subtitulo">Ordenes</label>
-                            <a class="d-flex justify-content-center text-centro" href="#"
-                                style="text-decoration: underline;">Ver todos</a>
+                            <a class="d-flex justify-content-center text-centro" href="#ordenesFinalizadas"
+                                data-toggle="modal" style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del segundo div -->
                         <span class="stretch" class="divFull"></span>
@@ -122,8 +142,8 @@
                                 class="fa fa-coffee d-flex justify-content-center iconos"></i><label
                                 class="d-flex justify-content-center text-centro text-bold">{{platoMasVendido}}</label><label
                                 class="d-flex justify-content-center subtitulo">{{pmvCantidad}} veces vendida</label>
-                            <a class="d-flex justify-content-center" href="#"
-                                style="width: 100%;text-decoration: underline;">Ver todos</a>
+                            <a class="d-flex justify-content-center" href="#modalProductos"
+                            data-toggle="modal" style="width: 100%;text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del tercer div -->
                         <span class="stretch" class="divFull"></span>
@@ -133,7 +153,7 @@
                                 class="fa fa-gears d-flex justify-content-center iconos"></i><label
                                 class="d-flex justify-content-center text-centro text-bold">{{ordenesActivas}}</label><label
                                 class="d-flex justify-content-center subtitulo">Platos</label>
-                            <a class="d-flex justify-content-center text-centro" href="#"
+                            <a class="d-flex justify-content-center text-centro" href="ordenes.html"
                                 style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del cuarto div -->
@@ -182,9 +202,11 @@
                                             despachadas</label>
                                     </div>
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
+                                        <label class="d-flex justify-content-center text-centro reziseText">Ordenes:
+                                            {{mesOrCantidad}}</label>
                                         <label
-                                            class="d-flex justify-content-center text-centro reziseText">Ordenes: {{mesOrCantidad}}</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}} Hasta
+                                            class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}}
+                                            Hasta
                                             {{mesOrFechaFin}}</label>
                                     </div>
                                     <div class="tresPuntos">
@@ -226,7 +248,8 @@
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
                                         <label class="d-flex justify-content-center text-centro reziseText">Número de
                                             faltas:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{numeroFaltas}}</label>
+                                        <label
+                                            class="d-flex justify-content-center text-centro empName">{{numeroFaltas}}</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -246,7 +269,8 @@
                                     <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
                                         <label class="d-flex justify-content-center text-centro reziseText">Venidas
                                             tarde:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{venidasTarde}}</label>
+                                        <label
+                                            class="d-flex justify-content-center text-centro empName">{{venidasTarde}}</label>
                                     </div>
                                     <div class="tresPuntos">
                                         <i class="fas fa-ellipsis-v empName"></i>
@@ -260,29 +284,175 @@
                     </div>
 
                 </div>
-
-
                 <!-- --------------------Modales----------------- -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+
+                <!-- ================== Modal: Ordenes eliminadas ================= -->
+                <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Ordenes eliminadas</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                jijiji
+                                <!-- table responsive -->
+                                <div class="container">
+                                    <h2>Ordenes eliminadas por semana</h2>
+                                    <ul class="responsive-table">
+                                        <li class="table-header">
+                                            <div class="col col-1">Semana #</div>
+                                            <div class="col col-2">Producto</div>
+                                            <div class="col col-3">Valor</div>
+                                            <div class="col col-4">Motivos</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">1</div>
+                                            <div class="col col-2" data-label="Producto">12</div>
+                                            <div class="col col-3" data-label="Valor">$350</div>
+                                            <div class="col col-4" data-label="Motivos">El cliente se retiró</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">2</div>
+                                            <div class="col col-2" data-label="Producto">8</div>
+                                            <div class="col col-3" data-label="Valor">$220</div>
+                                            <div class="col col-4" data-label="Motivos">No andaba dinero</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">3</div>
+                                            <div class="col col-2" data-label="Producto">20</div>
+                                            <div class="col col-3" data-label="Valor">$341</div>
+                                            <div class="col col-4" data-label="Motivos">Mucho esperó</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">4</div>
+                                            <div class="col col-2" data-label="Producto">3</div>
+                                            <div class="col col-3" data-label="Valor">$115</div>
+                                            <div class="col col-4" data-label="Motivos">Otros</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- fin de table responsive -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- ================== Fin del Modal: Ordenes eliminadas ================= -->
+
+
+                <!-- ================== Modal: Ordenes Finalizadas ================= -->
+
+                <div class="modal fade " id="ordenesFinalizadas" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Ordenes Finalizadas</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- table responsive -->
+                                <div class="container">
+                                    <h2>Ordenes finalizadas por semana</h2>
+                                    <ul class="responsive-table">
+                                        <li class="table-header">
+                                            <div class="col col-1">Semana #</div>
+                                            <div class="col col-2">Producto</div>
+                                            <div class="col col-3">Valor</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">1</div>
+                                            <div class="col col-2" data-label="Producto">12</div>
+                                            <div class="col col-3" data-label="Valor">$350</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">2</div>
+                                            <div class="col col-2" data-label="Producto">8</div>
+                                            <div class="col col-3" data-label="Valor">$220</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">3</div>
+                                            <div class="col col-2" data-label="Producto">20</div>
+                                            <div class="col col-3" data-label="Valor">$341</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">4</div>
+                                            <div class="col col-2" data-label="Producto">3</div>
+                                            <div class="col col-3" data-label="Valor">$115</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- fin de table responsive -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================== Fin del Modal: Ordenes Finalizadas ================= -->
+
+                <!-- ================== Modal: Productos ================= -->
+
+                <div class="modal fade " id="modalProductos" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Productos más vendidos</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- table responsive -->
+                                <div class="container">
+                                    <h2>Más vendidos por semana</h2>
+                                    <ul class="responsive-table">
+                                        <li class="table-header">
+                                            <div class="col col-1">Semana #</div>
+                                            <div class="col col-2">Producto</div>
+                                            <div class="col col-3">Valor</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">1</div>
+                                            <div class="col col-2" data-label="Producto">Coca-Cola</div>
+                                            <div class="col col-3" data-label="Valor">$0.50</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">2</div>
+                                            <div class="col col-2" data-label="Producto">Carne Asada</div>
+                                            <div class="col col-3" data-label="Valor">$7.00</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">3</div>
+                                            <div class="col col-2" data-label="Producto">Churrasco</div>
+                                            <div class="col col-3" data-label="Valor">$5.75</div>
+                                        </li>
+                                        <li class="table-row">
+                                            <div class="col col-1" data-label="Semana #">4</div>
+                                            <div class="col col-2" data-label="Producto">Pilsener</div>
+                                            <div class="col col-3" data-label="Valor">$1.25</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- fin de table responsive -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================== Fin del Modal: Productos ================= -->
+
 
                 <!-- -------------------- Fin de Modales----------------- -->
 

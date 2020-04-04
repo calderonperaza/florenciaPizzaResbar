@@ -46,7 +46,7 @@ Vue.component('reactive', {
     }
 });
 
-//-------------------- Fin de vue componen que es el chart ------------------------
+//-------------------- Fin de vue component que es el chart ------------------------
 
 var vm = new Vue({
     el: '#appRESBAR',

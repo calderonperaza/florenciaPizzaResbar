@@ -16,5 +16,3 @@ $(".tabs-inf").on("click",".a-inf",function(e){
 });
 
 
-
-
