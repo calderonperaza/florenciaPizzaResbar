@@ -207,8 +207,78 @@
                     <!-- /Botones de accion-->
 
 
+                    <div class="modal fade bd-example-modal-xl" id="resumenModal" data-backdrop="static" tabindex="-1" >
+                        <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header text-light bg-primary p-3">
+                            <h5 class="modal-title " id="staticBackdropLabel">Resumen</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
 
+                                    <div class="col-md-12 col-lg-7 ">
+                                        <div class="table-wrapper-scroll-y " style="height:230px ;overflow: auto;">
+                                        <table class="table  table-striped table-sm ">
+                                            <thead class="thead-light">
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Descripcion</th>
+                                                <th scope="col">Precio unitario</th>
+                                                <th scope="col">Sub Total</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr v-if="detalle.cantidad > 0" v-for="detalle of nuevaOrden.detalleOrden">
+                                                <th scope="row">{{ detalle.cantidad }}</th>
+                                                <td>{{ detalle.nombre }}</td>
+                                                <td>${{ detalle.precio }}</td>
+                                                <td>${{ detalle.precio*detalle.cantidad }}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-md-12 col-lg-5 text-right font-weight-bold" >
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
+                                            <div class="col-9">
+                                              <input type="text" readonly class="form-control-plaintext" id="staticClient" v-model="nuevaOrden.cliente">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticWaiter" class="col-3 col-form-label">Mesero:</label>
+                                            <div class="col-9">
+                                              <input type="text" readonly class="form-control-plaintext" id="staticWaiter" v-model="nuevaOrden.mesero">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticTable" class="col-3 col-form-label">#Mesa:</label>
+                                            <div class="col-9">
+                                              <input type="text" readonly class="form-control-plaintext" id="staticTable" v-model="nuevaOrden.mesa">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticObs" class="col-3 col-form-label">Nota:</label>
+                                            <div class="col-9">
+                                              <textarea readonly class="form-control-plaintext" id="staticObs"   v-model="nuevaOrden.observacion" style="resize: none;
+                                              "></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <button type="button" class="btn btn-light col-6" data-dismiss="modal">Regresar</button>
+                                            <button type="button" class="btn btn-primary col-6" data-dismiss="modal">Confirmar</button>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                        <!-- Fin modal Resumen-->
 
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
