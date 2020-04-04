@@ -35,66 +35,54 @@
                     <!-- Termina seccion de alertas -->
 
                     <!-- Inicio: Informacion  Orden-->
-                    <form class="">
-                        <div class="form-group row" style="margin: 0px 20px 20px 20px;">
-
-                            <label style="font-size: 12px; margin-left: 15px;" for="lblOrden"
+                    <form class="form-inline">
+                        <div class="form-group mb-2">
+                            <label style="font-size: 12px; margin-left:10px;" for="lblOrden"
                                 class="col-sm-0 col-form-label col-form-label-sm">Orden:</label>
-                            <div class="col-sm-2">
-                                <input style="font-size: 12px;" type="text" id="lblOrden" v-model="ordenSelected.id"
-                                    readonly class="form-control form-control-sm form-control-plaintext">
-                            </div>
-
-                            <label style="font-size: 12px; margin-left: 15px;" for="lblMesa"
+                            <input style="font-size: 12px; width: 92px;margin-left: 5px;" type="text"
+                                id="lblOrden" v-model="ordenSelected.id" readonly
+                                class="form-control form-control-sm form-control-plaintext">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label style="font-size: 12px; margin-left:10px;" for="lblMesa"
                                 class="col-sm-0 col-form-label col-form-label-sm">Mesa:</label>
-                            <div class="col-sm-2">
-                                <input style="font-size: 12px;" type="text" id="lblMesa" v-model="ordenSelected.mesa"
-                                    readonly class="form-control form-control-sm form-control-plaintext">
-                            </div>
-
-                            <label style="font-size: 12px; margin-left: 15px;" for="lblMesero"
+                            <input style="font-size: 12px; width: 92px;margin-left: 5px;" type="text"
+                                id="lblMesa" v-model="ordenSelected.mesa" readonly
+                                class="form-control form-control-sm form-control-plaintext">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label style="font-size: 12px; margin-left:10px;" for="lblMesero"
                                 class="col-sm-0 col-form-label col-form-label-sm">Mesero:</label>
-                            <div class="col-sm-2">
-                                <input style="font-size: 12px;" type="text" id="lblMesero"
-                                    v-model="ordenSelected.mesero" readonly
-                                    class="form-control form-control-sm form-control-plaintext">
-                            </div>
-
-                            <label style="font-size: 12px; margin-left: 15px;" for=""
+                            <input style="font-size: 12px; width: 92px; margin-left: 5px;" type="text"
+                                id="lblMesero" v-model="ordenSelected.mesero" readonly
+                                class="form-control form-control-sm form-control-plaintext">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label style="font-size: 12px; margin-left:10px;" for=""
                                 class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
-                            <div class="col-sm-2">
-                                <input style="font-size: 12px;" type="text" id="lblCliente"
-                                    v-model="ordenSelected.cliente" readonly
-                                    class="form-control form-control-sm form-control-plaintext">
-                            </div>
-
+                            <input style="font-size: 12px; width: 92px;margin-left: 5px;" type="text"
+                                id="lblCliente" v-model="ordenSelected.cliente" readonly
+                                class="form-control form-control-sm form-control-plaintext">
                         </div>
                     </form>
-                    <hr />
+                    <hr/>
                     <!-- Fin: Informacion Orden-->
 
-                    <h4 class="text-center">Menú</h4>
+                    <h3 class="text-center">Menú</h3>
                     <!-- Inicio: Barra Navegacion -->
-                    <nav class="navbar navbar-light navbar-expand-md mb-4 navigation-clean-search"
-                        style="border-radius: 10px; ">
+                    <div class="navbar navbar-light navbar-expand-md mb-4">
                         <div class="col-md-3">
                             <input class="form-control my-2" type="text" v-model="nombre" placeholder="Buscar producto">
                         </div>
-                        <div class="container" style="margin-left:5px; margin-right: 5px;">
-                            <div class="sidebar-brand-text mx-3"><span>CATEGORIAS</span></div>
-                            <div style="margin-right: 255px;" id="navcol-1">
-                                <ul class="nav">
-                                    <button class="nav-item btn btn-primary btn-sm ml-1" href="#"
+                        <div class="sidebar-brand-text mx-3"><span>CATEGORIAS</span></div>
+                        <div class="sidebar-brand-text">
+                                <button class="nav-item btn btn-primary btn-sm ml-1"
                                         v-on:click.prevent="categoriaSelected=categoria.nombre;"
-                                        v-for="categoria in categorias">
-                                        <a class="nav-link" href="#" style="color: white;"
-                                            v-on:click.prevent="categoriaSelected=categoria.nombre;" v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  
-                                    'text-dark': categoriaSelected==categoria.nombre }">{{ categoria.nombre }}</a>
-                                    </button>
-                                </ul>
-                            </div>
+                                        v-for="categoria in categorias" v-on:click.prevent="categoriaSelected=categoria.nombre;" v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  
+                                        'text-dark': categoriaSelected==categoria.nombre }"style="width: 70px;">{{categoria.nombre}}
+                                </button>
                         </div>
-                    </nav>
+                    </div>
                     <!-- Fin: Barra Navegacion -->
 
                     <!-- Inicio: Tabla-->
@@ -148,7 +136,7 @@
 
                                 <!-- Inicio: Cabecera Modal Resumen-->
                                 <div class="modal-header">
-                                    <div class="sidebar-brand-text mx-3"><span>RESUMEN DE PRODUCTOS</span></div>
+                                    <div class="sidebar-brand-text mx-3"><span>RESUMEN DE PRODUCTOS AGREGADOS</span></div>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -156,44 +144,39 @@
                                 <!-- Fin: Cabecera Modal Resumen-->
 
                                 <!-- Inicio: Informacion  Orden-->
-                                <form class="">
-                                    <div class="form-group row" style="margin: 10px 10px 20px 20px;">
-
-                                        <label style="font-size: 12px; margin-left: 15px;" for="lblOrden"
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblOrden"
                                             class="col-sm-0 col-form-label col-form-label-sm">Orden:</label>
-                                        <div class="col-sm-2">
-                                            <input style="font-size: 12px;" type="text" id="lblOrden"
-                                                v-model="ordenSelected.id" readonly
-                                                class="form-control form-control-sm form-control-plaintext">
-                                        </div>
-
-                                        <label style="font-size: 12px; margin-left: 15px;" for="lblMesa"
-                                            class="col-sm-0 col-form-label col-form-label-sm">Mesa:</label>
-                                        <div class="col-sm-2">
-                                            <input style="font-size: 12px;" type="text" id="lblMesa"
-                                                v-model="ordenSelected.mesa" readonly
-                                                class="form-control form-control-sm form-control-plaintext">
-                                        </div>
-
-                                        <label style="font-size: 12px; margin-left: 15px;" for="lblMesero"
-                                            class="col-sm-0 col-form-label col-form-label-sm">Mesero:</label>
-                                        <div class="col-sm-2">
-                                            <input style="font-size: 12px;" type="text" id="lblMesero"
-                                                v-model="ordenSelected.mesero" readonly
-                                                class="form-control form-control-sm form-control-plaintext">
-                                        </div>
-
-                                        <label style="font-size: 12px; margin-left: 15px;" for=""
-                                            class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
-                                        <div class="col-sm-2">
-                                            <input style="font-size: 12px;" type="text" id="lblCliente"
-                                                v-model="ordenSelected.cliente" readonly
-                                                class="form-control form-control-sm form-control-plaintext">
-                                        </div>
+                                        <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
+                                            id="lblOrden" v-model="ordenSelected.id" readonly
+                                            class="form-control form-control-sm form-control-plaintext">
                                     </div>
-                                    <hr />
+                                    <div class="form-group mb-2">
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesa"
+                                            class="col-sm-0 col-form-label col-form-label-sm">Mesa:</label>
+                                        <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
+                                            id="lblMesa" v-model="ordenSelected.mesa" readonly
+                                            class="form-control form-control-sm form-control-plaintext">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesero"
+                                            class="col-sm-0 col-form-label col-form-label-sm">Mesero:</label>
+                                        <input style="font-size: 12px; width: 100px; margin-left: 5px;" type="text"
+                                            id="lblMesero" v-model="ordenSelected.mesero" readonly
+                                            class="form-control form-control-sm form-control-plaintext">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label style="font-size: 12px; margin-left:10px;" for=""
+                                            class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
+                                        <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
+                                            id="lblCliente" v-model="ordenSelected.cliente" readonly
+                                            class="form-control form-control-sm form-control-plaintext">
+                                    </div>
+                                    <hr/>
                                 </form>
                                 <!-- Fin: Informacion Orden-->
+
 
                                 <!-- Inicio: Tabla Modal Resumen-->
                                 <div class="modal-body">

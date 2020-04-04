@@ -3,6 +3,7 @@ new Vue({
     data: {
         // Aqui inician las propiedades que vamos a necesitar
         //para almacenar nuestros objetos de trabajo
+        
         productoSelected: {id:"0",nombre:"", precio: 0.00, categoria:{nombre:""}},
         productos: [
             {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
@@ -23,7 +24,8 @@ new Vue({
             nombre: "",
             precio: "0.00",
             Categoria:""
-        },
+        }, 
+        
         displayOption: "",
         txtBuscar: "",
         
@@ -33,6 +35,17 @@ new Vue({
     }, 
     methods: {
         //aqui van los metodos que vamos a necesitar
+        modoeditar(){
+                     /*this.productx= {nombre:"", precio: 0.00, categoria:{nombre:""}};
+                    return  this.productx.nombre=productoSelected.nombre,
+                     this.productx.precio=productoSelected.precio,
+                     this.productx.categoria.nombre=productoSelected.categoria.nombre,*/
+                     this.getProductoSelected();
+                    console.log(this.getProductoSelected);
+
+
+
+        },
 
         addMode(){
             this.clearData();
@@ -46,11 +59,12 @@ new Vue({
                 Categoria:""
             };
             this.productoSelected = {id:"0",nombre:"", precio: 0.00, categoria:{nombre:""}};
+
         },
 
         getProductoSelected(){
             this.displayOption="Modificar Producto";
-            this.producto=producto;
+            this.producto=productoSelected;
             console.log(producto);
         },
         buscar: function(x) {

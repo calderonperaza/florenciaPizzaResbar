@@ -4,10 +4,35 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="refresh" content="0;URL=ordenes.html">
+    <style>
+        .ml-auto {
+            margin-left: auto!important;
+        }
+        
+        .spinner-border {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            vertical-align: text-bottom;
+            border: .25em solid;
+            border-right: .25em solid transparent;
+            border-radius: 50%;
+            animation: spinner-border .75s linear infinite;
+        }
+        
+        .align-items-center {
+            align-items: center!important;
+        }
+    </style>
 </head>
 
 <body>
-    Esta página cambia
+    <p>
+        <div class="align-items-center">
+            <strong>Cargando...</strong>
+            <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+        </div>
+    </p>
 </body>
 
 </html>

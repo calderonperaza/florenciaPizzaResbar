@@ -31,11 +31,11 @@ detalleOrden:[
 
 //en el momento que se cobra una orden se actualiza
 RESUMENDEVENTAS
-{fecha:"2020-10-31", total:32.55, productos:[
+{id:"123asd12",fecha:"2020-10-31", total:32.55, productos:[
 {cantidad:1,nombre:"Soda Fanta 12 onz"},
 {cantidad:2,nombre:"Refresco de Horchata"},
 ]},
-{fecha:"2020-10-28", total:32.55, productos:[
+{id:"223asd13",fecha:"2020-10-28", total:32.55, productos:[
 {cantidad:1,nombre:"Hamburguesa Big"},
 {cantidad:2,nombre:"Pizza Suprema"},
 ]},
