@@ -73,14 +73,18 @@
                     <div class="row my-5">
                         <!-- Filtro buscar -->
                         <div class="col-md-4 ">
-                            <label class="col-form-label mx-3">Buscar:</label>
-                            <input type="text" v-model="searchDisplay">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" placeholder="Buscar" v-model="searchDisplay">
+                            </div>
                         </div>
 
                         <!-- Boton Agregar nuevo -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
-                            <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#formModalNew" v-on:click="addMode">
-                                <i class="fa fa-plus-circle mr-2"></i>Agregar</button>
+                            <button class="btn btn-sm agg text-white" type="button" data-toggle="modal" data-target="#formModalNew" v-on:click="addMode">
+                                <i class="fa fa-plus-circle mr-2 text-white"></i>Agregar</button>
                         </div>
                     </div>
 
@@ -111,7 +115,7 @@
                             </thead>
                             <tbody>
                                 <tr class="active " v-for="(cat,index) in categorias" v-show="filtro(index)">
-                                    <th scope="row">{{cat.id}}</th>
+                                    <td scope="row">{{cat.id}}</td>
                                     <td>{{cat.nombre }}</td>
                                     <td>
 

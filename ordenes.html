@@ -69,9 +69,13 @@
 
                     <div class="row my-5">
                         <!-- Filtro buscar -->
-                        <div class="col-md-4 ">
-                            <label class="col-form-label mx-3">Buscar:</label>
-                            <input type="text" v-model="textoBusqueda">
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" placeholder="Buscar" v-model="textoBusqueda">
+                            </div>
                         </div>
 
                         <!-- Boton Agregar nueva orden  -->
@@ -79,35 +83,31 @@
 
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
                             <div>
-                                <button class="btn btn-primary" type="button" title="Nueva orden"><i class="fa fa-plus-circle mr-2"></i>
-                                    <a class="text-white " href="nuevaorden.html" >Agregar</a>
+                                <button class="agg" type="button" title="Nueva orden"><i class="fa fa-plus-circle mr-2"></i>
+                                    <a class="text-white " href="nuevaorden.html"
+                                    style="text-decoration: none;">Agregar</a>
                                  </button>
                             </div>
-
                         </div>
                     </div>
-
-                    <!-- Inicia seccion de alertas -->
-                    <div class="alert alert-success collapse" role="alert" id="buttonAlert">
-                        <strong>Success!</strong> Productos Agregados Correctamente.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <!-- Termina seccion de alertas -->
-
+                    <!--    -->
+                
                     <!-- Toggle para mostrar activos -->
-                    <label class="text-primary">Mostrar todas</label>
-                    <label class="switch">
-                        <input type="checkbox" >
+                    <div class="col-md-4">
+                        <label class="text-capitalize text-primary">Mostrar todas</label>
+                        <label class="switch">
+                            <input type="checkbox" >
                         <span class="slider round"  v-on:click = "mostrarActivos"></span>
                       </label>
+                    </div>
+                    
                     <!-- -->
 
-                    <div v-if="alertBool" class="alert alert-success" role="alert">
+                    <!-- Inicia seccion de alertas -->
+                    <div v-if="alertBool" class="alert alerta" role="alert">
                         {{alerta}}
                     </div>
-
+                    <!-- Termina seccion de alertas -->
 
                     <!-- Incia Tabla -->
                     <!--Tabla para desktop-->
