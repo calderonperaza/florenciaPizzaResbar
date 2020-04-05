@@ -193,15 +193,12 @@
                     <!-- Botones de accion-->
                     <div class="form-group row mt-5">
                         <div class="col">
-                            <button type="button" class="btn btn-secondary col">
+                            <button type="button" class="btn btn-secondary col" data-target="#resumenModal">
                                 <a class="text-white" href="ordenes.html" >Cancelar</a>
                             </button>
                         </div>
                         <div class="col">
-                            <button type="submit" class="btn btn-primary col">
-                                <i class="fa fa-plus-circle mr-2"></i>
-                                <a class="text-white" href="detallenuevaorden.html" >Verificar</a>
-                            </button>
+                            <button class="btn btn-primary col" type="button" data-toggle="modal" data-target="#resumenModal" ><i class="fa fa-plus-circle mr-2"></i>Verificar</button>
                         </div>
                     </div>
                     <!-- /Botones de accion-->
@@ -278,7 +275,8 @@
                         </div>
                         </div>
                     </div>
-                        <!-- Fin modal Resumen-->
+                    <!-- Fin modal Resumen-->
+
 
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
