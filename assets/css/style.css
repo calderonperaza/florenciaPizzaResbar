@@ -118,6 +118,7 @@ input{
     border: 3px solid #05abe0;
     border-radius: 0 50px 50px 0;
     padding: 0 10px;
+    outline: none;
 }
 .buscar{
     border: 3px solid #05abe0;
