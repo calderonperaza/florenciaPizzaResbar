@@ -127,7 +127,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
+                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblclick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -166,7 +166,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
+                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
@@ -179,11 +179,11 @@
                                             <i class="fas text-white fa-plus-circle"></i></a>
                                         </button>
                                         <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
-                                                <i class="fas fa-edit text-white"></i></a>
-                                            </button>
+                                                <i class="fas text-white fa-edit"></i></a>
+                                        </button>
                                         <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
-                                                    <i class="fas fa-money-bill text-white"></i></a>
-                                            </button>
+                                                <i class="fas text-white fa-money-bill"></i></a>
+                                        </button>
                                         </td>
                                 </tr>
                             </tbody>
@@ -204,12 +204,12 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
+                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos" @click="ordenSelected=orden; modificarOrden();"></i></button>
+                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos" @click="ordenSelected=orden; agregarProductos();"></i></button>
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
                                         </td>
@@ -228,12 +228,12 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
+                                <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden" v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
                                     <td>{{orden.id}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" data-toggle="modal" title="Agregar mas productos"></i></button>
+                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos" @click="ordenSelected=orden; agregarProductos();"></i></button>
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
                                         </td>
@@ -246,7 +246,103 @@
 
                     </div>
                     <!-- Termina Tabla -->
-                </div>
+                
+                    <!--Inicia el modal Detalle-->
+                    <div class="modal fade bd-example-modal-xl" id="modalDetalle" data-backdrop="static" tabindex="-1" >
+                        <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <!--Head modal-->
+                            <div class="modal-header" style="background-color:rgb(62, 114, 221);">
+                                <h4 class="text-center" style="color:rgb(248, 249, 252);">Detalle de Orden</h4>
+
+                                <!--muestra estado de la orden-->
+                                <div class="ml-auto" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id" style="margin: 0px;">
+                                    <h5 class="modal-title" style="color: #f0f9ff;" v-show="orden.estado==&quot;C&quot;">Orden Cobrada</h5>
+                                    <h5 class="modal-title" style="color: #f0f9ff;" v-show="orden.estado==&quot;A&quot;">Orden Activa</h5>
+                                </div>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <!--Body modal-->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!--Datos de la orden-->
+                                    <div class="col-md-12 col-lg-5 text-left font-weight-bold"  v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Id orden:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.id}} </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.cliente}} </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Mesa:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.mesa}} </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Mesero:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.mesero}} </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Fecha:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.fecha}} </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="staticClient" class="col-3 col-form-label">Observacion:</label>
+                                            <div class="col-9">
+                                                <label>{{orden.observacion}} </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Tabla con el detalle de la orden-->
+                                    <div class="col-md-12 col-lg-7 ">
+                                        <div class="table-wrapper-scroll-y " style="height:230px ;overflow: auto;">
+                                        <table class="table  table-striped table-sm ">
+                                            <thead >
+                                              <tr>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Precio unitario</th>
+                                                <th scope="col">Sub Total</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr v-for="detalle in ordenSelected.detalleOrden" >
+                                                <th>{{detalle.cantidad}}</th>
+                                                <td>{{detalle.nombre}}</td>
+                                                <td>${{detalle.precio}}</td>
+                                                <td>${{detalle.subtotal}}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                        <div class="row" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
+                                            <div class="col"><label>TOTAL : </label><label ><strong>$ {{ orden.total }}</strong></label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Footer modal-->
+                            <div class="modal-footer" style="background-color:rgb(62, 114, 221);">
+                                <button class="btn btntable btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+                            </div>
+                          
+                        </div>
+                    
+                    </div>
+                    <!--termina modal detalle-->
+                    </div>
+                    <!--termina modal-->
 
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
 
