@@ -247,62 +247,63 @@
                     <!-- Termina Tabla -->
                 
                     <!--Inicia el modal Detalle-->
-                    <div class="modal fade bd-example-modal-xl" id="modalDetalle" data-backdrop="static" tabindex="-1" >
+                    <div class="modal fade bd-example-modal-xl" style="border-radius: 8px;" id="modalDetalle" data-backdrop="static" tabindex="-1" >
                         <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <!--Head modal-->
-                            <div class="modal-header" style="background-color:rgb(62, 114, 221);">
-                                <h4 class="text-center" style="color:rgb(248, 249, 252);">Detalle de Orden</h4>
+                            <div class="modal-header bg-gradient-primary">
+                                <h4 class="text-center text-white">Detalle de Orden</h4>
 
                                 <!--muestra estado de la orden-->
                                 <div class="ml-auto" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id" style="margin: 0px;">
-                                    <h5 class="modal-title" style="color: #f0f9ff;" v-show="orden.estado==&quot;C&quot;">Orden Cobrada</h5>
-                                    <h5 class="modal-title" style="color: #f0f9ff;" v-show="orden.estado==&quot;A&quot;">Orden Activa</h5>
+                                    <h5 class="modal-title text-white" v-show="orden.estado==&quot;C&quot;">Orden Cobrada</h5>
+                                    <h5 class="modal-title text-white" v-show="orden.estado==&quot;A&quot;">Orden Activa</h5>
                                 </div>
-                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="text-white-50" aria-hidden="true">×</span></button></div>
                             <!--Body modal-->
                             <div class="modal-body">
                                 <div class="row">
                                     <!--Datos de la orden-->
                                     <div class="col-md-12 col-lg-5 text-left font-weight-bold"  v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
+                                        
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Id orden:</label>
+                                            <label for="id" class="col-3 col-form-label text-center text-white total">Id orden:</label>
                                             <div class="col-9">
-                                                <label>{{orden.id}} </label>
+                                                <label id="id" style="color: #000000; left: -5px;" class="form-control-plaintext">{{orden.id}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
+                                            <label for="cliente" class="col-3 text-center col-form-label text-white total">Cliente:</label>
                                             <div class="col-9">
-                                                <label>{{orden.cliente}} </label>
+                                                <label id="cliente" style="color: #000000;" class="form-control-plaintext">{{orden.cliente}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Mesa:</label>
+                                            <label for="staticClient" class="col-3 text-center col-form-label text-white total">Mesa:</label>
                                             <div class="col-9">
-                                                <label>{{orden.mesa}} </label>
+                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.mesa}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Mesero:</label>
+                                            <label for="staticClient" class="col-3 col-form-label text-center text-white total">Mesero:</label>
                                             <div class="col-9">
-                                                <label>{{orden.mesero}} </label>
+                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.mesero}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Fecha:</label>
+                                            <label for="staticClient" class="col-3 col-form-label text-white text-center total">Fecha:</label>
                                             <div class="col-9">
-                                                <label>{{orden.fecha}} </label>
+                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.fecha}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Observacion:</label>
+                                            <label for="staticClient" class="col-3 col-form-label text-white text-center total">Observacion:</label>
                                             <div class="col-9">
-                                                <label>{{orden.observacion}} </label>
+                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.observacion}} </label>
                                             </div>
                                         </div>
                                     </div>
-
+                                
                                     <!--Tabla con el detalle de la orden-->
                                     <div class="col-md-12 col-lg-7 ">
                                         <div class="table-wrapper-scroll-y " style="height:230px ;overflow: auto;">
@@ -317,7 +318,7 @@
                                             </thead>
                                             <tbody>
                                               <tr v-for="detalle in ordenSelected.detalleOrden" >
-                                                <th>{{detalle.cantidad}}</th>
+                                                <th class="text-center">{{detalle.cantidad}}</th>
                                                 <td>{{detalle.nombre}}</td>
                                                 <td>${{detalle.precio}}</td>
                                                 <td>${{detalle.subtotal}}</td>
@@ -326,14 +327,14 @@
                                           </table>
                                         </div>
                                         <div class="row" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
-                                            <div class="col"><label>TOTAL : </label><label ><strong>$ {{ orden.total }}</strong></label></div>
+                                            <div class="col-md-4"><strong><label class="mTotal" style="padding: 5px; color: #ffffff;">TOTAL : $ {{ orden.total }}</label></strong></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!--Footer modal-->
-                            <div class="modal-footer" style="background-color:rgb(62, 114, 221);">
-                                <button class="btn btntable btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+                            <div class="modal-footer bg-gradient-primary">
+                                <button class="btn btntable btn-sm text-white" type="button" data-dismiss="modal">Cerrar</button>
                             </div>
                           
                         </div>
