@@ -133,7 +133,7 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
-                                    <td>${{orden.total}}</td>
+                                    <td>${{(orden.total).toFixed(2)}}</td>
                                     <td>
                                         
                                         <button type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
@@ -172,7 +172,7 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
-                                    <td>${{orden.total}}</td>
+                                    <td>${{(orden.total).toFixed(2)}}</td>
                                     <td>
                                         
                                         <button type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
@@ -327,7 +327,7 @@
                                           </table>
                                         </div>
                                         <div class="row" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
-                                            <div class="col-md-4"><strong><label class="mTotal" style="padding: 5px; color: #ffffff;">TOTAL : $ {{ orden.total }}</label></strong></div>
+                                            <div class="col-md-4"><strong><label class="mTotal" style="padding: 5px; color: #ffffff;">TOTAL : $ {{(orden.total).toFixed(2)}}</label></strong></div>
                                         </div>
                                     </div>
                                 </div>
