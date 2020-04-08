@@ -133,16 +133,27 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
-                                    <td>${{orden.total}}</td>
-                                    <td>
+                                    <td>${{orden.total.toFixed(2)}}</td>
+                                    <td v-if="orden.estado == 'A'">
                                         
-                                        <button type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
+                                        <button  type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
                                             <i class="fas text-white fa-plus-circle"></i></a>
                                         </button>
                                         <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
                                                 <i class="fas text-white fa-edit"></i></a>
                                         </button>
                                         <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
+                                                <i class="fas text-white fa-money-bill"></i></a>
+                                        </button>
+                                    </td>
+                                    <td v-else>
+                                        <button type="button" class="btn btntable btn-sm disabled" title="Agregar Mas Productos">
+                                            <i class="fas text-white fa-plus-circle"></i></a>
+                                        </button>
+                                        <button type="button" class="btn btntable btn-sm disabled" title="Modificar Orden">
+                                                <i class="fas text-white fa-edit"></i></a>
+                                        </button>
+                                        <button type="button" class="btn btntable btn-sm disabled" title="Cobrar Orden">
                                                 <i class="fas text-white fa-money-bill"></i></a>
                                         </button>
                                         </td>
@@ -172,7 +183,7 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
-                                    <td>${{orden.total}}</td>
+                                    <td>${{orden.total.toFixed(2)}}</td>
                                     <td>
                                         
                                         <button type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
