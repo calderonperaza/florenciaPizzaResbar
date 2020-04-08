@@ -128,7 +128,7 @@
                             </thead>
                             <tbody >
                                 <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblclick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
-                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.id.substring(20,24)}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
@@ -167,7 +167,7 @@
                             </thead>
                             <tbody >
                                 <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden " v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
-                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.id.substring(20,24)}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
@@ -205,7 +205,7 @@
                             </thead>
                             <tbody >
                                 <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
-                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.id.substring(20,24)}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
@@ -229,7 +229,7 @@
                             </thead>
                             <tbody >
                                 <tr v-for = "(orden, index) in lactivos " v-show="buscar(index) " v-on:click="ordenSelected=orden" v-on:dblClick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden } ">
-                                    <td>{{orden.id}}</td>
+                                    <td>{{orden.id.substring(20,24)}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>
@@ -293,7 +293,7 @@
                                         <div class="form-group row">
                                             <label for="staticClient" class="col-3 col-form-label text-white text-center total">Fecha:</label>
                                             <div class="col-9">
-                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.fecha}} </label>
+                                                <label style="color: #000000;" class="form-control-plaintext">{{orden.fecha.substring(0,10)}} </label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
