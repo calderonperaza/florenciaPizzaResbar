@@ -95,6 +95,14 @@ input:checked+.slider:before {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
+.total{
+    background:linear-gradient(45deg, #4371ee 50%, rgb(51, 146, 230) 100%);
+    border-radius: 8px;
+}
+.mTotal{
+    background:linear-gradient(45deg, #087a9c 30%, rgb(45, 143, 135) 100%);
+    border-radius: 8px;
+}
 .ag{
     padding: 14px;
     border-radius: 15px;

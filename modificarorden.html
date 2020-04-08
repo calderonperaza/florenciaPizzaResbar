@@ -95,9 +95,9 @@
                                         <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
                                             <th class="small">{{detalleOrdenAux.nombre}}</th>
                                             <td>$ {{detalleOrdenAux.precio}}</td>
-                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0">-</button>{{detalleOrdenAux.cantidad}}<button type="button" class="btn btn-secondary btn-sm"
-                                                    @click="detalleOrdenAux.cantidad++">+</button></td>
-                                            <td class=" d-none d-xl-table-cell ">$ {{detalleOrdenAux.precio*detalleOrdenAux.cantidad}}</td>
+                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0 ; sumarORestarProducto();">-</button>{{detalleOrdenAux.cantidad}}<button type="button"
+                                                    class="btn btn-secondary btn-sm" @click="detalleOrdenAux.cantidad++; sumarORestarProducto();">+</button></td>
+                                            <td class=" d-none d-xl-table-cell ">$ {{(detalleOrdenAux.precio*detalleOrdenAux.cantidad).toFixed(2)}}</td>
                                             <td class="text-center ">
                                                 <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
                                                 <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
@@ -110,15 +110,15 @@
 
                         <!-- </div> -->
                         <div class="modal-footer ">
-                            <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
+                            <div class="container "><label>Total: ${{(ordenSelected.total*1).toFixed(2)}} </label></div>
                             <button type="button " class="btn btn-secondary " onClick="$( '#mdlModificarOrden').modal( 'hide') " @click="redireccionarAOrdenes();">Cancelar</button>
-                            <button type="button " class="btn btn-primary" @click="redireccionarAOrdenes();">Guardar</button>
+                            <button type="button " class="btn btn-primary" @click="modificarOrden();">Guardar</button>
                         </div>
                         <!-- </div> -->
                         <!-- </div> -->
                     </div>
                     <!-- Termina modificar orden -->
-
+                    <!-- <div>{{ordenSelected.detalleOrden}}</div> -->
                     <!-- modal de confirmacion eliminar orden -->
                     <div class="modal fade " id="mdlEliminarOrden" tabindex="-1 " role="dialog " aria-labelledby="tituloEliminar " aria-hidden="true ">
                         <div class="modal-dialog " role="document ">

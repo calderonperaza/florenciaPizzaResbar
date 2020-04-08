@@ -3,112 +3,62 @@ new Vue({
     data: {
         // Aqui inician las propiedades que vamos a necesitar
         //para almacenar nuestros objetos de trabajo
-
-        ordenSelected: '',
-        ordenes: [{
-                id: "2345ab54c1111",
-                fecha: "2020-10-31",
-                mesero: "Juan",
-                mesa: "2",
-                cliente: "",
-                estado: "A",
-                total: 21.10,
-                observacion: "",
-
-                detalleOrden: [
-
-                    { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 },
-
-                    { cantidad: 1, nombre: "Pizza Suprema", precio: 6.35, categoria: { nombre: "Platos" }, subtotal: 6.75 },
-
-                    { cantidad: 2, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 2 },
-
-                ]
-            },
-
-            {
-                id: "2345ab54c2222",
-                fecha: "2020-10-31",
-                mesero: "Luis",
-                mesa: "1",
-                cliente: "Don Carlos",
-                estado: "C",
-                total: 16.00,
-                observacion: "Sin Cebolla",
-
-                detalleOrden: [
-
-                    { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 },
-
-                    { cantidad: 2, nombre: "Ensalada Cesar", precio: 5.55, categoria: { nombre: "Platos" }, subtotal: 11.10 },
-
-                    { cantidad: 1, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 1.00 },
-
-                    { cantidad: 2, nombre: "Refresco de Horchata", precio: 1.75, categoria: { nombre: "Bebidas" }, subtotal: 1.75 }
-
-                ]
-            },
-            {
-                id: "2345ab54c2223",
-                fecha: "2020-10-31",
-                mesero: "Luis",
-                mesa: "5",
-                cliente: "Don Carlos",
-                estado: "A",
-                total: 16.00,
-                observacion: "Sin Cebolla",
-
-                detalleOrden: [
-
-                    { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 },
-
-                    { cantidad: 2, nombre: "Ensalada Cesar", precio: 5.55, categoria: { nombre: "Platos" }, subtotal: 11.10 },
-
-                    { cantidad: 1, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 1.00 },
-
-                    { cantidad: 2, nombre: "Refresco de Horchata", precio: 1.75, categoria: { nombre: "Bebidas" }, subtotal: 1.75 }
-
-                ]
-            }, {
-                id: "2345ab54c2224",
-                fecha: "2020-10-31",
-                mesero: "Luis",
-                mesa: "10",
-                cliente: "Don Carlos",
-                estado: "C",
-                total: 16.00,
-                observacion: "Sin Cebolla",
-
-                detalleOrden: [
-
-                    { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 },
-
-                    { cantidad: 2, nombre: "Ensalada Cesar", precio: 5.55, categoria: { nombre: "Platos" }, subtotal: 11.10 },
-
-                    { cantidad: 1, nombre: "Soda Fanta 12 onz", precio: 1.00, categoria: { nombre: "Bebidas" }, subtotal: 1.00 },
-
-                    { cantidad: 2, nombre: "Refresco de Horchata", precio: 1.75, categoria: { nombre: "Bebidas" }, subtotal: 1.75 },
-
-
-                ]
-            }
-        ],
+        uri: 'http://localhost:3000/ordenes',
+        ordenSelected: {},
+        ordenes: [],
         ascendente: true,
         activos: true,
         lactivos: null,
-        textoBusqueda: ""
+        textoBusqueda: "",
+        totalAux: ''
     },
+
     mounted: function() {
-        this.obtenerSelected();
+        this.obtenerOrdenes();
+
     },
     methods: {
 
-        // aqui van los metodos que vamos a necesitar
+        //Obtiene todas las ordenes 
+        obtenerOrdenes: function() {
+            axios.get(this.uri)
+                .then(response => {
+                    this.ordenes = response.data;
+                    this.obtenerSelected();
+                })
+                .catch(e => { console.log(e) })
+
+        },
+
+        // captura los parametros pasados por URL
         getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
             var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        },
+
+        //Recalcula el sub-total al sumar producto ademas de recalcular el total de la orden
+        sumarORestarProducto() {
+            this.ordenSelected.total = this.ordenSelected.detalleOrden.reduce((total, item) => {
+                item.subtotal = item.cantidad * item.precio;
+                total = total + item.subtotal;
+                return total;
+            }, 0)
+            parseFloat(this.ordenSelected.total).toFixed(2);
+        },
+
+        // modificar la orden 
+        modificarOrden() {
+            axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
+                .then(response => {
+                    console.log("exito");
+                    this.redireccionarAOrdenes();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
         },
 
         obtenerSelected() {
@@ -117,7 +67,7 @@ new Vue({
             })
         },
         redireccionarAOrdenes() {
-            window.location = "./ordenes.html?alert=se modifico la orden 12312asc Satisfactoriamente"
+            window.location = `./ordenes.html?alert=se modifico la orden ${this.ordenSelected.id} Satisfactoriamente`
         }
 
     },
