@@ -9,7 +9,8 @@ new Vue({
         textoBusqueda: "",
         alerta: "",
         alertBool: true,
-        uri:'http://localhost:3000/ordenes'
+        uri:'http://localhost:3000/ordenes',
+     
     },
     methods: {
         //Obtiene todas las ordenes 
@@ -137,6 +138,10 @@ new Vue({
         agregarProductos() {
             window.location = "./addmasproductos.html?id=" + this.ordenSelected.id;
         },
+        //Muestra el modal Detalle
+        mostrarDetalle:function(){
+            $('#modalDetalle').modal('show');
+           },    
     },
     mounted(){
         this.ordenar()
