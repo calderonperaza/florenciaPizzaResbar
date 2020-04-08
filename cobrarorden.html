@@ -44,20 +44,21 @@
 
                     <!--cobrar orden -->
                     <div class="" id="mdlCobrarOrden" tabindex="-1" role="dialog" aria-labelledby="titleCobrar" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-dialog modal-xl border border-info" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="titleCobrar">Cobrar Orden</h5>
+                                    <h5 class="modal-title" id="titleCobrar">Cobrar Orden: {{ordenSelected.id}}</h5>
                                 </div>
                                 <div class="modal-body">
                                     <div class="container">
                                         <h5 class="modal-title" id="mesero">Mesa: {{ordenSelected.mesa}}</h5>
                                         <h5 class="modal-title" id="mesero">Mesero: {{ordenSelected.mesero}}</h5>
                                         <h5 class="modal-title" id="cliente">Cliente: {{ordenSelected.cliente}}</h5>
+                                        <h5 class="modal-title" id="fecha"></h5>
                                         </br>
-                                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                                            <table class="table table-sm table-bordered table-striped mb-0 table-fixed">
-                                                <thead style="position: sticky;">
+                                        <div class="table-wrapper-scroll-y my-custom-scrollbar d-none d-lg-block">
+                                            <table class="table table-sm mb-0">
+                                                <thead class="bg-primary text-white" style="position: sticky;">
                                                     <tr>
                                                         <th scope="col">Producto</th>
                                                         <th scope="col">Categoria</th>
@@ -68,7 +69,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
-                                                        <th class="small">{{detalleOrdenAux.nombre}}</th>
+                                                        <td class="small">{{detalleOrdenAux.nombre}}</td>
                                                         <td>{{detalleOrdenAux.categoria.nombre}}</td>
                                                         <td>{{detalleOrdenAux.cantidad}}</td>
                                                         <td>$ {{detalleOrdenAux.precio}}</td>
@@ -77,16 +78,17 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <label for="lblEfectivo" class="col-form-label">Ingrese el efectivo: </label>
+                                        <label for="lblEfectivo" class="col-form-label" style="color: black;">Ingrese el efectivo: </label>
                                         <div class="col-sm-3 mr-md-5 col-lg-3">
-                                            <input type="text" class="form-control form-control-sm" id="lblEfectivo" />
+                                            <input type="number" class="form-control" id="lblEfectivo" required/>
                                         </div>
+                                        <label id="alerta" class="col-form-label" style="color: red;"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer ">
-                                    <div class="container "><label>Total: ${{ordenSelected.total}} </label></div>
-                                    <button type="button " class="btn btn-secondary " onClick="$( '#mdlCobrarOrden').modal( 'hide') "><a class="text-white" href="./ordenes.html">Cancelar</a></button>
-                                    <button type="button " class="btn btn-primary" @click="redireccionarAOrdenes();">Cobrar</button>
+                                    <div class="container "><label><h3 style="color: black;" class="font-weight-bold">Total: ${{ordenSelected.total}}</h3></label></div>
+                                    <button type="button " class="btn btn-secondary" @click="redireccionarAOrdenes();">Cancelar</button>
+                                    <button type="button " class="btn btn-primary" @click="cobrar();">Cobrar</button>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +114,7 @@
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/Script.js"></script>
     <!--Aqui va tu codigo de vue js-->
-    <script src="./modificarorden.js"></script>
+    <script src="./cobrarorden.js"></script>
 
 
 </body>
