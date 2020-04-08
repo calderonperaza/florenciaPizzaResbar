@@ -127,15 +127,15 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr v-if = "activos" v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblclick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
+                                <tr v-for = "(orden, index) in ordenes" v-show="buscar(index)" v-on:click="ordenSelected=orden" v-on:dblclick="mostrarDetalle" v-bind:class="{ 'font-weight-bold' : ordenSelected==orden, 'text-dark': ordenSelected==orden }">
                                     <td>{{orden.id.substring(20,24)}}</td>
                                     <td>{{orden.cliente}}</td>
                                     <td>{{orden.mesa}}</td>
                                     <td>{{orden.mesero}}</td>
                                     <td>{{orden.observacion}}</td>
                                     <td>${{orden.total.toFixed(2)}}</td>
+                                    
                                     <td v-if="orden.estado == 'A'">
-                                        
                                         <button  type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
                                             <i class="fas text-white fa-plus-circle"></i></a>
                                         </button>
