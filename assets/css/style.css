@@ -96,11 +96,12 @@ input:checked+.slider:before {
     transition: all .4s ease-in-out;
 }
 .total{
-    background:linear-gradient(45deg, #787D23 50%, #C0C92E 100%);
+    background:linear-gradient(45deg, #3d69e4 50%, #428BCA 100%);
     border-radius: 8px;
 }
 .mTotal{
-    background:linear-gradient(45deg, #7d2d29 30%, #C95C57 100%);
+    background:#787D23;
+    /*background:linear-gradient(45deg, #787D23 30%, #C0C92E 100%);*/
     border-radius: 8px;
 }
 .ag{

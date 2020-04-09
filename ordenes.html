@@ -108,7 +108,7 @@
                         {{alerta}}
                     </div>
                     <!-- Termina seccion de alertas -->
-
+                    
                     <!-- Incia Tabla -->
                     <!--Tabla para desktop-->
                     <!--Tabla para todas las ordenes-->
@@ -256,7 +256,8 @@
 
                     </div>
                     <!-- Termina Tabla -->
-                
+                    
+                    
                     <!--Inicia el modal Detalle-->
                     <div class="modal fade bd-example-modal-xl" style="border-radius: 8px;" id="modalDetalle" data-backdrop="static" tabindex="-1" >
                         <div class="modal-dialog modal-xl">
@@ -329,7 +330,7 @@
                                             </thead>
                                             <tbody>
                                               <tr v-for="detalle in ordenSelected.detalleOrden" >
-                                                <th class="text-center">{{detalle.cantidad}}</th>
+                                                <td class="text-center text-white">{{detalle.cantidad}}</td>
                                                 <td>{{detalle.nombre}}</td>
                                                 <td>${{detalle.precio}}</td>
                                                 <td>${{detalle.subtotal}}</td>
@@ -338,7 +339,7 @@
                                           </table>
                                         </div>
                                         <div class="row" v-for="orden in ordenes" v-show="orden.id==ordenSelected.id">
-                                            <div class="col-md-4"><strong><label class="mTotal" style="padding: 5px; color: #ffffff;">TOTAL : $ {{ orden.total }}</label></strong></div>
+                                            <div class="col-md-4"><strong><label class="mTotal" style="padding: 5px; color: #ffffff;">TOTAL : $ {{ orden.total.toFixed(2) }}</label></strong></div>
                                         </div>
                                     </div>
                                 </div>
