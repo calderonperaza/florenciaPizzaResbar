@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/css/googlefonts.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vue-router"></script>
 </head>
 
 <body id="page-top">
@@ -72,14 +74,14 @@
                     <!-- Inicio: Barra Navegacion -->
                     <div class="navbar navbar-light navbar-expand-md mb-4">
                         <div class="col-md-3">
-                            <input class="form-control my-2" type="text" v-model="nombre" placeholder="Buscar producto">
+                            <input class="form-control my-2" type="text" v-model="textoBusqueda" placeholder="Buscar producto">
                         </div>
                         <div class="sidebar-brand-text mx-3"><span>CATEGORIAS</span></div>
                         <div class="sidebar-brand-text">
-                                <button class="nav-item btn btn-primary btn-sm ml-1"
+                                <button type="button" class="btn btntable btn-sm"
                                         v-on:click.prevent="categoriaSelected=categoria.nombre;"
                                         v-for="categoria in categorias" v-on:click.prevent="categoriaSelected=categoria.nombre;" v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  
-                                        'text-dark': categoriaSelected==categoria.nombre }"style="width: 70px;">{{categoria.nombre}}
+                                        'text-dark': categoriaSelected==categoria.nombre}"style="width: 70px;">{{categoria.nombre}}
                                 </button>
                         </div>
                     </div>
@@ -100,8 +102,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(producto, index) in searchProductos"
-                                    v-show="producto.categoria.nombre==categoriaSelected"
+                                <tr v-for="(producto, index) in productos"
+                                    v-show="producto.categoria.nombre==categoriaSelected && buscarProductos(index)" 
                                     v-on:click.prevent="productoSelected = index;"
                                     v-bind:class="{ 'font-weight-bold' : productoSelected==index }">
                                     <td>{{producto.nombre}}</td>
