@@ -27,6 +27,18 @@ new Vue({
     },
     methods: {
 
+    /*Busca las cantidades que hay de productos en la orden seleccionada para modificar y mostrar los pruductos que ya
+      estan en la orden con la posiblididad de disminuir o aumentar estos mismos */
+      buscarCantidad(p) {
+        producto = this.productos[p];
+        for (const iterator of this.ordenSelected.detalleOrden) {
+          if (iterator.nombre === producto.nombre) {
+            return iterator.cantidad;
+          }
+        }
+        return 0;
+      },
+
     /*Esta función mediante metodo get extrae todas las Categorias por medio del api rest que estan en la base de datos
       categorias: Es el array donde son guardados todas las categorias disponibles */
     obtenerCategorias() {
