@@ -26,7 +26,70 @@ new Vue({
         this.obtenerOrdenes()
     },
     methods: {
-
+      
+    /*Esta función agrega las cantidades de productos que deseamos aumentar a la orden que ha sido seleccionada y valida
+      la suma mediante el metodo validarSuma() */
+      agregarAdetalle(productoSelected) {
+        var cantidad = 0;
+        this.nuevoDetalleOrden.cantidad = cantidad;
+        this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
+        this.nuevoDetalleOrden.precio = this.productos[this.productoSelected].precio;
+        this.categoria.nombre = this.productos[this.productoSelected].categoria.nombre;
+        this.nuevoDetalleOrden.categoria = this.categoria;
+  
+        if (this.detallesDeNuevaOrden.length === 0) {
+          this.nuevoDetalleOrden.cantidad = 1;
+          this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+          this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
+        } else {
+          for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
+            const element = this.detallesDeNuevaOrden[index];
+            if (element.nombre === this.nuevoDetalleOrden.nombre) {
+              cantidad = element.cantidad;
+              cantidad = cantidad + 1;
+              this.detallesDeNuevaOrden[index].cantidad = cantidad;
+              this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].cantidad * this.detallesDeNuevaOrden[index].precio;
+            }
+          }
+          var producto = this.detallesDeNuevaOrden.find(dno => {
+            return dno.nombre === this.nuevoDetalleOrden.nombre;
+          });
+  
+          if (typeof producto === 'undefined') {
+            this.nuevoDetalleOrden.cantidad = 1;
+            this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+            this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
+          }
+        }
+        this.nuevoDetalleOrden = {
+          "cantidad": 0,
+          "nombre": '',
+          "precio": 0,
+          "categoria": {
+            "nombre": ''
+          }
+        }
+        this.validarSuma();
+      },
+  
+      /*Esta función se encarga de validar la suma de los productos si un producto tiene cantidad 0 en la orden aumentar
+        pero si un producto ya tenia un valor sumar la agregacion nueva */
+      validarSuma() {
+        for (const iterator of this.ordenSelected.detalleOrden) {
+          for (const iterator1 of this.detallesDeNuevaOrden) {
+            if (iterator.nombre == iterator1.nombre) {
+              iterator.cantidad = iterator.cantidad + iterator1.cantidad;
+              iterator.subtotal = iterator.cantidad * iterator.precio;
+              this.detallesDeNuevaOrden.pop();
+            } else if (iterator.cantidad == 0) {
+              this.ordenSelected.detalleOrden.pop();
+            }
+          }
+        }
+        this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.detallesDeNuevaOrden);
+        this.detallesDeNuevaOrden.pop();
+      },
+  
     /*Busca las cantidades que hay de productos en la orden seleccionada para modificar y mostrar los pruductos que ya
       estan en la orden con la posiblididad de disminuir o aumentar estos mismos */
       buscarCantidad(p) {
