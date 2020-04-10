@@ -89,6 +89,90 @@ new Vue({
         this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.detallesDeNuevaOrden);
         this.detallesDeNuevaOrden.pop();
       },
+
+      
+      /*Esta funcion Agrega el array detallesDeNuevaOrden los productos que quiere disminuir para validarlo mediante 
+      el metodo validarResta() y verificar que la cantidad a disminuir cumpla con los requisitos */
+    quitarAdetalle(productoSelected) {
+      var cantidad = 0;
+      this.nuevoDetalleOrden.cantidad = cantidad;
+      this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
+      this.nuevoDetalleOrden.precio = this.productos[this.productoSelected].precio;
+      this.categoria.nombre = this.productos[this.productoSelected].categoria.nombre;
+      this.nuevoDetalleOrden.categoria = this.categoria;
+
+      if (this.detallesDeNuevaOrden.length === 0) {
+        this.nuevoDetalleOrden.cantidad = 1;
+        this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+        this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
+      } else {
+        for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
+          const element = this.detallesDeNuevaOrden[index];
+          if (element.nombre === this.nuevoDetalleOrden.nombre) {
+            cantidad = element.cantidad;
+            cantidad = cantidad + 1;
+            this.detallesDeNuevaOrden[index].cantidad = cantidad;
+            this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].cantidad * this.detallesDeNuevaOrden[index].precio;
+          }
+        }
+      }
+      this.nuevoDetalleOrden = {
+        "cantidad": 0,
+        "nombre": '',
+        "precio": 0,
+        "categoria": {
+          "nombre": ''
+        }
+      }
+      this.validarResta();
+    },
+
+    /*Esta función validara que los productos que quieran disminuirse sean mayores que 0 y que si el productos esta con 
+      valor de 0 no pase a ser una cantidad negativa */
+    validarResta() {
+      var valor = this.buscarCantidad(this.productoSelected);
+      if (valor <= 0) {
+
+      } else {
+        for (const iterator of this.ordenSelected.detalleOrden) {
+          for (const iterator1 of this.detallesDeNuevaOrden) {
+            if (iterator.nombre == iterator1.nombre) {
+              iterator.cantidad = iterator.cantidad - iterator1.cantidad;
+              iterator.subtotal = iterator.cantidad * iterator.precio;
+              this.detallesDeNuevaOrden.pop();
+            }
+          }
+        }
+        this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.detallesDeNuevaOrden);
+      }
+      this.detallesDeNuevaOrden.pop();
+      this.eliminarVacio();
+    },
+
+
+    /*Esta función eliminara los elementos del array detalleOrden que estan vacios cuya cantidad de producto sea 0 
+     estos elementos estan dentro de ordenSelected.detalleOrden para que los detalles de orden vacios no sean agregados 
+     en la base de datos*/
+     eliminarVacio() {
+      for (x = 0; x < this.ordenSelected.detalleOrden.length; x++) {
+        if (this.ordenSelected.detalleOrden[x].cantidad == 0) {
+          y = this.ordenSelected.detalleOrden[x].nombre;
+          this.ordenSelected.detalleOrden.splice(x, 1);
+        }
+      }
+    },
+
+
+    /*Esta función calculara en nuevo total de la orden mediante sumando los subtotales de todos los elementos agregados
+      en detalleOrde de ordenSelected en caso de que nuevos productos sean agregados */
+      calcularTotal() {
+        var total = 0;
+        for (const iterator of this.ordenSelected.detalleOrden) {
+          total = total + iterator.subtotal;
+        }
+        this.ordenSelected.total = total;
+      },
+
   
     /*Busca las cantidades que hay de productos en la orden seleccionada para modificar y mostrar los pruductos que ya
       estan en la orden con la posiblididad de disminuir o aumentar estos mismos */
