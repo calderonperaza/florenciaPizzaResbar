@@ -12,10 +12,18 @@
     <style>
         .inp-cantidad {
             width: 3em;
-            -webkit-appearance: none;
             margin: 0;
             border: none;
             text-align: center;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
             -moz-appearance: textfield;
         }
     </style>
@@ -33,13 +41,18 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="ordenes.html"><i class="fas fa-list-ol"></i><span>ORDENES</span></a>
-                        <a class="nav-link active" href="productos.html"><i class="fas fa-box"></i><span>PRODUCTOS</span></a>
-                        <a class="nav-link active" href="categorias.html"><i class="fas fa-sitemap"></i><span>CATEGORÍAS</span></a>
-                        <a class="nav-link active" href="informes.html"><i class="fas fa-file-alt"></i><span>INFORMES</span></a>
+                        <a class="nav-link active" href="ordenes.html"><i
+                                class="fas fa-list-ol"></i><span>ORDENES</span></a>
+                        <a class="nav-link active" href="productos.html"><i
+                                class="fas fa-box"></i><span>PRODUCTOS</span></a>
+                        <a class="nav-link active" href="categorias.html"><i
+                                class="fas fa-sitemap"></i><span>CATEGORÍAS</span></a>
+                        <a class="nav-link active" href="informes.html"><i
+                                class="fas fa-file-alt"></i><span>INFORMES</span></a>
                     </li>
                 </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
         <!-- Termina navbar lateral -->
@@ -62,190 +75,222 @@
                     <div class="alert alert-success collapse" role="alert" id="buttonAlert">
                         <strong>Success!</strong> Acabas de mostrar una alerta.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <!-- Termina seccion de alertas -->
 
                     <!-- Formulario de nueva orden -->
-                    <form class="row">
-                        <!--col datos de orden-->
-                        <div class="col-md-3 pr-0">
-                            <div class="form-group row">
-                                <div class="col-md-3 col-2 px-0 py-1">
-                                    <label for="txtCliente">Cliente: </label>
-                                </div>
-                                <div class="col">
-                                    <input v-model="nuevaOrden.cliente" type="text" class="form-control" id="txtCliente" placeholder="Enter name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-3 col-2 px-0 py-1">
-                                    <label for="txtMesero">Mesero: </label>
-                                </div>
-                                <div class="col">
-                                    <input v-model="nuevaOrden.mesero" type="text" class="form-control" id="txtMesero" placeholder="Enter name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-3 col-2 px-0 py-1">
-                                    <label for="txtMesa">Mesa: </label>
-                                </div>
-                                <div class="col">
-                                    <input v-model="nuevaOrden.mesa" type="text" class="form-control" id="txtMesa" placeholder="#">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col">
-                                    <textarea v-model="nuevaOrden.observacion" type="text" class="form-control" id="txtObservacion" placeholder="Observacion" rows="3" style="resize: none;"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--col tabla agregar productos-->
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <!-- tab por cada categoria-->
-                                <ul class="nav nav-tabs" id="myTab" role="tablist"> 
-                                    <!-- Se evalua  si la categoria es la primera en la lista, si es asi el tab se marca como activo-->
-                                    <li v-for="categoria in categorias" class="nav-item">
-                                        <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }" data-toggle="tab" v-bind:id="categoria.nombre+'-tab'" v-bind:href="'#'+categoria.nombre" role="tab">
-                                      {{categoria.nombre}}
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
-
-                                    <!-- Incia div.tab-content de productos a agregar-->
-                                    <div class="tab-content" id="myTabContent">
-                                        <!-- crea un div de con clases active,show si la categoria es la primera, la referencia del div activo es por id-->
-                                        <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']" v-bind:id="categoria.nombre" v-for="categoria in categorias" role="tabpanel">
-                                            <table class="table table-sm table-bordered table-striped mt-2 ">
-                                                <thead class="text-center ">
-                                                    <tr>
-                                                        <th scope="col ">Nombre</th>
-                                                        <th scope="col ">Precio</th>
-                                                        <th scope="col ">Cantidad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
-                                                    <tr v-if='detalleProducto.categoria.nombre == categoria.nombre ' v-for="detalleProducto in nuevaOrden.detalleOrden">
-                                                        <td>
-                                                            {{detalleProducto.nombre}}
-                                                        </td>
-                                                        <td>
-                                                            ${{detalleProducto.precio}}
-                                                        </td>
-                                                        <td class="text-center px-0 ">
-                                                            <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
-                                                            <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(detalleProducto)">-</button>
-                                                            <input type="number" class="inp-cantidad input-sm" v-model.lazy.number="detalleProducto.cantidad" min="0" max="99" step="1" disabled>
-                                                            <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(detalleProducto)">+</button>
-
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                    <form class="needs-validation" novalidate>
+                        <div class="row">
+                            <!--col datos de orden-->
+                            <div class="col-md-3 pr-0">
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-2 px-0 py-1">
+                                        <label for="txtCliente">Cliente: </label>
+                                    </div>
+                                    <div class="col">
+                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]{3,}" type="text"
+                                            class="form-control" id="txtCliente" placeholder="Enter name" required>
+                                        <div class="invalid-feedback">
+                                            Ingrese un nombre valido mayor a 3 caracteres
                                         </div>
                                     </div>
-                                    <!-- Termina div.tab-content de productos a agregar -->
-
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-2 px-0 py-1">
+                                        <label for="txtMesero">Mesero: </label>
+                                    </div>
+                                    <div class="col">
+                                        <input v-model="nuevaOrden.mesero" pattern="[A-Za-z]{3,}" type="text"
+                                            class="form-control" id="txtMesero" placeholder="Enter name" required>
+                                        <div class="invalid-feedback">
+                                            Ingrese un nombre valido mayor a 3 caracteres
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-2 px-0 py-1">
+                                        <label for="txtMesa">Mesa: </label>
+                                    </div>
+                                    <div class="col">
+                                        <input v-model="nuevaOrden.mesa" type="number" min="1" pattern="^[0-9]+"
+                                            class="form-control" id="txtMesa" placeholder="#" required>
+                                        <div class="invalid-feedback">
+                                            Ingrese un valor numerico entero
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <textarea v-model="nuevaOrden.observacion" type="text" class="form-control"
+                                            id="txtObservacion" placeholder="Observacion" rows="3"
+                                            style="resize: none;"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            
+
+                            <!--col tabla agregar productos-->
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <!-- tab por cada categoria-->
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <!-- Se evalua  si la categoria es la primera en la lista, si es asi el tab se marca como activo-->
+                                        <li v-for="categoria in categorias" class="nav-item">
+                                            <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }"
+                                                data-toggle="tab" v-bind:id="categoria.nombre+'-tab'"
+                                                v-bind:href="'#'+categoria.nombre" role="tab">
+                                                {{categoria.nombre}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
+
+                                        <!-- Incia div.tab-content de productos a agregar-->
+                                        <div class="tab-content" id="myTabContent">
+                                            <!-- crea un div de con clases active,show si la categoria es la primera, la referencia del div activo es por id-->
+                                            <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']"
+                                                v-bind:id="categoria.nombre" v-for="categoria in categorias"
+                                                role="tabpanel">
+                                                <table class="table table-sm table-bordered table-striped mt-2 ">
+                                                    <thead class="text-center ">
+                                                        <tr>
+                                                            <th>Nombre</th>
+                                                            <th style="width: 50px">Precio</th>
+                                                            <th style="width: 100px">Cantidad</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
+                                                        <tr v-if='detalleProducto.categoria.nombre == categoria.nombre '
+                                                            v-for="detalleProducto in nuevaOrden.detalleOrden">
+                                                            <td>
+                                                                {{detalleProducto.nombre}}
+                                                            </td>
+                                                            <td>
+                                                                ${{detalleProducto.precio}}
+                                                            </td>
+                                                            <td class="text-center px-0 ">
+                                                                <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
+                                                                <button type="button"
+                                                                    class="btn btn-secondary btn-sm p-1"
+                                                                    @click="decProducto(detalleProducto)">-</button>
+                                                                <input type="number" class="inp-cantidad input-sm"
+                                                                    v-model.lazy.number="detalleProducto.cantidad"
+                                                                    min="0" max="99" step="1" disabled>
+                                                                <button type="button" class="btn btn-primary btn-sm p-1"
+                                                                    @click="incProducto(detalleProducto)">+</button>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- Termina div.tab-content de productos a agregar -->
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
+                        <!-- Botones de accion para el formulario-->
+                        <div class="form-group row mt-5">
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary col" data-target="#resumenModal">
+                                    <a class="text-white" href="ordenes.html">Cancelar</a>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary col" type="button" @click="validateForm()"><i
+                                        class="fa fa-plus-circle mr-2"></i>Verificar</button>
+                            </div>
+                        </div>
+                        <!-- /Botones de accion-->
 
                     </form>
                     <!--Termina formulario nueva orden-->
 
-                    <!-- Botones de accion para el formulario-->
-                    <div class="form-group row mt-5">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary col" data-target="#resumenModal">
-                                <a class="text-white" href="ordenes.html" >Cancelar</a>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary col" type="button" data-toggle="modal" data-target="#resumenModal" ><i class="fa fa-plus-circle mr-2"></i>Verificar</button>
-                        </div>
-                    </div>
-                    <!-- /Botones de accion-->
-
-
-                    <div class="modal fade bd-example-modal-xl" id="resumenModal" data-backdrop="static" tabindex="-1" >
+                    <div class="modal fade bd-example-modal-xl" id="resumenModal" data-backdrop="static" tabindex="-1">
                         <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header text-light bg-primary p-3">
-                            <h5 class="modal-title " id="staticBackdropLabel">Resumen</h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-
-                                    <div class="col-md-12 col-lg-7 ">
-                                        <div class="table-wrapper-scroll-y " style="height:230px ;overflow: auto;">
-                                        <table class="table  table-striped table-sm ">
-                                            <thead >
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Descripcion</th>
-                                                <th scope="col">Precio unitario</th>
-                                                <th scope="col">Sub Total</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr v-if="detalle.cantidad > 0" v-for="detalle of nuevaOrden.detalleOrden">
-                                                <th scope="row">{{ detalle.cantidad }}</th>
-                                                <td>{{ detalle.nombre }}</td>
-                                                <td>${{ detalle.precio }}</td>
-                                                <td>${{ detalle.precio*detalle.cantidad }}</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 col-lg-5 text-right font-weight-bold" >
-                                        <div class="form-group row">
-                                            <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
-                                            <div class="col-9">
-                                              <input type="text" readonly class="form-control-plaintext" id="staticClient" v-model="nuevaOrden.cliente">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticWaiter" class="col-3 col-form-label">Mesero:</label>
-                                            <div class="col-9">
-                                              <input type="text" readonly class="form-control-plaintext" id="staticWaiter" v-model="nuevaOrden.mesero">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticTable" class="col-3 col-form-label">#Mesa:</label>
-                                            <div class="col-9">
-                                              <input type="text" readonly class="form-control-plaintext" id="staticTable" v-model="nuevaOrden.mesa">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticObs" class="col-3 col-form-label">Nota:</label>
-                                            <div class="col-9">
-                                              <textarea readonly class="form-control-plaintext" id="staticObs"   v-model="nuevaOrden.observacion" style="resize: none;
-                                              "></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <button type="button" class="btn btn-light col-6" data-dismiss="modal">Regresar</button>
-                                            <button type="button" class="btn btn-primary col-6" data-dismiss="modal">Confirmar</button>
-                                        </div>
-                                    </div>
-                                    
-
+                            <div class="modal-content">
+                                <div class="modal-header text-light bg-primary p-3">
+                                    <h5 class="modal-title " id="staticBackdropLabel">Resumen</h5>
                                 </div>
+                                <div class="modal-body">
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-lg-7 ">
+                                            <div class="table-wrapper-scroll-y " style="height:230px ;overflow: auto;">
+                                                <table class="table  table-striped table-sm ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Descripcion</th>
+                                                            <th scope="col">Precio unitario</th>
+                                                            <th scope="col">Sub Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-if="detalle.cantidad > 0"
+                                                            v-for="detalle of nuevaOrden.detalleOrden">
+                                                            <th scope="row">{{ detalle.cantidad }}</th>
+                                                            <td>{{ detalle.nombre }}</td>
+                                                            <td>${{ detalle.precio }}</td>
+                                                            <td>${{ detalle.precio*detalle.cantidad }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-lg-5 text-right font-weight-bold">
+                                            <div class="form-group row">
+                                                <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
+                                                <div class="col-9">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticClient" v-model="nuevaOrden.cliente">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="staticWaiter" class="col-3 col-form-label">Mesero:</label>
+                                                <div class="col-9">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticWaiter" v-model="nuevaOrden.mesero">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="staticTable" class="col-3 col-form-label">#Mesa:</label>
+                                                <div class="col-9">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticTable" v-model="nuevaOrden.mesa">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="staticObs" class="col-3 col-form-label">Nota:</label>
+                                                <div class="col-9">
+                                                    <textarea readonly class="form-control-plaintext" id="staticObs"
+                                                        v-model="nuevaOrden.observacion" style="resize: none;
+                                              "></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <button type="button" class="btn btn-light col-6"
+                                                    data-dismiss="modal">Regresar</button>
+                                                <button type="button" class="btn btn-primary col-6"
+                                                    data-dismiss="modal">Confirmar</button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
                             </div>
-                            
-                        </div>
                         </div>
                     </div>
                     <!-- Fin modal Resumen-->
-
 
                 </div>
                 <!-- Termina el contenedor de la pagina y el dominio de VUE-->
@@ -260,7 +305,31 @@
             </footer>
             <!-- Termina el pie de pagina -->
 
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+    <script>
+        // JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+    </script>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.easing.js"></script>
