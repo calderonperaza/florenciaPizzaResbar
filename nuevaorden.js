@@ -9,61 +9,69 @@ var app = new Vue({
             estado: "C",
             total: null,
             observacion: null,
+            // propiedad que contendra los productos que el usuario agregue
+            // se carga atraves de getProductos() y se le agregan los campos cantidad y subtotal
             detalleOrden: [
-               // formato--> { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 }
-               //subtotal calculado
+                   //formato--> { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 }
             ]
         },
-        categorias:[
-
-            {id:"12312312", nombre:"Entradas"},
-
-            {id:"12322222", nombre:"Platos"},
-
-            {id:"12333333", nombre:"Bebidas"}
-        ]            
+        //API model
+        categorias:[],
+        //API info
+        mensajeApi : '',
+        url:"http://localhost:3000/"        
 
     },
     created(){ 
-        this.fetchProductos();
+        this.getCategorias();
+        this.getProductos();
     },
 
     methods: {
-        fetchProductos(){
-            let productos = [
-
-                {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
-    
-                {id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
-    
-                {id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}},
-    
-                {id:"2312a1444",nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"}},
-    
-                {id:"2312a5555",nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
-    
-                {id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}}
-
-            ];
-     
-            //llenar y dar formato al detalle de orden 
-            this.nuevaOrden.detalleOrden = productos.map(function(obj){ 
-                var rObj = { cantidad: 0, nombre: obj.nombre , precio: obj.precio, categoria: obj.categoria, subtotal: 0 };
-                return rObj;
-            });
-    
-        },
+        //decrementar cantidad del producto a valores no negativos
         decProducto(detalleProducto){
             if(detalleProducto.cantidad >0) {
                 detalleProducto.cantidad--;
                 detalleProducto.subtotal = detalleProducto.cantidad*detalleProducto.precio;
             }
         },
+        //incrementar cantidad del producto 
         incProducto(detalleProducto){
             detalleProducto.cantidad++;
             detalleProducto.subtotal = detalleProducto.cantidad*detalleProducto.precio;
+        },
+        //API get methods
+        getCategorias(){
+            this.mensajeApi="Obteniendo Categorias...";
+            axios
+                .get(this.url+'categorias')
+                .then(response => {
+                    this.categorias = response.data;
+                })
+            if(this.categorias.length===0){
+                this.mensajeApi="Error al cargar datos";
+            }else{
+                this.mensajeApi="";
+            }
+        },
+        getProductos(){
+            this.mensajeApi="Obteniendo Productos...";
+            axios
+                .get(this.url+'productos')
+                .then(response => {
+                    this.productos = response.data;
+                    //se agregan dos atributos, cantidad y subtotal
+                    this.nuevaOrden.detalleOrden = this.productos.map(function(obj){ 
+                        let rObj = { cantidad: 0, nombre: obj.nombre , precio: obj.precio, categoria: obj.categoria, subtotal: 0 };
+                        return rObj;
+                    });
+                })
+            if(this.categorias.length===0){
+                this.mensajeApi="Error al cargar datos";
+            }else{
+                this.mensajeApi="";
+            }
         }
-
     }
 
 })
