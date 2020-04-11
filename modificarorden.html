@@ -108,10 +108,13 @@
                                 </table>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="taObservaciones">Observaciones</label>
+                            <textarea class="form-control" id="taObservaciones" rows="1" v-model="ordenSelected.observacion"></textarea>
+                        </div>
                         <!-- </div> -->
-                        <div class="modal-footer ">
-                            <div class="container "><label>Total: ${{(ordenSelected.total*1).toFixed(2)}} </label></div>
+                        <div class="modal-footer">
+                            <div class="container"><label class="text-dark h4"><strong>Total: ${{(ordenSelected.total*1).toFixed(2)}}</strong></label></div>
                             <button type="button " class="btn btn-secondary " onClick="$( '#mdlModificarOrden').modal( 'hide') " @click="redireccionarAOrdenes();">Cancelar</button>
                             <button type="button " class="btn btn-primary" @click="modificarOrden();">Guardar</button>
                         </div>
