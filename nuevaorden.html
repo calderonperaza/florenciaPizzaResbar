@@ -162,24 +162,24 @@
                                                     </thead>
                                                     <tbody>
                                                         <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
-                                                        <tr v-if='detalleProducto.categoria.nombre == categoria.nombre '
-                                                            v-for="detalleProducto in nuevaOrden.detalleOrden">
+                                                        <tr v-if='producto.categoria.nombre == categoria.nombre '
+                                                            v-for="producto in productos">
                                                             <td>
-                                                                {{detalleProducto.nombre}}
+                                                                {{producto.nombre}}
                                                             </td>
                                                             <td>
-                                                                ${{detalleProducto.precio}}
+                                                                ${{producto.precio}}
                                                             </td>
                                                             <td class="text-center px-0 ">
                                                                 <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
                                                                 <button type="button"
                                                                     class="btn btn-secondary btn-sm p-1"
-                                                                    @click="decProducto(detalleProducto)">-</button>
+                                                                    @click="decProducto(producto)">-</button>
                                                                 <input type="number" class="inp-cantidad input-sm"
-                                                                    v-model.lazy.number="detalleProducto.cantidad"
-                                                                    min="0" max="99" step="1" disabled>
+                                                                    v-model.lazy.number="producto.cantidad" min="0"
+                                                                    max="99" step="1" disabled>
                                                                 <button type="button" class="btn btn-primary btn-sm p-1"
-                                                                    @click="incProducto(detalleProducto)">+</button>
+                                                                    @click="incProducto(producto)">+</button>
 
                                                             </td>
                                                         </tr>
@@ -233,8 +233,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-if="detalle.cantidad > 0"
-                                                            v-for="detalle of nuevaOrden.detalleOrden">
+                                                        <tr v-for="detalle of nuevaOrden.detalleOrden">
                                                             <th scope="row">{{ detalle.cantidad }}</th>
                                                             <td>{{ detalle.nombre }}</td>
                                                             <td>${{ detalle.precio }}</td>
@@ -307,28 +306,6 @@
 
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-
-    <script>
-        // JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-
-    </script>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
