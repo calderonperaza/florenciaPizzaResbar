@@ -92,15 +92,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
+                                        <tr v-for="(detalleOrdenAux, index) in ordenSelected.detalleOrden">
                                             <th class="small">{{detalleOrdenAux.nombre}}</th>
                                             <td>$ {{detalleOrdenAux.precio}}</td>
-                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0 ; sumarORestarProducto();">-</button>{{detalleOrdenAux.cantidad}}<button type="button"
-                                                    class="btn btn-secondary btn-sm" @click="detalleOrdenAux.cantidad++; sumarORestarProducto();">+</button></td>
+                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >=1) ? detalleOrdenAux.cantidad-- : 0 ; sumarORestarProducto();">-</button>{{detalleOrdenAux.cantidad}}
+                                                <button type="button" class="btn btn-secondary btn-sm" @click="detalleOrdenAux.cantidad++; sumarORestarProducto();">+</button>
+                                            </td>
                                             <td class=" d-none d-xl-table-cell ">$ {{(detalleOrdenAux.precio*detalleOrdenAux.cantidad).toFixed(2)}}</td>
                                             <td class="text-center ">
-                                                <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
-                                                <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
+                                                <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden" @click="eliminarProducto(index);"><i class="far fa-trash-alt "></i></button>
+                                                <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block " @click="eliminarProducto(index);">Eliminar</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -117,6 +118,7 @@
                         <!-- </div> -->
                         <!-- </div> -->
                     </div>
+
                     <!-- Termina modificar orden -->
                     <!-- <div>{{ordenSelected.detalleOrden}}</div> -->
                     <!-- modal de confirmacion eliminar orden -->
@@ -134,7 +136,7 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                                    <button type="button " class="btn btn-danger " data-dismiss="modal" onClick="$( '#mdlModificarOrden').modal( 'hide'); " @click="redireccionarAOrdenes();">Eliminar</button>
+                                    <button type="button " class="btn btn-danger " data-dismiss="modal" onClick="$( '#mdlModificarOrden').modal( 'hide'); " @click="eliminarOrden()">Eliminar</button>
                                 </div>
                             </div>
                         </div>
