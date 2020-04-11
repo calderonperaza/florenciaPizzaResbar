@@ -53,7 +53,7 @@
                                     <div class="col-sm-3 mr-md-5 col-lg-3">
                                         <input type="text" class="form-control form-control-sm" id="lblMesa" v-model="ordenSelected.mesa">
                                     </div>
-                                    <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id}} </label>
+                                    <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id.substring(20)}} </label>
                                 </div>
                                 <div class="form-group row my-0 ">
                                     <div class="col-md-2 col-sm-2 col-lg-1 ">
@@ -126,13 +126,13 @@
                         <div class="modal-dialog " role="document ">
                             <div class="modal-content ">
                                 <div class="modal-header ">
-                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar orden # {{ordenSelected.id}}</h5>
+                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar orden # {{ordenSelected.id.substring(20)}}</h5>
                                     <button type="button " class="close " data-dismiss="modal" aria-label="Close ">
                                      <span aria-hidden="true ">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body ">
-                                    ¿Desea eliminar la orden con codigo {{ordenSelected.id}} ?
+                                    ¿Desea eliminar la orden con codigo {{ordenSelected.id.substring(20)}} ?
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
