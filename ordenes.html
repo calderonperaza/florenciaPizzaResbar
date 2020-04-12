@@ -346,7 +346,7 @@
                                             </thead>
                                             <tbody>
                                               <tr v-for="detalle in ordenSelected.detalleOrden" >
-                                                <td class="text-center text-white">{{detalle.cantidad}}</td>
+                                                <td class="text-center">{{detalle.cantidad}}</td>
                                                 <td>{{detalle.nombre}}</td>
                                                 <td>${{detalle.precio}}</td>
                                                 <td>${{detalle.subtotal}}</td>
@@ -444,7 +444,7 @@
                                             </thead>
                                             <tbody>
                                               <tr v-for="detalle in ordenSelected.detalleOrden" >
-                                                <td class="text-center text-white">{{detalle.cantidad}}</td>
+                                                <td class="text-center">{{detalle.cantidad}}</td>
                                                 <td>{{detalle.nombre}}</td>
                                                 <td>${{detalle.precio}}</td>
                                                 <td>${{detalle.subtotal}}</td>
@@ -468,7 +468,7 @@
                             <!--Footer modal-->
                             <div class="modal-footer bg-gradient-primary">
                                 <button class="btn btntable btn-sm text-white" type="button" data-dismiss="modal" @click="limpiarMotivo()">Cerrar</button>
-                                <button class="btn btntable btn-sm text-white btn-danger" type="button" @click="eliminarOrden()">ELIMINAR</button>
+                                <button class="btn btn-sm text-white" style="background-color: #FF082D; border-color: white;" type="button" @click="eliminarOrden()">ELIMINAR</button>
                             
                             </div>
                           
