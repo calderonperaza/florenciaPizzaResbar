@@ -6,7 +6,7 @@ var app = new Vue({
             mesero: null,
             mesa: null,
             cliente: null,
-            estado: "C",
+            estado: "A",
             total: 0,
             observacion: '',
             detalleOrden: []
