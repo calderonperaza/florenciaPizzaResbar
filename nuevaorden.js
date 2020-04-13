@@ -8,18 +8,14 @@ var app = new Vue({
             cliente: null,
             estado: "C",
             total: 0,
-            observacion: null,
-            // propiedad que se llenara los productos que el usuario agregue
-            // se carga atraves de getProductos() y se le agregan los campos cantidad y subtotal
-            detalleOrden: [
-                //formato--> { cantidad: 1, nombre: "Hamburguesa Big", precio: 7.25, categoria: { nombre: "Platos" }, subtotal: 7.25 }
-            ]
+            observacion: '',
+            detalleOrden: []
         },
         //API model
         categorias: [],
         productos: [],
         //API info
-        mensajeApi: '',
+        mensajeApi: null,
         url: "http://localhost:3000/"
 
     },
@@ -37,6 +33,7 @@ var app = new Vue({
             // Se filtra al detalle orden solo los productos con cantidades positivas
             handler() {
                 this.nuevaOrden.detalleOrden = this.productos.filter(prod => prod.cantidad > 0);
+                this.calcularTotal();
             }
         }
     },
@@ -48,20 +45,24 @@ var app = new Vue({
             } else {
                 produ.cantidad = 0;
             }
-            this.refreshTotal(produ);
+            produ.subtotal = this.subtotal(produ.cantidad, produ.precio);
         },
         //incrementar cantidad del producto 
         incProducto(produ) {
             produ.cantidad++;
-            this.refreshTotal(produ);
+            produ.subtotal = this.subtotal(produ.cantidad, produ.precio);
         },
-        //calcula subtotal y total
-        refreshTotal(produ) {
-            let oldVal = produ.subtotal;
-            let newVal = produ.cantidad * produ.precio;
-            let diff = newVal - oldVal;
-            this.nuevaOrden.total = Math.round((this.nuevaOrden.total + diff) * 100) / 100;
-            produ.subtotal = Math.round((produ.subtotal + diff) * 100) / 100;
+        subtotal(cantidad, precio) {
+            let sub = cantidad * precio;
+            sub = sub.toFixed(2);
+            return +sub;
+        },
+        calcularTotal() {
+            this.nuevaOrden.total = 0;
+            this.nuevaOrden.detalleOrden.forEach(produ => {
+                this.nuevaOrden.total += produ.subtotal;
+            });
+            this.nuevaOrden.total = Math.round(this.nuevaOrden.total * 100) / 100
         },
 
         //API get methods
@@ -71,12 +72,12 @@ var app = new Vue({
                 .get(this.url + 'categorias')
                 .then(response => {
                     this.categorias = response.data;
+                    this.mensajeApi = null;
                 })
-            if (this.categorias.length === 0) {
-                this.mensajeApi = "Error al cargar datos";
-            } else {
-                this.mensajeApi = "";
-            }
+                .catch(error => {
+                    this.mensajeApi = "Error al cargar categorias";
+                });
+
         },
         getProductos() {
             this.mensajeApi = "Obteniendo Productos...";
@@ -88,12 +89,30 @@ var app = new Vue({
                         let rObj = { cantidad: 0, nombre: obj.nombre, precio: obj.precio, categoria: obj.categoria, subtotal: 0 };
                         return rObj;
                     });
+                    this.mensajeApi = null;
                 })
-            if (this.categorias.length === 0) {
-                this.mensajeApi = "Error al cargar datos";
-            } else {
-                this.mensajeApi = "";
-            }
+                .catch(error => {
+                    this.mensajeApi = "Error al cargar productos";
+                });
+
+
+        },
+        saveOrden() {
+            this.mensajeApi = "Guardando Orden...";
+            axios
+                .post(this.url + 'ordenes', this.nuevaOrden)
+                .then(response => {
+                    //response.data;
+                    this.redireccionarAOrdenes();
+                    this.mensajeApi = null;
+                })
+                .catch(error => {
+                    this.mensajeApi = "Error al guardar orden";
+                });
+
+        },
+        redireccionarAOrdenes() {
+            window.location = `./ordenes.html?alert=se ha guardado la orden con exito `;
         },
         //Event methods
         validateForm() {
@@ -101,6 +120,12 @@ var app = new Vue({
 
             if (form.checkValidity() && this.nuevaOrden.detalleOrden.length != 0)
                 $('#resumenModal').modal();
+
+            if (this.nuevaOrden.detalleOrden.length === 0)
+                this.mensajeApi = "La orden aun no contiene productos";
+            else
+                this.mensajeApi = null;
+
             form.classList.add('was-validated');
         },
         disableFormSubmit() {
