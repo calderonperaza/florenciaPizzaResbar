@@ -30,6 +30,15 @@ new Vue({
 
         },
 
+        eliminarProducto(index) {
+            if (index != undefined) {
+                console.log(index);
+                this.ordenSelected.detalleOrden.splice(index, 1);
+                this.sumarORestarProducto();
+            }
+
+        },
+
         // captura los parametros pasados por URL
         getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -50,16 +59,34 @@ new Vue({
 
         // modificar la orden 
         modificarOrden() {
-            axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
-                .then(response => {
-                    console.log("exito");
-                    this.redireccionarAOrdenes();
-                })
-                .catch(error => {
-                    console.log(error)
-                });
+            //Se comprueba si la orden tiene productos si la orden no tiene productos se elimina 
+            if (this.ordenSelected.detalleOrden.length > 0) {
+                axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
+                    .then(response => {
+                        console.log("exito");
+                        this.redireccionarAOrdenes();
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            } else {
+                this.eliminarOrden();
+            }
 
         },
+
+        //Elimina la orden completa
+        eliminarOrden() {
+            let idTemporal = this.ordenSelected.id;
+            axios.delete(this.uri + '/' + this.ordenSelected.id)
+                .then(function(res) {
+                    window.location = `./ordenes.html?alert=se elimino la orden ${idTemporal} Satisfactoriamente`
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
+
 
         obtenerSelected() {
             this.ordenSelected = this.ordenes.find(item => {

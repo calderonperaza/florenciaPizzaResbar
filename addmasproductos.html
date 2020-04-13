@@ -42,7 +42,7 @@
                             <label style="font-size: 12px; margin-left:10px;" for="lblOrden"
                                 class="col-sm-0 col-form-label col-form-label-sm">Orden:</label>
                             <input style="font-size: 12px; width: 92px;margin-left: 5px;" type="text"
-                                id="lblOrden" v-model="ordenSelected.id" readonly
+                                id="lblOrden" v-model="ordenSelected.id.substring(20,24)" readonly
                                 class="form-control form-control-sm form-control-plaintext">
                         </div>
                         <div class="form-group mb-2">
@@ -60,7 +60,7 @@
                                 class="form-control form-control-sm form-control-plaintext">
                         </div>
                         <div class="form-group mb-2">
-                            <label style="font-size: 12px; margin-left:10px;" for=""
+                            <label style="font-size: 12px; margin-left:10px;" for="lblCliente"
                                 class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
                             <input style="font-size: 12px; width: 92px;margin-left: 5px;" type="text"
                                 id="lblCliente" v-model="ordenSelected.cliente" readonly
@@ -80,8 +80,8 @@
                         <div class="sidebar-brand-text">
                                 <button type="button" class="btn btntable btn-sm"
                                         v-on:click.prevent="categoriaSelected=categoria.nombre;"
-                                        v-for="categoria in categorias" v-on:click.prevent="categoriaSelected=categoria.nombre;" v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  
-                                        'text-dark': categoriaSelected==categoria.nombre}"style="width: 70px;">{{categoria.nombre}}
+                                        v-for="categoria in categorias" v-on:click.prevent="categoriaSelected=categoria.nombre " v-bind:class="{ 'font-weight-bold': categoriaSelected==categoria.nombre,  
+                                        'text-dark': categoriaSelected==categoria.nombre}" @Click="limpiarBusqueda();" style="width: 70px;">{{categoria.nombre}}
                                 </button>
                         </div>
                     </div>
@@ -108,12 +108,12 @@
                                     v-bind:class="{ 'font-weight-bold' : productoSelected==index }">
                                     <td>{{producto.nombre}}</td>
                                     <td>${{producto.precio}}</td>
-                                    <td>
+                                    <td v-for="cantidad in cantidades">
                                         <button type="button " class="btn btn-secondary btn-sm"
-                                            @click="(cantidad >0) ? cantidad-- : 0">-</button>
-                                        {{cantidad}}
+                                        v-on:click="productoSelected=index; quitarAdetalle(productoSelected); buscarCantidad(index)">-</button>
+                                        <span>{{buscarCantidad(index)}}</span>
                                         <button type="button" class="btn btn-secondary btn-sm"
-                                            @click="cantidad++">+</button></td>
+                                        v-on:click="productoSelected=index; agregarAdetalle(productoSelected); buscarCantidad(index)">+</button></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -126,7 +126,7 @@
                         <button type="button" class="btn btn-secondary" @Click="cancelar();">Cancelar</button>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            onClick="$('#modalResumen').modal('show')">Siguiente</button>
+                            onClick="$('#modalResumen').modal('show')" @click="calcularTotal();">Siguiente</button>
                     </div>
                     <!-- Fin: Botones Cancelar Siguiente-->
 
@@ -148,31 +148,31 @@
                                 <!-- Inicio: Informacion  Orden-->
                                 <form class="form-inline">
                                     <div class="form-group mb-2">
-                                        <label style="font-size: 12px; margin-left:10px;" for="lblOrden"
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblOrden1"
                                             class="col-sm-0 col-form-label col-form-label-sm">Orden:</label>
                                         <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
-                                            id="lblOrden" v-model="ordenSelected.id" readonly
+                                            id="lblOrden1" v-model="ordenSelected.id.substring(20,24)" readonly
                                             class="form-control form-control-sm form-control-plaintext">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesa"
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesa1"
                                             class="col-sm-0 col-form-label col-form-label-sm">Mesa:</label>
                                         <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
-                                            id="lblMesa" v-model="ordenSelected.mesa" readonly
+                                            id="lblMesa1" v-model="ordenSelected.mesa" readonly
                                             class="form-control form-control-sm form-control-plaintext">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesero"
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblMesero1"
                                             class="col-sm-0 col-form-label col-form-label-sm">Mesero:</label>
                                         <input style="font-size: 12px; width: 100px; margin-left: 5px;" type="text"
-                                            id="lblMesero" v-model="ordenSelected.mesero" readonly
+                                            id="lblMesero1" v-model="ordenSelected.mesero" readonly
                                             class="form-control form-control-sm form-control-plaintext">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label style="font-size: 12px; margin-left:10px;" for=""
+                                        <label style="font-size: 12px; margin-left:10px;" for="lblCliente1"
                                             class="col-sm-0 col-form-label col-form-label-sm">Cliente:</label>
                                         <input style="font-size: 12px; width: 100px;margin-left: 5px;" type="text"
-                                            id="lblCliente" v-model="ordenSelected.cliente" readonly
+                                            id="lblCliente1" v-model="ordenSelected.cliente" readonly
                                             class="form-control form-control-sm form-control-plaintext">
                                     </div>
                                     <hr/>
@@ -198,10 +198,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="producto in productos">
-                                                    <td>{{producto.nombre}}</td>
-                                                    <td>${{producto.precio}}</td>
-                                                    <td>{{cantidad}}</td>
+                                                <tr v-for="detalle in ordenSelected.detalleOrden">
+                                                    <td>{{detalle.nombre}}</td>
+                                                    <td>${{detalle.precio}}</td>
+                                                    <td>{{detalle.cantidad}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -215,7 +215,7 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-dismiss="modal">Cancelar</button>
                                     <button type="button" class="btn btn-primary"
-                                        @Click="regresarOrdenes();">Guardar</button>
+                                        @Click="agregarProductosOrden();">Guardar</button>
 
                                 </div>
                                 <!-- Inicio: Botones Modal Resumen-->

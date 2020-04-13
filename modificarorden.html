@@ -53,7 +53,7 @@
                                     <div class="col-sm-3 mr-md-5 col-lg-3">
                                         <input type="text" class="form-control form-control-sm" id="lblMesa" v-model="ordenSelected.mesa">
                                     </div>
-                                    <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id}} </label>
+                                    <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">Id Orden: {{ordenSelected.id.substring(20)}} </label>
                                 </div>
                                 <div class="form-group row my-0 ">
                                     <div class="col-md-2 col-sm-2 col-lg-1 ">
@@ -92,31 +92,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="detalleOrdenAux in ordenSelected.detalleOrden">
+                                        <tr v-for="(detalleOrdenAux, index) in ordenSelected.detalleOrden">
                                             <th class="small">{{detalleOrdenAux.nombre}}</th>
                                             <td>$ {{detalleOrdenAux.precio}}</td>
-                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >0) ? detalleOrdenAux.cantidad-- : 0 ; sumarORestarProducto();">-</button>{{detalleOrdenAux.cantidad}}<button type="button"
-                                                    class="btn btn-secondary btn-sm" @click="detalleOrdenAux.cantidad++; sumarORestarProducto();">+</button></td>
+                                            <td class="text-center px-0 "><button type="button " class="btn btn-secondary btn-sm" @click="(detalleOrdenAux.cantidad >=1) ? detalleOrdenAux.cantidad-- : 0 ; sumarORestarProducto();">-</button>{{detalleOrdenAux.cantidad}}
+                                                <button type="button" class="btn btn-secondary btn-sm" @click="detalleOrdenAux.cantidad++; sumarORestarProducto();">+</button>
+                                            </td>
                                             <td class=" d-none d-xl-table-cell ">$ {{(detalleOrdenAux.precio*detalleOrdenAux.cantidad).toFixed(2)}}</td>
                                             <td class="text-center ">
-                                                <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden "><i class="far fa-trash-alt "></i></button>
-                                                <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block ">Eliminar</button>
+                                                <button type="button " class="btn btn-danger ml-auto d-md-none d-lg-none d-xl-none " id="btnEliminarOrden" @click="eliminarProducto(index);"><i class="far fa-trash-alt "></i></button>
+                                                <button type="button " class="btn btn-danger btn-sm d-none d-md-inline-block " @click="eliminarProducto(index);">Eliminar</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="taObservaciones">Observaciones</label>
+                            <textarea class="form-control" id="taObservaciones" rows="1" v-model="ordenSelected.observacion"></textarea>
+                        </div>
                         <!-- </div> -->
-                        <div class="modal-footer ">
-                            <div class="container "><label>Total: ${{(ordenSelected.total*1).toFixed(2)}} </label></div>
+                        <div class="modal-footer">
+                            <div class="container"><label class="text-dark h4"><strong>Total: ${{(ordenSelected.total*1).toFixed(2)}}</strong></label></div>
                             <button type="button " class="btn btn-secondary " onClick="$( '#mdlModificarOrden').modal( 'hide') " @click="redireccionarAOrdenes();">Cancelar</button>
                             <button type="button " class="btn btn-primary" @click="modificarOrden();">Guardar</button>
                         </div>
                         <!-- </div> -->
                         <!-- </div> -->
                     </div>
+
                     <!-- Termina modificar orden -->
                     <!-- <div>{{ordenSelected.detalleOrden}}</div> -->
                     <!-- modal de confirmacion eliminar orden -->
@@ -124,17 +129,17 @@
                         <div class="modal-dialog " role="document ">
                             <div class="modal-content ">
                                 <div class="modal-header ">
-                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar orden # {{ordenSelected.id}}</h5>
+                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar orden # {{ordenSelected.id.substring(20)}}</h5>
                                     <button type="button " class="close " data-dismiss="modal" aria-label="Close ">
                                      <span aria-hidden="true ">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body ">
-                                    ¿Desea eliminar la orden con codigo {{ordenSelected.id}} ?
+                                    ¿Desea eliminar la orden con codigo {{ordenSelected.id.substring(20)}} ?
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                                    <button type="button " class="btn btn-danger " data-dismiss="modal" onClick="$( '#mdlModificarOrden').modal( 'hide'); " @click="redireccionarAOrdenes();">Eliminar</button>
+                                    <button type="button " class="btn btn-danger " data-dismiss="modal" onClick="$( '#mdlModificarOrden').modal( 'hide'); " @click="eliminarOrden()">Eliminar</button>
                                 </div>
                             </div>
                         </div>

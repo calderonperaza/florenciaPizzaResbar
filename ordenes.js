@@ -141,7 +141,43 @@ new Vue({
         //Muestra el modal Detalle
         mostrarDetalle:function(){
             $('#modalDetalle').modal('show');
-           },    
+           }, 
+        //Muestra el modal Eliminar
+        mostrarEliminar:function(){
+            $('#modalEliminar').modal('show');
+        }, 
+        //Metodo eliminar Orden
+        eliminarOrden:function(){
+            let texto = document.getElementById("lblMotivo").value;
+            if (texto =="") {
+                document.getElementById("lblMotivo").classList.add('is-invalid');
+                document.getElementById("alertaMotivo").textContent = "*Campo requerido";
+            } else {
+                document.getElementById("lblMotivo").classList.remove('is-invalid');
+                document.getElementById("lblMotivo").classList.add('is-valid');
+                document.getElementById("alertaMotivo").textContent = "";
+                //Elimina la orden
+		        axios.delete(this.uri+'/'+this.ordenSelected.id)
+                .then(function (res) {
+                    console.log("DELETE ORDEN");
+                    window.location = `./ordenes.html?alert=se elimino la orden satisfactoriamente`                  
+                 }).catch(e => {console.log(e)})
+
+                //cierra el modal Eliminar
+                $('#modalEliminar').modal('hide');
+                //Actualiza la tabla Ordenes
+                this.ordenar();
+                //Limpia el lblMotivo
+                this.limpiarMotivo();
+		    }  
+        },
+        //Limpiar el Motivo por el cual se elimino la orden
+        limpiarMotivo:function(){
+            $("#modalEliminar").find("input").val("");
+            document.getElementById("lblMotivo").classList.remove('is-invalid');
+            document.getElementById("alertaMotivo").textContent = "";
+            
+        }   
     },
     mounted(){
         this.ordenar()
