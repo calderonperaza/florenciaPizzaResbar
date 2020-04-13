@@ -67,16 +67,16 @@
 
                     <!-- TITULO -->
                     <div class="row my-4">
-                        <h3 class="text-center col-8">Administrar Categorias</h3>
+                        <h3 class="text-center col-12">Administrar Categorias</h3>
                     </div>
 
                     <div class="row my-5">
                         <!-- Filtro buscar -->
-                        <div class="col-md-4 ">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
-                                </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
+                                    </div>
                                 <input type="text" placeholder="Buscar" v-model="searchDisplay">
                             </div>
                         </div>
@@ -90,16 +90,19 @@
 
                     <!-- Inicia seccion de alertas -->
                     <div class="alert alert-success collapse" role="alert" id="buttonAlert">
-                        <strong>Success!</strong>
                         <span v-if="displayOption==='Modifique la Categoria'">
-                         Registro Modificado correctamente.</span>
-                        <span v-if="displayOption==='Agregue una nueva Categoria'">
-                            Registro Agregado correctamente.</span>
+                         <strong>Success!</strong> Registro Modificado correctamente.</span>
+                        <span v-if="agg==false">
+                          <strong>categoria no puede ir vacio </strong> </span>
+                        <span v-else-if="agg==true && displayOption==='Agregue una nueva Categoria'">
+                          <strong>Success!</strong> Registro Agregado correctamente.</span>
                         <span v-if="displayOption==='eliminar'">
-                                Registro Eliminado correctamente.</span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                              <strong>Success!</strong> Registro Eliminado correctamente.</span>
+                        <div>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </div>
                     <!-- Termina seccion de alertas -->
 
@@ -108,15 +111,15 @@
                         <table class="table table-sm table-bordered table-hover table-striped mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col" class="align-items-center"># Categoria</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col" class="center">Acciones</th>
+                                    <th style="text-align: center;" scope="col" class="align-items-center"># Categoria</th>
+                                    <th style="text-align: center;" scope="col">Nombre</th>
+                                    <th style="text-align: center;" scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="active " v-for="(cat,index) in categorias" v-show="filtro(index)">
-                                    <td scope="row">{{cat.id}}</td>
-                                    <td>{{cat.nombre }}</td>
+                                    <td style="text-align: center;" scope="col">{{cat.id.substring(17,24)}}</td>
+                                    <td style="text-align: center;" scope="col">{{cat.nombre }}</td>
                                     <td>
 
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" v-on:click="getCategoriaSelected(cat)" data-target="#formModalNew">
@@ -134,7 +137,7 @@
                     <!-- Termina Tabla -->
 
 
-                    <!-- Modal remove -->
+                    <!-- Modal confirmacion del remove -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -145,11 +148,11 @@
                                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h2 class="text-dark"> {{categoria.id}} {{categoria.nombre}}</h2>
+                                    <h2 class="text-dark"> {{categoria.id.substring(17,24)}} {{categoria.nombre}}</h2>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" v-on:click="displayOption='eliminar'" onclick="alerta()">Confirmar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" v-on:click="removeRegistro" onclick="alerta()">Confirmar</button>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +172,7 @@
                                     <!-- form update- agg-->
                                     <form>
                                         <div class="form-group row my-0" v-if="displayOption==='Modifique la Categoria'">
-                                            <label for="idCategoria" v-model="categoria.id">ID: {{categoria.id}}</label>
+                                            <label>ID: {{categoria.id}}</label>
 
                                         </div>
                                         <div class="form-group row my-0">
@@ -179,10 +182,16 @@
                                     </form>
 
                                 </div>
+
+                                <!-- seccion de btn se muestran deacuerdo a que actividad se realiza-->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" @click="clearData">Cancelar</button>
-                                    <button type="button" class="btn btn-primary btn-sm" v-on:click="clearData" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
-
+                                    <div v-if="displayOption=='Agregue una nueva Categoria'">
+                                    <button type="button" class="btn btn-primary btn-sm" v-on:click="createRegistro" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
+                                    </div>
+                                    <div v-if="this.displayOption=='Modifique la Categoria'">
+                                        <button type="button" class="btn btn-primary btn-sm" v-on:click="edithRegistro" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
