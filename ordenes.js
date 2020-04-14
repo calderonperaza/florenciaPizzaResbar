@@ -25,30 +25,39 @@ new Vue({
         ordenar: function() {
             //ordena de forma ascendente las ordenes
             if (this.ascendente == true) {
-                axios.get(
-                    this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20ASC%22%20%0A%20%20%5D%0A%7D')
-                    .then(response => {
-                        this.ordenes = response.data
-                    }).catch(e => {console.log(e)})
-
+                if(this.activos){
+                    axios.get(
+                        this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20ASC%22%20%0A%20%20%5D%0A%7D')
+                        .then(response => {
+                            this.ordenes = response.data
+                        }).catch(e => {console.log(e)})
+    
+                }else{
                     axios.get(
                         this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20ASC%22%0A%20%20%5D%2C%0A%20%20%22where%22%3A%20%7B%0A%20%20%20%20%22estado%22%3A%20%22A%22%0A%20%20%7D%0A%7D')
                         .then(response => {
                             this.lactivos = response.data
                         }).catch(e => {console.log(e)})
+                }
+                
             } else {
                 //ordena de forma descendente las ordenes
-                axios.get(
-                    this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20DESC%22%0A%20%20%5D%0A%7D')
-                    .then(response => {
-                        this.ordenes = response.data
-                    }).catch(e => {console.log(e)})
-
-                axios.get(
-                    this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20DESC%22%0A%20%20%5D%2C%0A%20%20%22where%22%3A%20%7B%0A%20%20%20%20%22estado%22%3A%20%22A%22%0A%20%20%7D%0A%7D')
-                    .then(response => {
-                        this.lactivos = response.data
-                    }).catch(e => {console.log(e)})
+                if (this.activos) {
+                    axios.get(
+                        this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20DESC%22%0A%20%20%5D%0A%7D')
+                        .then(response => {
+                            this.ordenes = response.data
+                        }).catch(e => {console.log(e)})
+        
+                } else {
+                    axios.get(
+                        this.uri+'?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20DESC%22%0A%20%20%5D%2C%0A%20%20%22where%22%3A%20%7B%0A%20%20%20%20%22estado%22%3A%20%22A%22%0A%20%20%7D%0A%7D')
+                        .then(response => {
+                            this.lactivos = response.data
+                        }).catch(e => {console.log(e)})
+                        
+                }
+                
             }
             this.ascendente = !this.ascendente
         },
