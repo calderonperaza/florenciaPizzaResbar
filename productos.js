@@ -3,37 +3,120 @@ new Vue({
     data: {
         // Aqui inician las propiedades que vamos a necesitar
         //para almacenar nuestros objetos de trabajo
-        
+        categorias: [],
         productoSelected: {id:"0",nombre:"", precio: 0.00, categoria:{nombre:""}},
-        productos: [
-            {id:"2312a1211",nombre:"Papas francesas", precio: 3.25, categoria:{nombre:"Entradas"}},
-
-            {id:"2312a1222",nombre:"Hamburguesa Big", precio: 7.25, categoria:{nombre:"Platos"}},
-            
-            {id:"2312a1333",nombre:"Pizza Suprema", precio: 6.35, categoria:{nombre:"Platos"}},
-            
-            {id:"2312a1444",nombre:"Ensalada Cesar", precio: 5.55, categoria:{nombre:"Platos"}},
-            
-            {id:"2312a5555",nombre:"Refresco de Horchata", precio: 1.75, categoria:{nombre:"Bebidas"}},
-            
-            {id:"2312a5555",nombre:"Soda Fanta 12 onz", precio: 1.00, categoria:{nombre:"Bebidas"}},
-            
-        ],
+        productos: [],
         producto: { 
             id: "0",
             nombre: "",
             precio: "0.00",
-            Categoria:""
+            categoria:""
         }, 
         
         displayOption: "",
         txtBuscar: "",
+        productomodificado: {id:"0",nombre:"", precio: 0.00, categoria:{nombre:""}},
         
         
 
         
     }, 
+    created: function(){
+        this.obtenerProductos();
+    },
     methods: {
+
+        obtenerProductos(){
+            axios
+            .get('http://localhost:3000/productos')
+            .then(response => {this.productos=response.data;})
+
+
+        },
+       
+        obtenerCategorias(){
+            axios
+                .get('http://localhost:3000/categorias')
+                .then(response => {console.log(response)
+                this.categorias=response.data;
+                })
+
+
+
+        },
+
+        eliminarProducto(){
+            axios
+            .delete('http://localhost:3000/productos/'+this.productoSelected.id)
+            .then(response => {console.log(response)
+
+            this.obtenerProductos();
+            })
+
+
+        },
+
+        modalmodificarProducto(){
+            this.obtenerCategorias();
+            this.productomodificado=this.productoSelected;
+            console.log(this.categorias.nombre);
+            
+            this.obtenerProductos();
+        },
+
+        modificarProducto(){
+            this.productomodificado=this.productoSelected;
+            let precio=parseFloat(this.productomodificado.precio).toFixed(2);
+            this.productomodificado.precio="aaaa";
+            let data=JSON.stringify(this.productomodificado);
+            data=data.replace('"aaaa"',precio);
+            console.log(data);
+            axios.patch('http://localhost:3000/productos/'+this.productomodificado.id,
+             data,
+             { 		 headers: { 			  'content-type': 'application/json', 		 }}
+         
+             ).then(response => {
+                 console.log(response);
+              this.clearData();
+              alert("Guardado con exito");
+              this.obtenerProductos();
+             }).catch(ex => {
+                 console.log(ex)
+             });
+ 
+
+        },
+
+        crearProducto(){
+           let precio=parseFloat(this.producto.precio).toFixed(2);
+           this.producto.precio="aaaa";
+           delete this.producto.id;
+           let data=JSON.stringify(this.producto);
+           data=data.replace('"aaaa"',precio);
+            console.log(data);
+            axios.post('http://localhost:3000/productos',
+            data,
+            { 		 headers: { 			  'content-type': 'application/json', 		 }}
+        
+            ).then(response => {
+                console.log(response);
+             this.clearData();
+             alert("Guardado con exito");
+             this.obtenerProductos();
+            }).catch(ex => {
+                console.log(ex)
+            });
+
+
+        },
+
+
+        imprimirproducto(){
+            console.log(this.producto);
+
+        },
+
+
         //aqui van los metodos que vamos a necesitar
         modoeditar(){
                      /*this.productx= {nombre:"", precio: 0.00, categoria:{nombre:""}};
@@ -56,9 +139,11 @@ new Vue({
                 id: "0",
                 nombre: "",
                 precio: "0.00",
-                Categoria:""
+                categoria:""
             };
             this.productoSelected = {id:"0",nombre:"", precio: 0.00, categoria:{nombre:""}};
+            this.obtenerProductos();
+            this.productomodificado;
 
         },
 

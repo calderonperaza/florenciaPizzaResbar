@@ -182,8 +182,7 @@
 
                                 <!-- Inicio: Tabla Modal Resumen-->
                                 <div class="modal-body">
-                                    <div
-                                        style="display: flex; justify-content: center; overflow-y:auto; height: 255px; margin: 0px 20px 20px 20px;">
+                                    <div style="display: flex; justify-content: center; overflow-y:auto; height: 255px; margin: 0px 20px 20px 20px;">
                                         <table class="table table-sm table-bordered table-striped mb-0 "
                                             style="width: 100%;">
                                             <thead class="bg-primary text-white">
@@ -206,7 +205,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-
+                                    <div class="sidebar-brand-text mx-3" v-if="ordenSelected.detalleOrden.length==0">
+                                        <span style="font-weight: bold;">Nota: Ningún Producto Fue Agregado a la Orden, Su orden será guardada pero no se eliminara</span>
+                                    </div>
                                 </div>
                                 <!-- Fin: Tabla Modal Resumen-->
 
