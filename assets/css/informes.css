@@ -367,7 +367,7 @@ padding: 10px!important;
     flex-basis: 100%;
   }
   .responsive-table .col {
-    display: flex;
+    display: table-header-group;
     padding: 10px 0;
   }
   .responsive-table .col:before {
