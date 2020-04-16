@@ -139,6 +139,14 @@ var vm = new Vue({
             this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
             this.getFourDivsData();
         },
+
+        //Obtiene las fechas ingresadas
+        obtenerFechas: function(){
+            this.desde = document.getElementById("start").value;
+            this.hatsa = document.getElementById("end").value;
+            this.getFourDivsData();
+        },
+
         getFourDivsData: function () {
             this.divDos();
             this.divTres();
@@ -154,14 +162,22 @@ var vm = new Vue({
 
         },
         divTres: function () {
-            axios.get(
+            /*axios.get(
                 this.uri + '/resumenDeVentas').then(response => {
                     let producto = response.data;
                     const todosLosProductos = producto.map(producto => producto.productos).flat();
                     this.topProductos = this.ordenarPorClave("cantidad", todosLosProductos);
                     this.pmvCantidad = this.topProductos[0].cantidad;
                     this.platoMasVendido = this.topProductos[0].nombre;
-                }).catch(e => { console.log(e) });
+                }).catch(e => { console.log(e) });*/
+                axios.get(
+                    this.uri + '/resumenDeVentas?filter=%7B%22where%22%3A%20%7B%22fecha%22%3A%20%7B%22between%22%3A%20%5B%22' +this.desde+'%22%2C%22' +this.hasta+'%22%5D%7D%7D%7D').then(response => {
+                                 let producto = response.data;
+                                 const todosLosProductos = producto.map(producto => producto.productos).flat();
+                                 this.topProductos = this.ordenarPorClave("cantidad", todosLosProductos);
+                                 this.pmvCantidad = this.topProductos[0].cantidad;
+                                 this.platoMasVendido = this.topProductos[0].nombre;
+                             }).catch(e => { console.log(e) });
         },
         divCuatro: function () {
             axios.get(
