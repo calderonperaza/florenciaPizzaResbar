@@ -46,13 +46,13 @@ Vue.component('reactive', {
     }
 });
 
-//-------------------- Fin de vue component que es el chart ------------------------
+//======================================= Fin de vue component que es el chart ==================================
 
 var vm = new Vue({
     el: '#appRESBAR',
     data: {
         datacollection: null,
-        numPlatosVendidos: 231,
+        ordenesEliminadas: 0,
         numOrdenesFin: 127,
         platoMasVendido: "Carne Asada",
         pmvCantidad: 104,
@@ -73,7 +73,13 @@ var vm = new Vue({
         venidasTarde: 0,
         //Comienza char
         chartRange: '',
-        rangoInt:1,
+        rangoInt: 1,
+        desde: "",
+        hasta: "",
+        uri: 'http://localhost:3000',
+        topProductos:"",
+        ordenesCerradas:"",
+
 
     },
     created() {
@@ -83,12 +89,14 @@ var vm = new Vue({
         this.$nextTick(function () {
             window.addEventListener("resize", this.resizeOrOnload);
             //Init
-            this.resizeOrOnload()
+            this.resizeOrOnload();
+            this.getFourDivsData();
         })
+        this.mesActual();
     },
     methods: {
         fillData(rango) {
-            this.chartRange=this.setRange();
+            this.chartRange = this.setRange();
             this.datacollection = {
                 labels: this.chartRange[rango].labels,
                 datasets: [{
@@ -103,48 +111,89 @@ var vm = new Vue({
         },
         setRange() {
             return [{
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
-                },
-                {
-                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
-                },
-                {
-                    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),this.getRandomInt()]
-                },
-                {
-                    labels: ['00:00 a.m.', '04:00 a.m.', '08:00 a.m.', '12:00 m.', '04:00 p.m.', '08:00 p.m.', '12:00 p.m.'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),this.getRandomInt()]
-                }
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+            },
+            {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+            },
+            {
+                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+                datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+            },
+            {
+                labels: ['00:00 a.m.', '04:00 a.m.', '08:00 a.m.', '12:00 m.', '04:00 p.m.', '08:00 p.m.', '12:00 p.m.'],
+                datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+            }
             ];
         },
         resizeOrOnload() {
-            /*
-            Así se hace cuadrado
-            //si el ancho es mayor que el alto
-            let cuatroDivs = document.getElementById("cuatro-divs");
-            let divTamaño = document.getElementById("segundoDiv");
-            if (divTamaño.clientWidth > divTamaño.clientHeight) {
-                cuatroDivs.style.minHeight = divTamaño.offsetWidth + "px";
-                console.log("resize on load, mas grande el ancho");
-             //si el alto es mayor que el ancho
-            } else {
-                cuatroDivs.style.minHeight = divTamaño.offsetWidth + "px";
-                // 0, 2, 4, 6
-                console.log("resize on load, mas grande el alto");
-            }
-            let size = (document.getElementById("cuatro-divs").offsetWidth/4)-50;
-            document.getElementById("primerDiv").style.minWidth = size + "px";
-            divTamaño.style.minWidth = size + "px";
-            document.getElementById("tercerDiv").style.minWidth = size + "px";
-            document.getElementById("cuartoDiv").style.minWidth = size + "px";
-                      
-
-            */
             document.getElementById("bar-chart").style.width = (document.getElementById("idPalChar").clientWidth - 10) + "px";
+        },
+        moment: function () {
+            return moment();
+        },
+        mesActual: function () {
+            this.hasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
+            this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
+            this.getFourDivsData();
+        },
 
-        }
+        //Obtiene las fechas ingresadas
+        obtenerFechas: function(){
+            this.desde = document.getElementById("start").value;
+            this.hatsa = document.getElementById("end").value;
+            this.getFourDivsData();
+        },
+
+        getFourDivsData: function () {
+            this.divDos();
+            this.divTres();
+            this.divCuatro();
+        },
+        divDos: function () {
+            axios.get(
+                this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde + '&filter[where][and][2][estado][like]=C').then(response => {
+                    this.ordenesCerradas = response.data;
+                    this.numOrdenesFin = this.ordenesCerradas.length;
+                }).catch(e => { console.log(e) });
+
+
+        },
+        divTres: function () {
+            /*axios.get(
+                this.uri + '/resumenDeVentas').then(response => {
+                    let producto = response.data;
+                    const todosLosProductos = producto.map(producto => producto.productos).flat();
+                    this.topProductos = this.ordenarPorClave("cantidad", todosLosProductos);
+                    this.pmvCantidad = this.topProductos[0].cantidad;
+                    this.platoMasVendido = this.topProductos[0].nombre;
+                }).catch(e => { console.log(e) });*/
+                axios.get(
+                    this.uri + '/resumenDeVentas?filter=%7B%22where%22%3A%20%7B%22fecha%22%3A%20%7B%22between%22%3A%20%5B%22' +this.desde+'%22%2C%22' +this.hasta+'%22%5D%7D%7D%7D').then(response => {
+                                 let producto = response.data;
+                                 const todosLosProductos = producto.map(producto => producto.productos).flat();
+                                 this.topProductos = this.ordenarPorClave("cantidad", todosLosProductos);
+                                 this.pmvCantidad = this.topProductos[0].cantidad;
+                                 this.platoMasVendido = this.topProductos[0].nombre;
+                             }).catch(e => { console.log(e) });
+        },
+        divCuatro: function () {
+            axios.get(
+                this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde + '&filter[where][and][2][estado][like]=A').then(response => {
+                    let valor = response.data;
+                    this.ordenesActivas = valor.length;
+                }).catch(e => { console.log(e) });
+        },
+        ordenarPorClave: function (clave, arregloObjetos, ordenarMenorAMayor = false){
+            return arregloObjetos.sort((a, b) => {
+              return ordenarMenorAMayor == false ? b[clave] - a[clave] : a[clave] - b[clave]; 
+            });
+        },
+        getOrdenSelected: function(id){
+            console.log(id);
+        },
+
     }
 });
