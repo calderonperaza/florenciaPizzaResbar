@@ -9,7 +9,7 @@ new Vue({
         textoBusqueda: "",
         alerta: "",
         alertBool: true,
-        uri:'http://localhost:3000/ordenes',
+        uri:'http://resbar2020.us-south.cf.appdomain.cloud/ordenes',
      
     },
     methods: {
