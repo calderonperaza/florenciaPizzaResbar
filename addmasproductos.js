@@ -9,15 +9,16 @@ new Vue({
 
     ordenSelected: {},
     counter: 0,
-    cantidades: [0],
     categoriaSelected: 'Entradas',
     productoSelected: 0,
     textoBusqueda: '',
 
-    detallesDeNuevaOrden: [],
+    detallesDeNuevaOrden:[],
+    arrayAux:[],
+
     resumen: [],
     categoria: {},
-    nuevoDetalleOrden: {},
+    nuevoDetalleOrden:{},
 
   },
   mounted: function () {
@@ -27,196 +28,144 @@ new Vue({
   },
   methods: {
 
-  /*Esta función agrega las cantidades de productos que deseamos aumentar a la orden que ha sido seleccionada y valida
-    la suma mediante el metodo validarSuma() */
+  /*Esta función agrega las cantidades de productos que deseamos aumentar a la orden que ha sido seleccionada 
+  y valida que el producto seleccionado se agregue de forma correcta */
     agregarAdetalle(productoSelected) {
       var cantidad = 0;
-      this.nuevoDetalleOrden.cantidad = cantidad;
-      this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
-      this.nuevoDetalleOrden.precio = this.productos[this.productoSelected].precio;
-      this.categoria.nombre = this.productos[this.productoSelected].categoria.nombre;
-      this.nuevoDetalleOrden.categoria = this.categoria;
-
-      if (this.detallesDeNuevaOrden.length === 0) {
-        this.nuevoDetalleOrden.cantidad = 1;
-        this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
-        this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
-      } else {
-        for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
-          const element = this.detallesDeNuevaOrden[index];
-          if (element.nombre === this.nuevoDetalleOrden.nombre) {
-            cantidad = element.cantidad;
-            cantidad = cantidad + 1;
-            this.detallesDeNuevaOrden[index].cantidad = cantidad;
-            this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].cantidad * this.detallesDeNuevaOrden[index].precio;
-          }
-        }
-        var producto = this.detallesDeNuevaOrden.find(dno => {
-          return dno.nombre === this.nuevoDetalleOrden.nombre;
-        });
-
-        if (typeof producto === 'undefined') {
+        this.nuevoDetalleOrden.cantidad = cantidad;
+        this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
+        this.nuevoDetalleOrden.precio = this.productos[this.productoSelected].precio;
+        this.nuevoDetalleOrden.categoria = this.productos[this.productoSelected].categoria;
+            
+        if(this.detallesDeNuevaOrden.length === 0){
           this.nuevoDetalleOrden.cantidad = 1;
           this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
           this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
-        }
-      }
-      this.nuevoDetalleOrden = {
-        "cantidad": 0,
-        "nombre": '',
-        "precio": 0,
-        "categoria": {
-          "nombre": ''
-        }
-      }
-      this.validarSuma();
-    },
-
-  /*Esta función se encarga de validar la suma de los productos si un producto tiene cantidad 0 en la orden aumentar
-    pero si un producto ya tenia un valor sumar la agregacion nueva */
-    validarSuma() {
-      for (const iterator of this.ordenSelected.detalleOrden) {
-        for (const iterator1 of this.detallesDeNuevaOrden) {
-          if (iterator.nombre == iterator1.nombre) {
-            iterator.cantidad = iterator.cantidad + iterator1.cantidad;
-            iterator.subtotal = iterator.cantidad * iterator.precio;
-            this.detallesDeNuevaOrden.pop();
-          } else if (iterator.cantidad == 0) {
-            this.ordenSelected.detalleOrden.pop();
-          }
-        }
-      }
-      this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.detallesDeNuevaOrden);
-      this.detallesDeNuevaOrden.pop();
-    },
-
-
-  /*Esta funcion Agrega el array detallesDeNuevaOrden los productos que quiere disminuir para validarlo mediante 
-    el metodo validarResta() y verificar que la cantidad a disminuir cumpla con los requisitos */
-    quitarAdetalle(productoSelected) {
-      var cantidad = 0;
-      this.nuevoDetalleOrden.cantidad = cantidad;
-      this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
-      this.nuevoDetalleOrden.precio = this.productos[this.productoSelected].precio;
-      this.categoria.nombre = this.productos[this.productoSelected].categoria.nombre;
-      this.nuevoDetalleOrden.categoria = this.categoria;
-
-      if (this.detallesDeNuevaOrden.length === 0) {
-        this.nuevoDetalleOrden.cantidad = 1;
-        this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
-        this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
-      } else {
-        for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
-          const element = this.detallesDeNuevaOrden[index];
-          if (element.nombre === this.nuevoDetalleOrden.nombre) {
-            cantidad = element.cantidad;
-            cantidad = cantidad + 1;
-            this.detallesDeNuevaOrden[index].cantidad = cantidad;
-            this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].cantidad * this.detallesDeNuevaOrden[index].precio;
-          }
-        }
-      }
-      this.nuevoDetalleOrden = {
-        "cantidad": 0,
-        "nombre": '',
-        "precio": 0,
-        "categoria": {
-          "nombre": ''
-        }
-      }
-      this.validarResta();
-    },
-
-  /*Esta función validara que los productos que quieran disminuirse sean mayores que 0 y que si el productos esta con 
-    valor de 0 no pase a ser una cantidad negativa */
-    validarResta() {
-      var valor = this.buscarCantidad(this.productoSelected);
-      if (valor <= 0) {
-
-      } else {
-        for (const iterator of this.ordenSelected.detalleOrden) {
-          for (const iterator1 of this.detallesDeNuevaOrden) {
-            if (iterator.nombre == iterator1.nombre) {
-              iterator.cantidad = iterator.cantidad - iterator1.cantidad;
-              iterator.subtotal = iterator.cantidad * iterator.precio;
-              this.detallesDeNuevaOrden.pop();
+        }else{
+            for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
+              const element = this.detallesDeNuevaOrden[index];
+              if(element.nombre === this.nuevoDetalleOrden.nombre){
+                cantidad = element.cantidad;
+                cantidad = cantidad + 1;
+                this.detallesDeNuevaOrden[index].cantidad = cantidad;
+                this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+              }
             }
-          }
+            
+        var producto = this.detallesDeNuevaOrden.find(dno => {
+         return dno.nombre === this.nuevoDetalleOrden.nombre;
+        });
+
+        if(typeof producto === 'undefined'){
+          this.nuevoDetalleOrden.cantidad=1;
+          this.nuevoDetalleOrden.subtotal =  this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+          this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
         }
-        this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.detallesDeNuevaOrden);
-      }
-      this.detallesDeNuevaOrden.pop();
-      this.eliminarVacio();
-    },
+       }
 
-
-  /*Esta función eliminara los elementos del array detalleOrden que estan vacios cuya cantidad de producto sea 0 
-    estos elementos estan dentro de ordenSelected.detalleOrden para que los detalles de orden vacios no sean agregados 
-    en la base de datos*/
-    eliminarVacio() {
-      for (x = 0; x < this.ordenSelected.detalleOrden.length; x++) {
-        if (this.ordenSelected.detalleOrden[x].cantidad == 0) {
-          y = this.ordenSelected.detalleOrden[x].nombre;
-          this.ordenSelected.detalleOrden.splice(x, 1);
-        }
-      }
-    },
-
-
-  /*Esta función calculara en nuevo total de la orden mediante sumando los subtotales de todos los elementos agregados
-    en detalleOrde de ordenSelected en caso de que nuevos productos sean agregados */
-    calcularTotal() {
-      var total = 0;
-      for (const iterator of this.ordenSelected.detalleOrden) {
-        total = total + iterator.subtotal;
-      }
-      this.ordenSelected.total = total;
-    },
-
-    
-  /*Esta función sirve para que en caso de que el usuario elimine todos los productos de la orden el array 
-    detalleOrden se llene con un valor vacio en la base de datos y no quedarse en error de respuesta de la db */
-    guardarVacio(){
-      if(this.ordenSelected.detalleOrden.length==0){
-        //console.log("YES");
-        this.detalleOrdenVacio = {
+        this.nuevoDetalleOrden = {
           "cantidad": 0,
           "nombre": '',
           "precio": 0,
           "categoria": {
-            "nombre": ''
+            "nombre":''
           },
-          "subtotal":0
+          "subtotal":''
         }
-        this.ordenSelected.detalleOrden.push(this.detalleOrdenVacio);
-      }
+        console.log(this.detallesDeNuevaOrden);
     },
 
+  /*Esta funcion elimina cantidades del array detallesDeNuevaOrden los productos que quiere disminuir 
+    y valida que el producto que se desea disminuir no sea menor a cero*/
+    quitarAdetalle(productoSelected) {
+      this.nuevoDetalleOrden.nombre = this.productos[this.productoSelected].nombre;
+      
+      if(this.detallesDeNuevaOrden.length != 0){
+        for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
+          const element = this.detallesDeNuevaOrden[index];
+          if(element.nombre === this.nuevoDetalleOrden.nombre){
+            cantidad = element.cantidad;
+            if(cantidad>0){
+              cantidad = cantidad - 1;
+              this.detallesDeNuevaOrden[index].cantidad = cantidad;
+              this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+            }
+            if(cantidad === 0){
+              this.detallesDeNuevaOrden.splice(index,1);
+            }
+          }
+        }
+      }
 
-  /*Esta función envia todos los cambios realizados por medio del metodo put para que los cambios realizados en 
-    ordenSelecte sean actualizados*/
-    agregarProductosOrden() {
-      this.guardarVacio();
-      axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
-        .then(response => {
-          console.log("exito");
-          this.regresarOrdenes();
-        })
-        .catch(error => {
-          console.log("Error:",error)
-        });
+    this.nuevoDetalleOrden = {
+      "cantidad": 0,
+      "nombre": '',
+      "precio": 0,
+      "categoria": {
+        "nombre":''
+      },
+      "subtotal":''
+      }
+      console.log(this.detallesDeNuevaOrden);
+    },
+
+    /*Verifica si un producto ya esta en la orden Seleccionada y aumenta su cantidad al igual que verfica si algun
+    producto no ha sido agregado a la orden para ingresar el nuevo producto */
+    addOrdenSelected() {
+      this.arrayAux.push.apply(this.arrayAux,this.detallesDeNuevaOrden);
+      for (x=0; x<this.ordenSelected.detalleOrden.length; x++) {
+        for(y=0; y<this.arrayAux.length; y++ ){
+          if(this.ordenSelected.detalleOrden[x].nombre === this.arrayAux[y].nombre){
+            this.ordenSelected.detalleOrden[x].cantidad = this.ordenSelected.detalleOrden[x].cantidad+this.arrayAux[y].cantidad;
+            this.ordenSelected.detalleOrden[x].subtotal = this.ordenSelected.detalleOrden[x].cantidad*this.ordenSelected.detalleOrden[x].precio;
+            this.arrayAux.splice(y,1);
+          }
+        }
+      }
+      this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden,this.arrayAux);
+      this.nuevoTotal();
+      console.log(this.ordenSelected);
+    },
+
+    /*Esta función calculara en nuevo total de la orden mediante sumando los subtotales de todos los elementos agregados
+    en detalleOrde de ordenSelected en caso de que nuevos productos sean agregados */
+    nuevoTotal(){
+      var total =0;
+      for (const iterator of this.ordenSelected.detalleOrden) {
+        total=total+iterator.subtotal;
+      }
+      this.ordenSelected.total = total;
     },
 
   /*Busca las cantidades que hay de productos en la orden seleccionada para modificar y mostrar los pruductos que ya
     estan en la orden con la posiblididad de disminuir o aumentar estos mismos */
-    buscarCantidad(p) {
-      producto = this.productos[p];
-      for (const iterator of this.ordenSelected.detalleOrden) {
-        if (iterator.nombre === producto.nombre) {
+    findCantidad(prod) {
+      producto = this.productos[prod];
+      for (const iterator of this.detallesDeNuevaOrden) {
+        if (iterator.nombre == producto.nombre){
           return iterator.cantidad;
         }
       }
       return 0;
+    },
+
+  /*Esta función envia todos los cambios realizados por medio del metodo put para que los cambios realizados en 
+    ordenSelecte sean actualizados*/
+    agregarProductosOrden() {
+      this.addOrdenSelected();
+      axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
+        .then(response => {
+          console.log("exito");
+          if(this.detallesDeNuevaOrden.length==0){
+            window.location = `./ordenes.html?alert=No se realizo ningun cambio a la orden ${this.ordenSelected.id.substring(20,24)}`
+          }else{
+            this.regresarOrdenes();
+          }
+        })
+        .catch(error => {
+          console.log("Error:",error)
+          this.cancelar();
+        });
     },
 
   /*Esta función mediante metodo get extrae todas las Categorias por medio del api rest que estan en la base de datos
@@ -289,6 +238,9 @@ new Vue({
       this.ordenSelected = this.ordenes.find(item => {
         return item.id == this.getParameterByName("id");
       })
+      if (this.ordenSelected === {} || this.ordenSelected === undefined) {
+        window.location = `./ordenes.html?alert=Id de orden no encontrado`
+      }
     },
 
   /*Esta función redirige a la pantalla de Ordenes aplicando los cambios que se hayan realizado a la
