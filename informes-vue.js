@@ -135,11 +135,20 @@ var vm = new Vue({
             return moment();
         },
         mesActual: function() {
+            // moment().startOf('month').format("YYYY-DD-MM");
+            // let i = 1;
+            // while (i < 13) {
+            //     console.log("inicio:" + this.moment('2020-' + (i < 10) ? ('0' + i) : (i) + '-01T000000Z').toISOString());
+            //     console.log("fin:" + this.moment('2020-' + (i < 10) ? ('0' + i) : (i) + '-01T00:00:00Z').endOf('month').toISOString());
+            //     i++;
+            // }
+            console.log("inicio:" + this.moment().set({ 'year': 2019, 'month': 0 }).endOf('month').toISOString());
             this.hasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
             this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
         },
         getFourDivsData: function() {
-            if (moment.duration(moment(this.hasta, "YYYY-MM-DD").diff(moment(this.desde, "YYYY-MM-DD"))).asDays() > 0) {
+            /*     if (moment.duration(moment(this.hasta, "YYYY-MM-DD").diff(moment(this.desde, "YYYY-MM-DD"))).asDays() > 0) {*/
+            if (!moment(this.hasta, "YYYY-MM-DD").isSameOrBefore(moment(this.desde, "YYYY-MM-DD"))) {
                 this.divDos();
                 this.divTres();
                 this.divCuatro();
@@ -207,7 +216,23 @@ var vm = new Vue({
                     element.style.removeProperty('box-shadow');
                 });
             }
-        }
+        },
+        getTotalPorMes: function(year, month) {
+
+            // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
+            // array is 'year', 'month', 'day', etc
+            // var startDate = this.moment([year, month - 1]);
+
+            // // Clone the value before .endOf()
+            // var endDate = this.moment(startDate).endOf('month');
+
+            // // just for demonstration:
+            // console.log(startDate.toDate());
+            // console.log(endDate.toDate());
+
+            // make sure to call toDate() for plain JavaScript date type
+            // return { start: startDate, end: endDate };
+        },
 
     }
 });
