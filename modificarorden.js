@@ -3,7 +3,7 @@ new Vue({
     data: {
         // Aqui inician las propiedades que vamos a necesitar
         //para almacenar nuestros objetos de trabajo
-        uri: 'http://localhost:3000/ordenes',
+        uri: ApiRestUrl + '/ordenes',
         ordenSelected: {},
         ordenes: [],
         ascendente: true,
