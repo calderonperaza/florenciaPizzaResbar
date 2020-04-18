@@ -9,7 +9,7 @@ new Vue({
         displayOption: "",
         agg: true,
         searchDisplay: "",
-        urlApi: 'http://localhost:3000/categorias'
+        urlApi: ApiRestUrl + "/categorias"
     },
     methods: {
 

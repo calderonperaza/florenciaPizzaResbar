@@ -1,0 +1,1 @@
+var ApiRestUrl = "http://localhost:3000"

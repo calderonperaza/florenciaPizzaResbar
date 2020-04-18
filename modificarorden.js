@@ -3,7 +3,7 @@ new Vue({
     data: {
         // Aqui inician las propiedades que vamos a necesitar
         //para almacenar nuestros objetos de trabajo
-        uri: 'http://localhost:3000/ordenes',
+        uri: ApiRestUrl + '/ordenes',
         ordenSelected: {},
         ordenes: [],
         ascendente: true,
@@ -27,7 +27,6 @@ new Vue({
                     this.obtenerSelected();
                 })
                 .catch(e => { console.log(e) })
-
         },
 
         eliminarProducto(index) {
@@ -44,7 +43,11 @@ new Vue({
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
             var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                 results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            if (results === null) {
+                window.location = `./ordenes.html` //redireciona a ordenes si no se encuentra el id 
+            } else {
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
         },
 
         //Recalcula el sub-total al sumar producto ademas de recalcular el total de la orden
@@ -61,9 +64,8 @@ new Vue({
         modificarOrden() {
             //Se comprueba si la orden tiene productos si la orden no tiene productos se elimina 
             if (this.ordenSelected.detalleOrden.length > 0) {
-                axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
+                axios.put(this.uri + '/' + this.ordenSelected.id, this.ordenSelected)
                     .then(response => {
-                        console.log("exito");
                         this.redireccionarAOrdenes();
                     })
                     .catch(error => {
@@ -92,6 +94,11 @@ new Vue({
             this.ordenSelected = this.ordenes.find(item => {
                 return item.id == this.getParameterByName("id");
             })
+
+            if (this.ordenSelected === undefined || this.ordenSelected === {}) {
+                window.location = `./ordenes.html`
+            }
+
         },
         redireccionarAOrdenes() {
             window.location = `./ordenes.html?alert=se modifico la orden ${this.ordenSelected.id} Satisfactoriamente`

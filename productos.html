@@ -80,7 +80,7 @@
 
                         <!-- Boton Agregar nuevo -->
                         <div class="col-md-4 " style="display: flex; justify-content: center;">
-                            <button class="btn agg text-white" type="button" data-toggle="modal" data-target="#frmagregar" v-on:click="addMode"><i class="fa fa-plus-circle mr-2 text-white" ></i>Agregar</button>
+                            <button class="btn agg text-white" type="button" data-toggle="modal" data-target="#frmagregar" v-on:click="obtenerCategorias"><i class="fa fa-plus-circle mr-2 text-white" ></i>Agregar</button>
                         </div>
                     </div>
 
@@ -108,12 +108,12 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(producto, index) in productos " v-show="buscar(index)"  v-on:click="productoSelected=producto" v-bind:class="{ 'font-weight-bold' : productoSelected==producto, 'text-dark': productoSelected==producto }">
-                                    <td style="text-align: center;">{{producto.id}}</td>
+                                    <td style="text-align: center;">{{producto.id.substring(producto.id.length - 4, producto.id.length)}}</td>
                                     <td style="text-align: center;">{{producto.nombre}}</td>
                                     <td style="text-align: center;">$ {{producto.precio}}</td>
                                     <td style="text-align: center;">{{producto.categoria.nombre}}</td>
                                     <td> 
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#frmmodificar">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#frmmodificar" @click="productoSelected=producto; modalmodificarProducto()">
                                             <i class="fa fa-edit mr-2"></i>
                                         </button>
 
@@ -166,22 +166,25 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
             <div class="form-group">
                 <label for="nombre">Nombre del producto:</label>
-                <input v-model="productoSelected.nombre" type="text" class="form-control"
+                <input v-model="producto.nombre" type="text" class="form-control"
                 id="idproducto" placeholder="Nombre x">
             </div>
 
             <div class="form-group">
                 <label for="categoria">Categoria</label>
-                <select class="form-control" id="inputcategoria">
-                <option value="Bebidas">bebidas</option>
-                <option value="Platos">Platos</option>
-                <option value="Entradas">Entradas</option>
+                <select v-model="producto.categoria"  class="form-control" id="inputcategoria">
+                    <option v-for="(categoria, index) in categorias " v-bind:value="categoria">{{categoria.nombre}}</option>
+              
                 </select>   
+
+               
+
+
             </div>
 
             <div class="form-group">
                 <label for="precio"> Ingrese el precio:</label>
-                <input v-model="producto.precio" type="number" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control"
+                <input v-model="producto.precio" type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control"
                 id="precioholder" placeholder="$0.00">
             </div>
             </form>
@@ -190,8 +193,8 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"
             @click="clearData">Cancelar</button>
-            <button type="button" class="btn btn-primary" v-on:click="clearData"
-            data-dismiss="modal">Guardar</button>
+            <button type="button" class="btn btn-primary" v-on:click="crearProducto" data-dismiss="modal"
+            >Guardar</button>
         </div>
     </div>
 </div>
@@ -226,9 +229,9 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <label for="lblnombre" class="col-sm-2 col-lg-1.2 col-form-label">Nombre:     </label>
                             
                             <div class="col-sm-3 mr-md-5 col-lg-3">
-                                <input type="text"  class="form-control form-control-sm" id="lblnombre" v-model="productoSelected.nombre">
+                                <input type="text"  class="form-control form-control-sm" id="lblnombre" v-model="productomodificado.nombre">
                             </div>
-                            <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productoSelected.id}} </label>
+                            <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productomodificado.id.substring(productomodificado.id.length - 4, productomodificado.id.length)}} </label>
                         </div>
 
                         <div class="form-group row my-0 ">
@@ -238,7 +241,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             </div>
 
                             <div class="col-md-6 col-sm-4 col-lg-3 ">
-                                <input type="number"  pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productoSelected.precio ">
+                                <input type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productomodificado.precio ">
                             </div>
 
                             <div class="col-md-4 col-sm-6 col-lg-6 ">
@@ -252,7 +255,10 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             </div>
 
                             <div class="col-md-9 col-sm-4 col-lg-3 ">
-                                <input type="text " class="form-control form-control-sm " id="lblcategoria " v-model="productoSelected.categoria.nombre">
+                                <select v-model="productomodificado.categoria"  class="form-control" id="inputacategoria">
+                                    <option v-for="(categoria, index) in categorias " v-bind:value="categoria">{{categoria.nombre}}</option>
+                              
+                                </select>   
                             </div>
 
                             <div class="col-md-1 col-sm-1 col-lg-2 ">
@@ -267,7 +273,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-footer ">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                 v-on:click="clearData" >Cancelar</button>
-                <button type="button" class="btn btn-primary" v-on:click="clearData"
+                <button type="button" class="btn btn-primary" v-on:click="modificarProducto"
                 data-dismiss="modal">Guardar</button>
             </div>
         </div>
@@ -280,7 +286,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog " role="document ">
         <div class="modal-content ">
             <div class="modal-header ">
-                <h5 class="modal-title " id="tituloEliminar ">Eliminar Producto # {{productoSelected.id}}</h5>
+                <h5 class="modal-title " id="tituloEliminar ">Eliminar Producto # {{productoSelected.id.substring(productoSelected.id.length - 4, productoSelected.id.length)}}</h5>
                 <button type="button " class="close " data-dismiss="modal" aria-label="Close ">
                  <span aria-hidden="true ">&times;</span>
                 </button>
@@ -290,7 +296,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             </div>
             <div class="modal-footer ">
                 <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                <button type="button " class="btn btn-danger " data-dismiss="modal" onClick="alerta()">Eliminar</button>
+                <button type="button " class="btn btn-danger " data-dismiss="modal" v-on:click="eliminarProducto" onClick="alerta()">Eliminar</button>
             </div>
         </div>
     </div>

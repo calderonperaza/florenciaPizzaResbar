@@ -108,25 +108,27 @@
                                     v-bind:class="{ 'font-weight-bold' : productoSelected==index }">
                                     <td>{{producto.nombre}}</td>
                                     <td>${{producto.precio}}</td>
-                                    <td v-for="cantidad in cantidades">
+                                    <td>
                                         <button type="button " class="btn btn-secondary btn-sm"
-                                        v-on:click="productoSelected=index; quitarAdetalle(productoSelected); buscarCantidad(index)">-</button>
-                                        <span>{{buscarCantidad(index)}}</span>
+                                        v-on:click="productoSelected.cantidad =+1"
+                                        @click="productoSelected=index; quitarAdetalle(productoSelected); findCantidad(index)">-</button>
+                                        {{findCantidad(index)}}
                                         <button type="button" class="btn btn-secondary btn-sm"
-                                        v-on:click="productoSelected=index; agregarAdetalle(productoSelected); buscarCantidad(index)">+</button></td>
+                                        @click="productoSelected=index; agregarAdetalle(productoSelected); findCantidad(index)">+</button></td>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <!-- Fin: Tabla-->
+                    
 
                     <!-- Inicio: Botones Cancelar Siguiente-->
                     <div style="margin-right: 25px;" class="modal-footer">
                         <button type="button" class="btn btn-secondary" @Click="cancelar();">Cancelar</button>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            onClick="$('#modalResumen').modal('show')" @click="calcularTotal();">Siguiente</button>
+                            onClick="$('#modalResumen').modal('show')">Siguiente</button>
                     </div>
                     <!-- Fin: Botones Cancelar Siguiente-->
 
@@ -182,8 +184,7 @@
 
                                 <!-- Inicio: Tabla Modal Resumen-->
                                 <div class="modal-body">
-                                    <div
-                                        style="display: flex; justify-content: center; overflow-y:auto; height: 255px; margin: 0px 20px 20px 20px;">
+                                    <div style="display: flex; justify-content: center; overflow-y:auto; height: 255px; margin: 0px 20px 20px 20px;">
                                         <table class="table table-sm table-bordered table-striped mb-0 "
                                             style="width: 100%;">
                                             <thead class="bg-primary text-white">
@@ -198,7 +199,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="detalle in ordenSelected.detalleOrden">
+                                                <tr v-for="detalle in detallesDeNuevaOrden">
                                                     <td>{{detalle.nombre}}</td>
                                                     <td>${{detalle.precio}}</td>
                                                     <td>{{detalle.cantidad}}</td>
@@ -206,7 +207,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-
+                                    <div class="sidebar-brand-text mx-3" v-if="detallesDeNuevaOrden.length==0">
+                                        <span style="font-weight: bold;">Nota: Ningún producto ha sido agregado a la orden</span>
+                                    </div>
                                 </div>
                                 <!-- Fin: Tabla Modal Resumen-->
 
