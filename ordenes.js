@@ -9,8 +9,7 @@ new Vue({
         textoBusqueda: "",
         alerta: "",
         alertBool: true,
-        uri:'http://localhost:3000/ordenes',
-     
+        uri: ApiRestUrl+'/ordenes'
     },
     methods: {
         //Obtiene todas las ordenes 
@@ -20,10 +19,11 @@ new Vue({
                     this.ordenes = response.data
                 })
                 .catch(e => {console.log(e)})
-        },
 
+        },
         ordenar: function() {
             //ordena de forma ascendente las ordenes
+            console.log(ApiRestUrl.toString)
             if (this.ascendente == true) {
                 if(this.activos){
                     axios.get(

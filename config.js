@@ -2,4 +2,5 @@
 //archivo html, todo el codigo comun va aqui
 
 //Direccion URL de la api rest que se va a consumir por la aplicacion
-var ApiRestUrl = "http://localhost:3000"
+const ApiRestUrl = "http://localhost:3000"
+
