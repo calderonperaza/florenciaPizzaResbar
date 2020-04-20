@@ -7,7 +7,8 @@ Vue.component('reactive', {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            callback: value => "$" + (value)
                         },
                         gridLines: {
                             display: true
@@ -42,6 +43,7 @@ Vue.component('reactive', {
         };
     },
     mounted() {
+        // Promise.resolve(vm.fillData()).then(this.renderChart(this.chartData, this.options)).catch(function(reason) { console.log('Manejar promesa rechazada (' + reason + ') aquí.'); });
         this.renderChart(this.chartData, this.options);
     }
 });
@@ -76,23 +78,33 @@ var vm = new Vue({
         rangoInt: 1,
         desde: "",
         hasta: "",
-        uri: 'http://localhost:3000',
+        uri: ApiRestUrl,
         topProductos: "",
         ordenesCerradas: "",
         alertaBool: false,
-
+        today: 0,
+        mesTotal: [],
+        selectRange: 0,
+        new: 0,
 
     },
     created() {
-        this.fillData(0);
+        Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
+        console.log("ver si está inicializado", this.mesTotal);
     },
     mounted() {
+        console.log(this.$children[0].chartData.datasets[0].__ob__.value.data);
+        Array.from(this.mesTotal).forEach(data => {
+            console.log(data)
+        })
+        console.log();
         this.$nextTick(function() {
             window.addEventListener("resize", this.resizeOrOnload);
             //Init
             this.resizeOrOnload();
         })
         Promise.resolve(this.mesActual()).then(this.getFourDivsData()).catch(function(reason) { console.log('Manejar promesa rechazada (' + reason + ') aquí.'); });
+        this.today = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
     },
     methods: {
         fillData(rango) {
@@ -112,7 +124,7 @@ var vm = new Vue({
         setRange() {
             return [{
                     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                    datos: this.mesTotal
                 },
                 {
                     labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
@@ -135,14 +147,6 @@ var vm = new Vue({
             return moment();
         },
         mesActual: function() {
-            // moment().startOf('month').format("YYYY-DD-MM");
-            // let i = 1;
-            // while (i < 13) {
-            //     console.log("inicio:" + this.moment('2020-' + (i < 10) ? ('0' + i) : (i) + '-01T000000Z').toISOString());
-            //     console.log("fin:" + this.moment('2020-' + (i < 10) ? ('0' + i) : (i) + '-01T00:00:00Z').endOf('month').toISOString());
-            //     i++;
-            // }
-            console.log("inicio:" + this.moment().set({ 'year': 2019, 'month': 0 }).endOf('month').toISOString());
             this.hasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
             this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
         },
@@ -217,22 +221,57 @@ var vm = new Vue({
                 });
             }
         },
-        getTotalPorMes: function(year, month) {
-
-            // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
-            // array is 'year', 'month', 'day', etc
-            // var startDate = this.moment([year, month - 1]);
-
-            // // Clone the value before .endOf()
-            // var endDate = this.moment(startDate).endOf('month');
-
-            // // just for demonstration:
-            // console.log(startDate.toDate());
-            // console.log(endDate.toDate());
-
-            // make sure to call toDate() for plain JavaScript date type
-            // return { start: startDate, end: endDate };
+        getTotalPorMes: function(year = this.moment().format('YYYY')) {
+            let i = 0;
+            let rangeMonth = [];
+            this.mesTotal = [];
+            while (i < 12) {
+                rangeMonth.push({ inicio: this.moment().set({ 'year': year, 'month': i }).startOf('month').toISOString(), fin: this.moment().set({ 'year': year, 'month': i }).endOf('month').toISOString() })
+                i++;
+            }
+            rangeMonth.forEach((param, index) => {
+                axios.get(
+                    this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').then(response => {
+                    let total = 0;
+                    let ordenes = response.data;
+                    ordenes.forEach((orden) => {
+                        total = orden.total + total;
+                    });
+                    this.mesTotal[index] = typeof total === undefined ? 0 : parseFloat(total.toFixed(2));
+                }).catch(e => { console.log("problemas con semanas " + e) });
+            });
+            // console.log("para ver cuantas veces me llaman");
         },
+        getTotalPorSemana: function(year = this.moment().format('YYYY'), month = this.moment().format('MM')) {
+            let i = 0;
+            let dias = ((this.moment().set({ 'year': year, 'month': month }).daysInMonth()) / 4) - 1;
+            let rangeWeeks = [];
+            let totalPorSemana = [];
+            while (i < 4) {
+                const begining = this.moment().set({ 'year': year, 'month': month - 1 }).startOf('month').add(i * Math.ceil(dias), 'days').toISOString();
+                const end = (i < 3) ? this.moment().set({ 'year': year, 'month': month - 1 }).startOf('month').add(((i + 1) * Math.ceil(dias) - 1), 'days').endOf('day').toISOString() : this.moment().set({ 'year': 2020, 'month': month - 1 }).endOf('month').toISOString();
+                i++;
+                rangeWeeks.push({ inicio: begining, fin: end });
+            }
+            rangeWeeks.forEach((param) => {
+                axios.get(
+                    this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').then(response => {
+                    let total = 0;
+                    let ordenes = response.data;
+                    ordenes.forEach((orden) => {
+                        total = orden.total + total;
+                    });
+                    totalPorSemana.push(total.toFixed(2));
+                }).catch(e => { console.log("problemas con semanas " + e) });
+            });
+            return totalPorSemana;
+        },
+        pruebaDeFechas: function() {
+            console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).format("YYYY-MM-DD HH:mm:ss.SSS"));
+            console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').format("YYYY-MM-DD HH:mm:ss.SSS"));
+            console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).toISOString());
+            console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').toISOString());
+        }
 
     }
 });

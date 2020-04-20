@@ -1,382 +1,378 @@
 .contenedor-trabajos {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  /*background: grey;*/
-  float: left;
-  width: 25%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    float: left;
+    width: 33%;
 }
 
 .espacio-margen {
-  background: #e8e8e8;
-  margin: 10px;
-  padding: 10px;
+    background: #e8e8e8;
+    margin: 10px;
+    padding: 10px;
 }
 
 .rounded {
-  border-radius: 0.7rem !important;
+    border-radius: 0.7rem !important;
 }
 
 .text-centro {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
 }
 
 .text-bold {
-  font-size: xx-large;
-  font-weight: 900;
-  color: #272727;
+    font-size: xx-large;
+    font-weight: 900;
+    color: #272727;
 }
 
 .iconos {
-  width: 100%;
-  font-size: 25px;
-  color: #585858;
+    width: 100%;
+    font-size: 25px;
+    color: #585858;
 }
 
 .subtitulo {
-  width: 100%;
-  color: #a5a5a5;
-  text-align: center;
+    width: 100%;
+    color: #a5a5a5;
+    text-align: center;
 }
 
 .border {
-  border: 1px solid #dee2e6 !important;
+    border: 1px solid #dee2e6 !important;
 }
 
 .divFull {
-  width: 100%;
-  display: inline-block;
-  font-size: 0;
-  line-height: 0;
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
 }
 
 .empName {
-  color: #fff;
+    color: #fff;
 }
 
 .leyendas {
-  color: #272727;
-  font-weight: 800;
-  margin-left: 12px;
-  font-size: x-large;
+    color: #272727;
+    font-weight: 800;
+    margin-left: 12px;
+    font-size: x-large;
 }
 
+
 /* Esto es de la parte de día, semana, mes del char */
+
 .tabs-inf {
-  margin: 10px;
-  font-size: 15px;
-  padding: 0px;
-  list-style: none;
-  background: #fff;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  border-radius: 50px;
-  position: relative;
+    margin: 10px;
+    font-size: 15px;
+    padding: 0px;
+    list-style: none;
+    background: #fff;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    border-radius: 50px;
+    position: relative;
 }
 
 .tabs-inf .a-inf {
-  text-decoration: none;
-  color: #777;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  transition-duration: 0.6s;
+    text-decoration: none;
+    color: #777;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    transition-duration: 0.6s;
 }
 
 .tabs-inf .a-inf.active {
-  color: #fff;
+    color: #fff;
 }
 
 .tabs-inf .a-inf i {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 .tabs-inf .selector-inf {
-  height: 100%;
-  display: inline-block;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: 1;
-  border-radius: 50px;
-  transition-duration: 0.6s;
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-  background: #05abe0;
-  background: -moz-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
-  background: -webkit-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
-  background: linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#8200f4', GradientType=1);
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    border-radius: 50px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: #05abe0;
+    background: -moz-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+    background: -webkit-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+    background: linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#05abe0', endColorstr='#8200f4', GradientType=1);
 }
 
+
 /* Fin de estilos del char */
+
 .tresPuntos {
-  text-align: center;
-  display: inline-block;
-  height: 100%;
-  width: 4%;
-  vertical-align: 50%;
+    text-align: center;
+    display: inline-block;
+    height: 100%;
+    width: 4%;
+    vertical-align: 50%;
 }
 
 .chartCss {
-  width: 60%;
-  text-align: left;
-  display: inline-block;
+    width: 60%;
+    text-align: left;
+    display: inline-block;
 }
 
 .bestEmployees {
-  width: 39%;
-  text-align: left;
-  display: inline-block;
+    width: 39%;
+    text-align: left;
+    display: inline-block;
 }
 
 .mobilScreen {
-  display: flex;
+    display: flex;
+    justify-content: space-between;
 }
 
 .chartEmp {
-  display: flex;
-  margin-top: 10px;
+    display: flex;
+    margin-top: 10px;
 }
 
 @media (min-width: 994px) and (max-width: 1069px) {
-
-  .empName {
-    font-size: 12px;
-  }
-
-  .reziseText {
-    font-size: 12px;
-  }
-
-  label {
-    margin-bottom: 0px;
-  }
-
-  .tresPuntos {
-    vertical-align: 10%;
-  }
-
-
+    .empName {
+        font-size: 12px;
+    }
+    .reziseText {
+        font-size: 12px;
+    }
+    label {
+        margin-bottom: 0px;
+    }
+    .tresPuntos {
+        vertical-align: 10%;
+    }
 }
 
 @media (max-width: 993px) {
-  .div-encapsula-dates{
-    display: grid!important;
-    justify-content: center!important;
-  }
-
-  .btn-hover {
-padding: 10px!important;
-  }
-
-  .espacio-divs{
-    padding: 10px;
-  }
-
-  .navbar-transparent {
-    display: flex !important;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
-  .mobilScreen {
-    display: grid;
-  }
-
-  .contenedor-trabajos {
-    width: 100%;
-  }
-
-  .chartCss {
-    width: 95%;
-  }
-
-  .bestEmployees {
-    width: 100%;
-  }
-
-  .chartEmp {
-    display: grid;
-    padding-left: 1.2rem;
-  }
-
-  .container-fluid {
-    padding-left: 0px;
-  }
-
-  .tabs-inf .a-inf {
-    margin: 0px;
-    padding: 0px;
-  }
-
-  .tabs-inf {
-    margin: 0px;
-    margin-bottom: 10px;
-    width: 100%;
-    flex-flow: row wrap;
-    display: flex;
-    justify-content: space-around;
-    height: 40px;
-    align-content: center;
-  }
-
-  .fillBlank {
-    width: 100;
-  }
+    .div-encapsula-dates {
+        display: grid!important;
+        justify-content: center!important;
+    }
+    .btn-hover {
+        padding: 10px!important;
+    }
+    .espacio-divs {
+        padding: 10px;
+    }
+    .navbar-transparent {
+        display: flex !important;
+    }
+    .sidebar {
+        display: none;
+    }
+    .mobilScreen {
+        display: grid;
+        justify-content: initial;
+    }
+    .contenedor-trabajos {
+        width: 100%;
+    }
+    .chartCss {
+        width: 95%;
+    }
+    .bestEmployees {
+        width: 100%;
+    }
+    .chartEmp {
+        display: grid;
+        padding-left: 1.2rem;
+    }
+    .container-fluid {
+        padding-left: 0px;
+    }
+    .tabs-inf .a-inf {
+        margin: 0px;
+        padding: 0px;
+    }
+    .tabs-inf {
+        margin: 0px;
+        margin-bottom: 10px;
+        width: 100%;
+        flex-flow: row wrap;
+        display: flex;
+        justify-content: space-around;
+        height: 40px;
+        align-content: center;
+    }
+    .fillBlank {
+        width: 100;
+    }
 }
+
 
 /* lo del top nav bar  */
 
 .topNavLink {
-  display: block;
-  padding: .5rem 1rem;
-  color: #585858;
-  margin-left: 20px;
+    display: block;
+    padding: .5rem 1rem;
+    color: #585858;
+    margin-left: 20px;
 }
 
 .navbar-transparent {
-  display: none;
-  background-color: transparent;
-  background: transparent;
-  border-color: transparent;
+    display: none;
+    background-color: transparent;
+    background: transparent;
+    border-color: transparent;
 }
 
 
 /* date picker */
+
 .div-date {
-  display: inline-block;
-  width: fit-content;
-  padding: 2px;
-  border-radius: 50px;
-  height: fit-content;
-  background-image: linear-gradient(to right, rgb(37, 170, 225), rgb(68, 129, 235), rgb(4, 190, 254), rgb(63, 134, 237));
+    display: inline-block;
+    width: fit-content;
+    padding: 2px;
+    border-radius: 50px;
+    height: fit-content;
+    background-image: linear-gradient(to right, rgb(37, 170, 225), rgb(68, 129, 235), rgb(4, 190, 254), rgb(63, 134, 237));
 }
 
 .date-css {
-  user-select: none;
-  border-radius: 50px;
-  text-align: center;
-  border: 0px;
-  font-family: inherit;
-  justify-content: center;
-  color: #443434;
-  background: #f8f9fc;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 40px;
-  box-shadow: 5px 5px 25px -2px rgba(31,115,255,0.46);
-  padding-left: 10px;
+    user-select: none;
+    border-radius: 50px;
+    text-align: center;
+    border: 0px;
+    font-family: inherit;
+    justify-content: center;
+    color: #443434;
+    background: #f8f9fc;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+    box-shadow: 5px 5px 25px -2px rgba(31, 115, 255, 0.46);
+    padding-left: 10px;
 }
 
 
 /* boton del date picker */
+
 .btn-hover {
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-  padding: 0px 20px 0px 20px;
-  border-radius: 50px;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    padding: 0px 20px 0px 20px;
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
 .btn-hover:hover {
-  background-position: 100% 0;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
 .btn-hover:focus {
-  outline: none;
+    outline: none;
 }
 
 .btn-hover.color-9 {
-  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
-  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
 }
 
 .div-encapsula-dates {
-  margin-bottom: 10px;
-  display: flex;
-  margin-top: 10px;
-  justify-content: space-between;
+    margin-bottom: 10px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
 }
 
 
 /* table responsive modal  */
 
 .container {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .responsive-table li {
-  border-radius: 3px;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
 }
+
 .responsive-table .table-header {
-  background-color: #4e73df;
-  font-size: 14px;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+    background-color: #4e73df;
+    font-size: 14px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
+
 .responsive-table .table-row {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.3);
 }
+
 .responsive-table .col-1 {
-  flex-basis: 10%;
+    flex-basis: 10%;
 }
+
 .responsive-table .col-2 {
-  flex-basis: 40%;
+    flex-basis: 40%;
 }
+
 .responsive-table .col-3 {
-  flex-basis: 25%;
+    flex-basis: 25%;
 }
+
 .responsive-table .col-4 {
-  flex-basis: 25%;
+    flex-basis: 25%;
 }
+
 @media all and (max-width: 767px) {
-  .responsive-table .table-header {
-    display: none;
-  }
-  .responsive-table li {
-    display: block;
-  }
-  .responsive-table .col {
-    flex-basis: 100%;
-  }
-  .responsive-table .col {
-    display: table-header-group;
-    padding: 10px 0;
-  }
-  .responsive-table .col:before {
-    color: #6C7A89;
-    padding-right: 10px;
-    content: attr(data-label);
-    flex-basis: 50%;
-    text-align: right;
-  }
+    .responsive-table .table-header {
+        display: none;
+    }
+    .responsive-table li {
+        display: block;
+    }
+    .responsive-table .col {
+        flex-basis: 100%;
+    }
+    .responsive-table .col {
+        display: table-header-group;
+        padding: 10px 0;
+    }
+    .responsive-table .col:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+    }
 }
+
 
 /* fin de table responsive modal */

@@ -96,13 +96,13 @@
                         <div class="espacio-divs">
                             Desde:
                             <div class="div-date animated bounceIn">
-                                <input type="date" id="start" class="date-css" v-model="desde"><br>
+                                <input type="date" id="start" class="date-css" v-model="desde" :max="today"><br>
                             </div>
                         </div>
                         <div class="espacio-divs">
                             Hasta:
                             <div class="div-date animated bounceIn delay1">
-                                <input type="date" id="end" class="date-css" v-model="hasta"><br>
+                                <input type="date" id="end" class="date-css" v-model="hasta" :max="today"><br>
                             </div>
                         </div>
                         <button class="btn-hover color-9" @click="getFourDivsData()">ACEPTAR</button>
@@ -111,14 +111,12 @@
                     <!-- Fin del input del datepicker -->
                     <!-- Inicio del top informes 4 divs -->
                     <div id="cuatro-divs" class="mobilScreen">
-                        <span class="stretch" class="divFull"></span>
                         <!-- Primer div -->
-                        <div id="primerDiv" class="border rounded contenedor-trabajos espacio-margen animated bounceIn">
+                        <div id="primerDiv" style="display: none;" class="border rounded contenedor-trabajos espacio-margen animated bounceIn">
                             <label class="d-flex justify-content-center text-centro">Ordenes eliminadas</label><i class="fa fa-window-close d-flex justify-content-center" style="width: 100%;font-size: x-large;color: #585858;"></i><label class="d-flex justify-content-center text-centro text-bold">{{ordenesEliminadas}}</label>
                             <label class="d-flex justify-content-center subtitulo">Ordenes</label><a class="d-flex justify-content-center text-centro" style="text-decoration: underline;" data-toggle="modal" href="#exampleModalCenter" id="productosRef">Ver todos</a>
                         </div>
                         <!-- Fin del primer div -->
-                        <span class="stretch" class="divFull"></span>
                         <!-- Segundo div -->
                         <div id="segundoDiv" class="border rounded contenedor-trabajos espacio-margen animated bounceIn delay1">
                             <label class="d-flex justify-content-center text-centro">Ordenes finalizadas</label><i class="fa fa-check-square d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{numOrdenesFin}}</label>
@@ -126,7 +124,6 @@
                             <a class="d-flex justify-content-center text-centro" href="#ordenesFinalizadas" data-toggle="modal" style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del segundo div -->
-                        <span class="stretch" class="divFull"></span>
                         <!-- Tercer div -->
                         <div id="tercerDiv" class="border rounded contenedor-trabajos espacio-margen animated bounceIn delay2">
                             <label class="d-flex justify-content-center text-centro">Mas vendido</label><i class="fa fa-coffee d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{platoMasVendido}}</label>
@@ -134,7 +131,6 @@
                             <a class="d-flex justify-content-center" href="#modalProductos" data-toggle="modal" style="width: 100%;text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del tercer div -->
-                        <span class="stretch" class="divFull"></span>
                         <!-- Cuarto div -->
                         <div id="cuartoDiv" class="border rounded contenedor-trabajos espacio-margen animated bounceIn delay3">
                             <label class="d-flex justify-content-center text-centro">Ordenes Activas</label><i class="fa fa-gears d-flex justify-content-center iconos"></i><label class="d-flex justify-content-center text-centro text-bold">{{ordenesActivas}}</label>
@@ -142,7 +138,6 @@
                             <a class="d-flex justify-content-center text-centro" href="ordenes.html" style="text-decoration: underline;">Ver todos</a>
                         </div>
                         <!-- Fin del cuarto div -->
-                        <span class="stretch" class="divFull"></span>
                     </div>
                     <!-- Fin del top informes 4 divs -->
 
@@ -155,13 +150,13 @@
                                 <nav class="tabs-inf">
                                     <div class="selector-inf"></div>
                                     <!-- cambiar icono xddddd ------------- -->
-                                    <a href="#" id="reference" class="active a-inf" @click="fillData(0)"><i
+                                    <a href="#" id="reference" class="active a-inf" @click="selectRange=0;fillData(selectRange)"><i
                                             class="fas fa-calendar"></i></i>Mes</a>
-                                    <a href="#" class="a-inf" @click="fillData(1)"><i
+                                    <a href="#" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
                                             class="fas fa-calendar-week"></i></i>Semana</a>
-                                    <a href="#" class="a-inf" @click="fillData(2)"><i
+                                    <a href="#" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
-                                    <a href="#" class="a-inf" @click="fillData(3)"><i
+                                    <a href="#" class="a-inf" @click="selectRange=3;fillData(selectRange)"><i
                                             class="fas fa-clock"></i></i>Hora</a>
                                 </nav>
                             </div>
@@ -219,7 +214,7 @@
                             </div>
                             <!-- Fin del Bloque 2 de best empleados  -->
                             <!-- Bloque 3 de best empleados  -->
-                            <div class="border rounded animated bounceIn delay2" style="background-color: #4e4e4e;margin-top: 10px;">
+                            <div class="border rounded animated bounceIn delay2" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
                                 <div id="despacho">
                                     <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{menosFaltas}}</label>
@@ -238,7 +233,7 @@
                             <!-- Fin del Bloque 3 de best empleados  -->
 
                             <!-- Bloque 4 de best empleados  -->
-                            <div class="border rounded animated bounceIn delay3" style="background-color: #4e4e4e;margin-top: 10px;">
+                            <div class="border rounded animated bounceIn delay3" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
                                 <div id="despacho">
                                     <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
                                         <label class="d-flex reziseText">{{masPuntual}}</label>
@@ -346,7 +341,7 @@
                                                     <a @click="getOrdenSelected(orden.id)" style="text-decoration: underline;font-size: 20px;color: #4e73df;">{{index+1}}</a>
                                                 </div>
                                                 <div class="col col-2" style="min-width: fit-content;" data-label="Día">
-                                                    <pre style="color: #858796;font-size: 17px;">{{moment(orden.fecha).format('DD-MM-YYYY')}}</pre>
+                                                    <pre style="color: #858796;font-size: 17px;">{{this.moment(orden.fecha).format('DD-MM-YYYY')}}</pre>
                                                 </div>
                                                 <div class="col col-3" data-label="Valor">{{orden.total}}</div>
                                             </li>
@@ -429,7 +424,7 @@
     <script src="assets/js/axios.min.js "></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/Script.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <!--Aqui va tu codigo de vue js-->
