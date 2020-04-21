@@ -125,7 +125,7 @@
 }
 
 .chartCss {
-    width: 60%;
+    width: 100%;
     text-align: left;
     display: inline-block;
 }
@@ -143,6 +143,7 @@
 
 .chartEmp {
     display: flex;
+    justify-content: space-around;
     margin-top: 10px;
 }
 
@@ -192,7 +193,6 @@
         width: 100%;
     }
     .chartEmp {
-        display: grid;
         padding-left: 1.2rem;
     }
     .container-fluid {
@@ -376,3 +376,100 @@
 
 
 /* fin de table responsive modal */
+
+
+/* Recuadro para seleccionar fecha, el que está al lado izquiero del chart */
+
+.datePick {
+    display: inline-block;
+    background: #828282;
+    transform: skew(-10deg);
+    padding-left: 10px;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.selectedDate {
+    background-color: #224abed6;
+}
+
+
+/* Fin del Recuadro para seleccionar fecha, el que está al lado izquiero del chart */
+
+
+/* Inician los estilos para la fecha de años */
+
+.yearpicker-container {
+    position: absolute;
+    color: var(--text-color);
+    width: 280px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: 1rem;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+.yearpicker-header {
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.yearpicker-prev,
+.yearpicker-next {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.yearpicker-prev:hover,
+.yearpicker-next:hover {
+    color: var(--selected-text-color);
+}
+
+.yearpicker-year {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.yearpicker-items {
+    list-style: none;
+    padding: 1rem 0.5rem;
+    flex: 0 0 33.3%;
+    width: 100%;
+}
+
+.yearpicker-items:hover {
+    background-color: #bedeff;
+    color: #000000;
+    cursor: pointer;
+}
+
+.yearpicker-items.selected {
+    color: #000000;
+    background-color: #bedeff;
+}
+
+.hide {
+    display: none;
+}
+
+.yearpicker-items.disabled {
+    pointer-events: none;
+    color: #bbb;
+}
+
+
+/* Terminan los estilos para la fecha de años */

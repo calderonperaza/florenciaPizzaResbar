@@ -42,9 +42,23 @@ Vue.component('reactive', {
             }
         };
     },
+    watch: {
+        deep: true,
+        'chartData': {
+            handler(newOption, oldOption) {
+                this.$data._chart.destroy()
+                this.renderChart(this.chartData, this.options)
+            },
+        }
+    },
     mounted() {
         // Promise.resolve(vm.fillData()).then(this.renderChart(this.chartData, this.options)).catch(function(reason) { console.log('Manejar promesa rechazada (' + reason + ') aquí.'); });
         this.renderChart(this.chartData, this.options);
+    },
+    methods: {
+        update() {
+            this.$data._chart.update()
+        }
     }
 });
 
@@ -90,13 +104,12 @@ var vm = new Vue({
     },
     created() {
         Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
-        console.log("ver si está inicializado", this.mesTotal);
     },
     mounted() {
-        console.log(this.$children[0].chartData.datasets[0].__ob__.value.data);
-        Array.from(this.mesTotal).forEach(data => {
-            console.log(data)
-        })
+        //console.log(this.$children[0].chartData.datasets[0].__ob__.value.data);
+        // Array.from(this.mesTotal).forEach(data => {
+        //     console.log(data)
+        // })
         console.log();
         this.$nextTick(function() {
             window.addEventListener("resize", this.resizeOrOnload);
@@ -222,6 +235,7 @@ var vm = new Vue({
             }
         },
         getTotalPorMes: function(year = this.moment().format('YYYY')) {
+            console.log("Total por mes");
             let i = 0;
             let rangeMonth = [];
             this.mesTotal = [];
@@ -230,14 +244,15 @@ var vm = new Vue({
                 i++;
             }
             rangeMonth.forEach((param, index) => {
-                axios.get(
-                    this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').then(response => {
+                axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').
+                then(response => {
                     let total = 0;
                     let ordenes = response.data;
                     ordenes.forEach((orden) => {
                         total = orden.total + total;
                     });
                     this.mesTotal[index] = typeof total === undefined ? 0 : parseFloat(total.toFixed(2));
+                    this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
             // console.log("para ver cuantas veces me llaman");

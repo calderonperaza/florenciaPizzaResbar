@@ -142,9 +142,12 @@
                     <!-- Fin del top informes 4 divs -->
 
                     <!-- Inicia el contenedor de el chart y los mejores meseros -->
+                    <label class="leyendas">Estadísticas de ventas</label>
                     <div class="chartEmp animated bounceIn">
+                        <!-- Aquí comienza el cuadro para seleccionar la fecha -->
+
+                        <!-- Aquí termina el cuadro para seleccionar la fecha -->
                         <div id="idPalChar" class="chartCss">
-                            <label class="leyendas">Estadísticas de ventas</label>
                             <!-- Inicia el nav del chart -->
                             <div style="width: 100%; text-align: center;">
                                 <nav class="tabs-inf">
@@ -152,7 +155,7 @@
                                     <!-- cambiar icono xddddd ------------- -->
                                     <a href="#" id="reference" class="active a-inf" @click="selectRange=0;fillData(selectRange)"><i
                                             class="fas fa-calendar"></i></i>Mes</a>
-                                    <a href="#" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
+                                    <a href="#" id="yatusabe" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
                                             class="fas fa-calendar-week"></i></i>Semana</a>
                                     <a href="#" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
@@ -161,100 +164,105 @@
                                 </nav>
                             </div>
                             <!-- Fin del nav del chart -->
-
+                            <div style="text-align: center;">
+                                <div class="datePick selectedDate"><label type="text" class="yearpicker" style="margin: 0;">2020</label></div>
+                                <div class="datePick"><label type="text" class="" style="margin: 0;">Abril</label></div>
+                                <div class="datePick"><label type="text" class="" style="margin: 0;">Sem 1</label></div>
+                                <div class="datePick"><label type="text" class="" style="margin: 0;">Miercoles</label></div>
+                            </div>
                             <!-- Este es el componente vue que muestra el informe -->
-                            <reactive :chart-data="datacollection"></reactive>
+                            <reactive :chart-data="datacollection" ref="chart"></reactive>
                             <!-- Fin del componente vue que muestra el informe -->
 
                         </div>
                         <!-- Finaliza el contenedor de el chart y los mejores meseros -->
 
-                        <!-- Inicio de los mejores meseros -->
-                        <div class="bestEmployeess">
-                            <label class="leyendas" style="margin-left: 0px;">Mejores meseros</label>
-                            <!-- Bloque 1 de best empleados  -->
-                            <div class="border rounded animated bounceIn" style="background-color: #4e4e4e;">
-                                <div id="despacho">
-                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">{{meseroOrdenes}}</label>
-                                        <label class="d-flex empName">Mas ordenes
-                                            despachadas</label>
-                                    </div>
-                                    <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label class="d-flex justify-content-center text-centro reziseText">Ordenes:
-                                            {{mesOrCantidad}}</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}}
-                                            Hasta
-                                            {{mesOrFechaFin}}</label>
-                                    </div>
-                                    <div class="tresPuntos">
-                                        <i class="fas fa-ellipsis-v empName"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Fin del Bloque 1 de best empleados  -->
 
-                            <!-- Bloque 2 de best empleados  -->
-                            <div class="border rounded animated bounceIn delay1" style="background-color: #4e4e4e;margin-top: 10px;">
-                                <div id="despacho">
-                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">{{meseroTiempo}}</label>
-                                        <label class="d-flex empName">Mas tiempo trabajando</label>
-                                    </div>
-                                    <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label class="d-flex justify-content-center text-centro reziseText">Inició:
-                                            {{mesTimIn}}</label>
-                                        <label class="d-flex justify-content-center text-centro empName">Hasta fecha
-                                            actual</label>
-                                    </div>
-                                    <div class="tresPuntos">
-                                        <i class="fas fa-ellipsis-v empName"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Fin del Bloque 2 de best empleados  -->
-                            <!-- Bloque 3 de best empleados  -->
-                            <div class="border rounded animated bounceIn delay2" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
-                                <div id="despacho">
-                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">{{menosFaltas}}</label>
-                                        <label class="d-flex empName">Menos faltas a trabajar</label>
-                                    </div>
-                                    <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label class="d-flex justify-content-center text-centro reziseText">Número de
-                                            faltas:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{numeroFaltas}}</label>
-                                    </div>
-                                    <div class="tresPuntos">
-                                        <i class="fas fa-ellipsis-v empName"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Fin del Bloque 3 de best empleados  -->
-
-                            <!-- Bloque 4 de best empleados  -->
-                            <div class="border rounded animated bounceIn delay3" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
-                                <div id="despacho">
-                                    <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                        <label class="d-flex reziseText">{{masPuntual}}</label>
-                                        <label class="d-flex empName">Mas puntual</label>
-                                    </div>
-                                    <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                        <label class="d-flex justify-content-center text-centro reziseText">Venidas
-                                            tarde:</label>
-                                        <label class="d-flex justify-content-center text-centro empName">{{venidasTarde}}</label>
-                                    </div>
-                                    <div class="tresPuntos">
-                                        <i class="fas fa-ellipsis-v empName"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Fin del Bloque 4 de best empleados  -->
-
-                        </div>
-                        <!-- Fin de los mejores meseros -->
                     </div>
+                    <!-- Inicio de los mejores meseros -->
+                    <div class="bestEmployeess" style="margin-left: 10px;">
+                        <label class="leyendas" style="margin-left: 0px;">Mejores meseros</label>
+                        <!-- Bloque 1 de best empleados  -->
+                        <div class="border rounded animated bounceIn" style="background-color: #4e4e4e;">
+                            <div id="despacho">
+                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <label class="d-flex reziseText">{{meseroOrdenes}}</label>
+                                    <label class="d-flex empName">Mas ordenes
+                    despachadas</label>
+                                </div>
+                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText">Ordenes:
+                    {{mesOrCantidad}}</label>
+                                    <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}}
+                    Hasta
+                    {{mesOrFechaFin}}</label>
+                                </div>
+                                <div class="tresPuntos">
+                                    <i class="fas fa-ellipsis-v empName"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del Bloque 1 de best empleados  -->
 
+                        <!-- Bloque 2 de best empleados  -->
+                        <div class="border rounded animated bounceIn delay1" style="background-color: #4e4e4e;margin-top: 10px;">
+                            <div id="despacho">
+                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <label class="d-flex reziseText">{{meseroTiempo}}</label>
+                                    <label class="d-flex empName">Mas tiempo trabajando</label>
+                                </div>
+                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText">Inició:
+                    {{mesTimIn}}</label>
+                                    <label class="d-flex justify-content-center text-centro empName">Hasta fecha
+                    actual</label>
+                                </div>
+                                <div class="tresPuntos">
+                                    <i class="fas fa-ellipsis-v empName"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del Bloque 2 de best empleados  -->
+                        <!-- Bloque 3 de best empleados  -->
+                        <div class="border rounded animated bounceIn delay2" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
+                            <div id="despacho">
+                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <label class="d-flex reziseText">{{menosFaltas}}</label>
+                                    <label class="d-flex empName">Menos faltas a trabajar</label>
+                                </div>
+                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText">Número de
+                    faltas:</label>
+                                    <label class="d-flex justify-content-center text-centro empName">{{numeroFaltas}}</label>
+                                </div>
+                                <div class="tresPuntos">
+                                    <i class="fas fa-ellipsis-v empName"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del Bloque 3 de best empleados  -->
+
+                        <!-- Bloque 4 de best empleados  -->
+                        <div class="border rounded animated bounceIn delay3" style="background-color: #4e4e4e;margin-top: 10px; display: none;">
+                            <div id="despacho">
+                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
+                                    <label class="d-flex reziseText">{{masPuntual}}</label>
+                                    <label class="d-flex empName">Mas puntual</label>
+                                </div>
+                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText">Venidas
+                    tarde:</label>
+                                    <label class="d-flex justify-content-center text-centro empName">{{venidasTarde}}</label>
+                                </div>
+                                <div class="tresPuntos">
+                                    <i class="fas fa-ellipsis-v empName"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del Bloque 4 de best empleados  -->
+
+                    </div>
+                    <!-- Fin de los mejores meseros -->
                     <!-- --------------------Modales----------------- -->
 
                     <!-- ================== Modal: Ordenes eliminadas ================= -->
@@ -416,7 +424,6 @@
         </div>
         <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.easing.js"></script>
