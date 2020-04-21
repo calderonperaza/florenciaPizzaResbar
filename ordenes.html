@@ -116,11 +116,14 @@
                         <table v-if="activos" class="table table-sm mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">ID Orden</th>
-                                    <th scope="col">Cliente</th>
+                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
                                     <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
-                                    <th scope="col">Mesero</th>
+                                    <th scope="col" v-on:click="ordenarMesero" v-if="ascendente">Mesero <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col">Observaciones</th>
                                     <th scope="col">Total</th>
                                     <th scope="col">Acciones</th>
@@ -172,11 +175,14 @@
                         <table v-else class="table table-sm mb-0 ">
                             <thead class="bg-primary text-white ">
                                 <tr>
-                                    <th scope="col ">ID Orden</th>
-                                    <th scope="col ">Cliente</th>
-                                    <th scope="col " v-on:click="ordenar " v-if="ascendente ">Mesa <i class="far fa-arrow-alt-circle-down "></i></th>
-                                    <th scope="col " v-on:click="ordenar " v-else>Mesa <i class="far fa-arrow-alt-circle-up "></th>
-                                    <th scope="col ">Mesero</th>
+                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenarMesero" v-if="ascendente">Mesero <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col ">Observaciones</th>
                                     <th scope="col ">Total</th>
                                     <th scope="col ">Acciones</th>
@@ -215,8 +221,10 @@
                         <table v-if="activos" class="table table-sm mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Cliente</th>
+                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
                                     <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col">Acciones</th>
@@ -246,10 +254,12 @@
                         <table v-else class="table table-sm mb-0 ">
                             <thead class="bg-primary text-white ">
                                 <tr>
-                                    <th scope="col ">ID Orden</th>
-                                    <th scope="col ">Cliente</th>
-                                    <th scope="col " v-on:click="ordenar " v-if="ascendente ">Mesa <i class="far fa-arrow-alt-circle-down "></i></th>
-                                    <th scope="col " v-on:click="ordenar " v-else>Mesa <i class="far fa-arrow-alt-circle-up "></th>
+                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                    <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
+                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col ">Acciones</th>
                                 </tr>
                             </thead>
