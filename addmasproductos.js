@@ -1,4 +1,4 @@
-new Vue({
+var vm = new Vue({
   el: "#appRESBAR",
   data: {
 
@@ -47,7 +47,8 @@ new Vue({
               if(element.nombre === this.nuevoDetalleOrden.nombre){
                 cantidad = element.cantidad;
                 cantidad = cantidad + 1;
-                this.detallesDeNuevaOrden[index].cantidad = cantidad;
+                this.nuevoDetalleOrden.cantidad = cantidad;                 
+                Vue.set(vm.detallesDeNuevaOrden,index,this.nuevoDetalleOrden);
                 this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
               }
             }
@@ -251,7 +252,7 @@ new Vue({
 
   /*Esta función redirige a la pantalla de Ordenes sin realizar ninguna acción en la orden seleccionada*/
     cancelar() {
-      window.location.href = './ordenes.html'
+      window.location.href = `./ordenes.html?alert=No se realizo ningun cambio a la orden ${this.ordenSelected.id.substring(20,24)}`
     }
   }
 })
