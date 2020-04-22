@@ -10,8 +10,8 @@ new Vue({
             total: null,
             productos: []
         },
-        uri: 'http://localhost:3000/ordenes/',
-        uriVentas: 'http://localhost:3000/resumenDeVentas',
+        uri: ApiRestUrl + '/ordenes/',
+        uriVentas: ApiRestUrl + '/resumenDeVentas',
         resumenDeVenta: [],
     },
     mounted: function() {
@@ -59,7 +59,7 @@ new Vue({
         },
 
         redireccionarAOrdenes(alert) {
-            window.location = "/ordenes.html" + alert;
+            window.location = "./ordenes.html" + alert;
         },
 
         //Metodo para cambiar la fecha a formato YYYY-MM-DD
@@ -98,7 +98,7 @@ new Vue({
         //Metodo para que no se pueda acceder a una orden invalida por url directa
         checkEstado() {
             if (this.ordenSelected.estado == "C") {
-                window.location = "/ordenes.html?alert=Invalido:%20Esta%20Orden%20ya%20fue%20cobrada."
+                window.location = "./ordenes.html?alert=Invalido:%20Esta%20Orden%20ya%20fue%20cobrada."
             } else if (this.ordenSelected.estado != "A") {
                 this.redireccionarAOrdenes();
             }
@@ -120,10 +120,10 @@ new Vue({
                     if (this.resumenDeVenta.length == 0) {
                         console.log('vacio');
                         this.createResumenDeVentas();
-                        window.location = "/ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
                     } else {
                         this.updateResumenDeVentas();
-                        window.location = "/ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
                     }
                 })
                 .catch(e => { console.log(e) });
