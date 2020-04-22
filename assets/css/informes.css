@@ -392,10 +392,23 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     color: #ffffff;
+    cursor: pointer;
 }
 
 .selectedDate {
     background-color: #224abed6;
+}
+
+.styleInput {
+    margin: 0px;
+    cursor: pointer;
+    width: 38px;
+    color: white;
+    background: #82828200;
+    border: none;
+    padding: 0;
+    outline: none;
+    border-radius: 0;
 }
 
 
@@ -473,3 +486,61 @@
 
 
 /* Terminan los estilos para la fecha de años */
+
+
+/* Comienza estilos para mes del datepicker abajo del bar */
+
+.fecha-container {
+    position: absolute;
+    color: var(--text-color);
+    width: 280px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: 1rem;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+.fecha-header {
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ul-year {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.ul-items {
+    list-style: none;
+    padding: 1rem 0.5rem;
+    flex: 0 0 33.3%;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.ul-items:hover {
+    background-color: #bedeff;
+    color: #000000;
+    cursor: pointer;
+}
+
+.ul-items.selected {
+    color: #000000;
+    background-color: #bedeff;
+}
+
+.ul-items.disabled {
+    pointer-events: none;
+    color: #bbb;
+}

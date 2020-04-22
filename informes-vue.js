@@ -58,6 +58,7 @@ Vue.component('reactive', {
     methods: {
         update() {
             this.$data._chart.update()
+            return "se actualizó"
         }
     }
 });
@@ -100,17 +101,23 @@ var vm = new Vue({
         mesTotal: [],
         selectRange: 0,
         new: 0,
+        semanal: false,
+        diario: false,
+        hora: false,
+        anioPicker: 2020,
+        mesPicker: [{ "mes": 'En', "id": 0 }, { "mes": 'Feb', "id": 1 }, { "mes": 'Mar', "id": 2 }, { "mes": 'Ab', "id": 3 }, { "mes": 'May', "id": 4 }, { "mes": 'Jun', "id": 5 }, { "mes": 'Jul', "id": 6 }, { "mes": 'Agos', "id": 7 }, { "mes": 'Sep', "id": 8 }, { "mes": 'Oct', "id": 9 }, { "mes": 'Nov', "id": 10 }, { "mes": 'Dic', "id": 11 }],
+        mesPicked: { "mes": "", "id": 0 },
+        totalPorSemana: [],
+        labelsSemanas: "",
+        popoverShow: false,
 
     },
     created() {
-        Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
+        // Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
+        this.fillData(0);
+
     },
     mounted() {
-        //console.log(this.$children[0].chartData.datasets[0].__ob__.value.data);
-        // Array.from(this.mesTotal).forEach(data => {
-        //     console.log(data)
-        // })
-        console.log();
         this.$nextTick(function() {
             window.addEventListener("resize", this.resizeOrOnload);
             //Init
@@ -118,9 +125,30 @@ var vm = new Vue({
         })
         Promise.resolve(this.mesActual()).then(this.getFourDivsData()).catch(function(reason) { console.log('Manejar promesa rechazada (' + reason + ') aquí.'); });
         this.today = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
+        this.mesPicked.mes = this.mesPicker[parseInt(this.today.substring(5, 7)) - 1].mes;
+        this.mesPicked.id = parseInt(this.today.substring(5, 7)) - 1;
     },
     methods: {
         fillData(rango) {
+            if (rango === 0) {
+                this.getTotalPorMes(this.anioPicker);
+                this.semanal = false;
+                this.diario = false;
+                this.hora = false;
+            } else if (rango === 1) {
+                this.getTotalPorSemana(this.anioPicker, this.mesPicked.id < 10 ? this.mesPicked.id : ('0' + this.mesPicked.id));
+                this.semanal = true;
+                this.diario = false;
+                this.hora = false;
+            } else if (rango === 2) {
+                this.semanal = true;
+                this.diario = true;
+                this.hora = false;
+            } else if (rango === 3) {
+                this.semanal = true;
+                this.diario = true;
+                this.hora = true;
+            }
             this.chartRange = this.setRange();
             this.datacollection = {
                 labels: this.chartRange[rango].labels,
@@ -141,7 +169,7 @@ var vm = new Vue({
                 },
                 {
                     labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                    datos: this.totalPorSemana
                 },
                 {
                     labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
@@ -251,42 +279,72 @@ var vm = new Vue({
                     ordenes.forEach((orden) => {
                         total = orden.total + total;
                     });
-                    this.mesTotal[index] = typeof total === undefined ? 0 : parseFloat(total.toFixed(2));
+                    this.mesTotal[index] = parseFloat(total.toFixed(2));
                     this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
             // console.log("para ver cuantas veces me llaman");
         },
-        getTotalPorSemana: function(year = this.moment().format('YYYY'), month = this.moment().format('MM')) {
+        getTotalPorSemana: function(year = this.anioPicker, month = this.moment().format('MM')) {
             let i = 0;
             let dias = ((this.moment().set({ 'year': year, 'month': month }).daysInMonth()) / 4) - 1;
             let rangeWeeks = [];
-            let totalPorSemana = [];
+            this.totalPorSemana = [];
             while (i < 4) {
-                const begining = this.moment().set({ 'year': year, 'month': month - 1 }).startOf('month').add(i * Math.ceil(dias), 'days').toISOString();
-                const end = (i < 3) ? this.moment().set({ 'year': year, 'month': month - 1 }).startOf('month').add(((i + 1) * Math.ceil(dias) - 1), 'days').endOf('day').toISOString() : this.moment().set({ 'year': 2020, 'month': month - 1 }).endOf('month').toISOString();
+                const begining = this.moment().set({ 'year': year, 'month': month }).startOf('month').add(i * Math.ceil(dias), 'days').toISOString();
+                const end = (i < 3) ? this.moment().set({ 'year': year, 'month': month }).startOf('month').add(((i + 1) * Math.ceil(dias) - 1), 'days').endOf('day').toISOString() : this.moment().set({ 'year': year, 'month': month }).endOf('month').toISOString();
                 i++;
-                rangeWeeks.push({ inicio: begining, fin: end });
+                rangeWeeks[i] = { inicio: begining, fin: end };
             }
-            rangeWeeks.forEach((param) => {
-                axios.get(
-                    this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').then(response => {
+            rangeWeeks.forEach((param, index) => {
+                axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').
+                then(response => {
                     let total = 0;
                     let ordenes = response.data;
                     ordenes.forEach((orden) => {
                         total = orden.total + total;
                     });
-                    totalPorSemana.push(total.toFixed(2));
+                    this.totalPorSemana[index - 1] = parseFloat(total.toFixed(2));
+                    this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
-            return totalPorSemana;
         },
         pruebaDeFechas: function() {
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).format("YYYY-MM-DD HH:mm:ss.SSS"));
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').format("YYYY-MM-DD HH:mm:ss.SSS"));
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).toISOString());
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').toISOString());
+        },
+        dismissPopover() {
+            this.$nextTick(() => {
+                this.$refs.mesesito.focus();
+                console.log("nextTick")
+            });
         }
+    },
+    watch: {
+        anioPicker: function(value) {
+            this.totalPorSemana = [];
+            this.$refs.anioRef.click()
+        },
+        mesPicked: function() {
+            this.$refs.semanaId.click();
+        }
+    },
+    computed: {
+        popoverConfig() {
+            let unorderedList = '<ul class="ul-year">';
+            this.mesPicker.forEach((value) => {
+                unorderedList = unorderedList + '<li class="ul-items" id="' + value.id + '" onclick="popOverMonth(this.id)">' + value.mes + '</li>'
+            });
+            return {
+                html: true,
+                title: '<div style = "text-align: center;font-size: 1.5rem;font-weight: 800;"> Mes </div>',
+                content: unorderedList + '</ul>',
+                placement: "bottom",
+                disabled: this.popoverShow,
+            }
+        },
 
     }
 });

@@ -153,9 +153,9 @@
                                 <nav class="tabs-inf">
                                     <div class="selector-inf"></div>
                                     <!-- cambiar icono xddddd ------------- -->
-                                    <a href="#" id="reference" class="active a-inf" @click="selectRange=0;fillData(selectRange)"><i
+                                    <a href="#" id="reference" ref="anioRef" class="active a-inf" @click="selectRange=0;fillData(selectRange)"><i
                                             class="fas fa-calendar"></i></i>Mes</a>
-                                    <a href="#" id="yatusabe" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
+                                    <a href="#" ref="semanaId" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
                                             class="fas fa-calendar-week"></i></i>Semana</a>
                                     <a href="#" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
@@ -164,12 +164,20 @@
                                 </nav>
                             </div>
                             <!-- Fin del nav del chart -->
+
+                            <!-- Selector de fecha con popover mostrando los datos dependiendo del valor requerido -->
                             <div style="text-align: center;">
-                                <div class="datePick selectedDate"><label type="text" class="yearpicker" style="margin: 0;">2020</label></div>
-                                <div class="datePick"><label type="text" class="" style="margin: 0;">Abril</label></div>
-                                <div class="datePick"><label type="text" class="" style="margin: 0;">Sem 1</label></div>
-                                <div class="datePick"><label type="text" class="" style="margin: 0;">Miercoles</label></div>
+                                <div class="datePick selectedDate">
+                                    <input type="text" readonly id="anioDate" class="yearpicker styleInput" :value="anioPicker" />
+                                </div>
+                                <div class="datePick" id="semanal" v-bind:class="{ selectedDate: semanal}">
+                                    <input type="text" readonly id="mesDate" tabindex="0" ref="mesesito" class="styleInput" v-b-popover="popoverConfig" :value="mesPicked.mes"></input>
+                                </div>
+                                <div class="datePick" id="diario" v-bind:class="{ selectedDate: diario}"><label type="text" class="" style="margin: 0;">Sem 1</label></div>
+                                <div class="datePick" id="hora" v-bind:class="{ selectedDate: hora}"><label type="text" class="" style="margin: 0;">Miercoles</label></div>
                             </div>
+
+
                             <!-- Este es el componente vue que muestra el informe -->
                             <reactive :chart-data="datacollection" ref="chart"></reactive>
                             <!-- Fin del componente vue que muestra el informe -->
@@ -437,6 +445,8 @@
     <!--Aqui va tu codigo de vue js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="https://unpkg.com/vue-chartjs@3.4.0/dist/vue-chartjs.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@2.0.0-rc.11/dist/bootstrap-vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="informes-vue.js"></script>
     <script src="informes.js"></script>
 
