@@ -80,14 +80,77 @@
                     <!-- Formulario de nueva orden -->
                     <form class="needs-validation" novalidate>
                         <div class="row">
+
+                            <!--col tabla agregar productos-->
+                            <div class="col-md-8 col order-md-6">
+                                <div class="form-group">
+                                    <!-- tab por cada categoria-->
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <!-- Se evalua  si la categoria es la primera en la lista, si es asi el tab se marca como activo-->
+                                        <li v-for="categoria in categorias" class="nav-item">
+                                            <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }"
+                                                data-toggle="tab" v-bind:id="categoria.nombre+'-tab'"
+                                                v-bind:href="'#'+categoria.nombre" role="tab">
+                                                {{categoria.nombre}}
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Incia div.tab-content de productos a agregar-->
+                                    <div class="tab-content" id="myTabContent">
+                                        <!-- crea un div de con clases active,show si la categoria es la primera, la referencia del div activo es por id-->
+                                        <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']"
+                                            v-bind:id="categoria.nombre" v-for="categoria in categorias"
+                                            role="tabpanel">
+                                            <table class="table table-sm table-bordered table-striped mt-2 ">
+                                                <thead class="text-center ">
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th style="width: 50px">Precio</th>
+                                                        <th style="width: 100px">Cantidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
+                                                    <tr v-if='producto.categoria.nombre == categoria.nombre '
+                                                        v-for="producto in productos">
+                                                        <td>
+                                                            {{producto.nombre}}
+                                                        </td>
+                                                        <td>
+                                                            ${{producto.precio}}
+                                                        </td>
+                                                        <td class="text-center px-0 ">
+                                                            <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
+                                                            <button type="button" class="btn btn-secondary btn-sm p-1"
+                                                                @click="decProducto(producto)">-</button>
+                                                            <input type="number" class="inp-cantidad input-sm"
+                                                                v-model.lazy.number="producto.cantidad" min="0" max="99"
+                                                                step="1" disabled>
+                                                            <button type="button" class="btn btn-primary btn-sm p-1"
+                                                                @click="incProducto(producto)">+</button>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Termina div.tab-content de productos a agregar -->
+
+
+                                </div>
+
+                            </div>
+
                             <!--col datos de orden-->
-                            <div class="col-md-3 pr-0">
+                            <div class="col-md-4 pr-0 order-md-1">
                                 <div class="form-group row">
                                     <div class="col-md-3 col-2 px-0 py-1">
                                         <label for="txtCliente">Cliente: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]{3,}" type="text"
+                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text"
                                             class="form-control" id="txtCliente" placeholder="Enter name" required>
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
@@ -99,7 +162,7 @@
                                         <label for="txtMesero">Mesero: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.mesero" pattern="[A-Za-z]{3,}" type="text"
+                                        <input v-model="nuevaOrden.mesero" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text"
                                             class="form-control" id="txtMesero" placeholder="Enter name" required>
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
@@ -125,87 +188,23 @@
                                             style="resize: none;"></textarea>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!--col tabla agregar productos-->
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <!-- tab por cada categoria-->
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <!-- Se evalua  si la categoria es la primera en la lista, si es asi el tab se marca como activo-->
-                                        <li v-for="categoria in categorias" class="nav-item">
-                                            <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }"
-                                                data-toggle="tab" v-bind:id="categoria.nombre+'-tab'"
-                                                v-bind:href="'#'+categoria.nombre" role="tab">
-                                                {{categoria.nombre}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="table-wrapper-scroll-y" style="height:15em ;overflow: auto;">
-
-                                        <!-- Incia div.tab-content de productos a agregar-->
-                                        <div class="tab-content" id="myTabContent">
-                                            <!-- crea un div de con clases active,show si la categoria es la primera, la referencia del div activo es por id-->
-                                            <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']"
-                                                v-bind:id="categoria.nombre" v-for="categoria in categorias"
-                                                role="tabpanel">
-                                                <table class="table table-sm table-bordered table-striped mt-2 ">
-                                                    <thead class="text-center ">
-                                                        <tr>
-                                                            <th>Nombre</th>
-                                                            <th style="width: 50px">Precio</th>
-                                                            <th style="width: 100px">Cantidad</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
-                                                        <tr v-if='producto.categoria.nombre == categoria.nombre '
-                                                            v-for="producto in productos">
-                                                            <td>
-                                                                {{producto.nombre}}
-                                                            </td>
-                                                            <td>
-                                                                ${{producto.precio}}
-                                                            </td>
-                                                            <td class="text-center px-0 ">
-                                                                <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
-                                                                <button type="button"
-                                                                    class="btn btn-secondary btn-sm p-1"
-                                                                    @click="decProducto(producto)">-</button>
-                                                                <input type="number" class="inp-cantidad input-sm"
-                                                                    v-model.lazy.number="producto.cantidad" min="0"
-                                                                    max="99" step="1" disabled>
-                                                                <button type="button" class="btn btn-primary btn-sm p-1"
-                                                                    @click="incProducto(producto)">+</button>
-
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- Termina div.tab-content de productos a agregar -->
-
+                                <!-- Botones de accion para el formulario-->
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-secondary col"
+                                            @click='redireccionarAOrdenes' data-target="#resumenModal">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary col" type="button" @click="validateForm()">
+                                            Verificar</button>
                                     </div>
                                 </div>
+                                <!-- /Botones de accion-->
+                            </div>
 
-                            </div>
                         </div>
-
-                        <!-- Botones de accion para el formulario-->
-                        <div class="form-group row mt-5">
-                            <div class="col">
-                                <button type="button" class="btn btn-secondary col" @click='redireccionarAOrdenes'
-                                    data-target="#resumenModal">
-                                    Cancelar
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary col" type="button" @click="validateForm()"><i
-                                        class="fa fa-plus-circle mr-2"></i>Verificar</button>
-                            </div>
-                        </div>
-                        <!-- /Botones de accion-->
 
                     </form>
                     <!--Termina formulario nueva orden-->
