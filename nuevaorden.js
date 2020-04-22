@@ -16,7 +16,7 @@ var app = new Vue({
         productos: [],
         //API info
         mensajeApi: null,
-        url: "http://localhost:3000/"
+        url: ApiRestUrl
 
     },
     created() {
