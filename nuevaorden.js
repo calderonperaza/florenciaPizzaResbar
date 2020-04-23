@@ -69,7 +69,7 @@ var app = new Vue({
         getCategorias() {
             this.mensajeApi = "Obteniendo Categorias...";
             axios
-                .get(this.url + 'categorias')
+                .get(this.url + '/categorias')
                 .then(response => {
                     this.categorias = response.data;
                     this.mensajeApi = null;
@@ -82,7 +82,7 @@ var app = new Vue({
         getProductos() {
             this.mensajeApi = "Obteniendo Productos...";
             axios
-                .get(this.url + 'productos')
+                .get(this.url + '/productos')
                 .then(response => {
                     //se agregan dos atributos, cantidad y subtotal
                     this.productos = response.data.map(function (obj) {
@@ -100,7 +100,7 @@ var app = new Vue({
         saveOrden() {
             this.mensajeApi = "Guardando Orden...";
             axios
-                .post(this.url + 'ordenes', this.nuevaOrden)
+                .post(this.url + '/ordenes', this.nuevaOrden)
                 .then(response => {
                     //response.data;
                     this.redireccionarAOrdenes();
