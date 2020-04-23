@@ -561,16 +561,16 @@ $('.yearpicker').yearpicker().after($('.yearpicker').trigger("click").after(Prom
 
 $(".yearpicker-body").on("mousedown", function(e) {
     //Algo así podría funcionar en vez de darle un delay
-    // this.$nextTick(() => this.$refs.input.focus())
+    // vm.$nextTick(() => this.$refs.input.focus())
     setTimeout(function() {
         $("#anioDate").val(document.querySelector('.yearpicker').value);
         vm.anioPicker = parseInt(document.querySelector('.yearpicker').value);
-        console.log(document.querySelector('.yearpicker').value)
+        // console.log(document.querySelector('.yearpicker').value)
     }, 100);
 });
 
 function popOverMonth(params) {
     vm.mesPicked = vm.mesPicker[params];
-    vm.popoverShow = true;
-    console.log("out of focus");
+    vm.$nextTick(() => vm.$refs.mesesito.click())
+        // console.log("out of focus");
 }

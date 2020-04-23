@@ -108,8 +108,8 @@ var vm = new Vue({
         mesPicker: [{ "mes": 'En', "id": 0 }, { "mes": 'Feb', "id": 1 }, { "mes": 'Mar', "id": 2 }, { "mes": 'Ab', "id": 3 }, { "mes": 'May', "id": 4 }, { "mes": 'Jun', "id": 5 }, { "mes": 'Jul', "id": 6 }, { "mes": 'Agos', "id": 7 }, { "mes": 'Sep', "id": 8 }, { "mes": 'Oct', "id": 9 }, { "mes": 'Nov', "id": 10 }, { "mes": 'Dic', "id": 11 }],
         mesPicked: { "mes": "", "id": 0 },
         totalPorSemana: [],
-        labelsSemanas: "",
-        popoverShow: false,
+        labelsSemanas: [],
+        rangeWeeks: [],
 
     },
     created() {
@@ -136,7 +136,7 @@ var vm = new Vue({
                 this.diario = false;
                 this.hora = false;
             } else if (rango === 1) {
-                this.getTotalPorSemana(this.anioPicker, this.mesPicked.id < 10 ? this.mesPicked.id : ('0' + this.mesPicked.id));
+                this.getTotalPorSemana(this.anioPicker, this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id);
                 this.semanal = true;
                 this.diario = false;
                 this.hora = false;
@@ -168,7 +168,7 @@ var vm = new Vue({
                     datos: this.mesTotal
                 },
                 {
-                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                    labels: this.labelsSemanas,
                     datos: this.totalPorSemana
                 },
                 {
@@ -288,15 +288,10 @@ var vm = new Vue({
         getTotalPorSemana: function(year = this.anioPicker, month = this.moment().format('MM')) {
             let i = 0;
             let dias = ((this.moment().set({ 'year': year, 'month': month }).daysInMonth()) / 4) - 1;
-            let rangeWeeks = [];
+            this.rangeWeeks = this.rangoSemanas();
             this.totalPorSemana = [];
-            while (i < 4) {
-                const begining = this.moment().set({ 'year': year, 'month': month }).startOf('month').add(i * Math.ceil(dias), 'days').toISOString();
-                const end = (i < 3) ? this.moment().set({ 'year': year, 'month': month }).startOf('month').add(((i + 1) * Math.ceil(dias) - 1), 'days').endOf('day').toISOString() : this.moment().set({ 'year': year, 'month': month }).endOf('month').toISOString();
-                i++;
-                rangeWeeks[i] = { inicio: begining, fin: end };
-            }
-            rangeWeeks.forEach((param, index) => {
+            this.labelsSemanas = [];
+            this.rangeWeeks.forEach((param, index) => {
                 axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + param.fin + '&filter[where][and][1][fecha][gte]=' + param.inicio + '&filter[where][and][2][estado][like]=C').
                 then(response => {
                     let total = 0;
@@ -304,10 +299,115 @@ var vm = new Vue({
                     ordenes.forEach((orden) => {
                         total = orden.total + total;
                     });
-                    this.totalPorSemana[index - 1] = parseFloat(total.toFixed(2));
+                    this.totalPorSemana[index] = parseFloat(total.toFixed(2));
+                    this.labelsSemanas[index] = new Date(param.inicio).getDate() + '-' + new Date(param.fin).getDate();
                     this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
+        },
+        getTotalporDia: function(params) {
+            this.rangeWeeks = this.rangoSemanas();
+            this.labelsSemanas = [];
+            Promise.resolve(() => {
+                this.rangeWeeks.forEach((param, index) => {
+                    this.labelsSemanas[index] = new Date(param.inicio).getDate() + '-' + new Date(param.fin).getDate();
+                });
+            }).then(() => {
+                this.labelsSemanas.forEach((param, index) => {
+
+                });
+            }).catch((reason) => console.log('Manejar promesa rechazada (' + reason + ') aquí.'));
+
+
+
+        },
+        rangoSemanas: function(year = this.anioPicker, month = this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id) {
+            let rangeWeeks = [];
+            switch (this.moment().set({ 'year': year, 'month': month }).daysInMonth()) {
+                case 28:
+                    rangeWeeks[0] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(6, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[1] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(7, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(13, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[2] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(14, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(20, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[3] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(21, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(27, 'days').endOf('day').toISOString()
+                    };
+                    break;
+                case 29:
+                    rangeWeeks[0] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(7, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[1] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(8, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(14, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[2] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(15, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(21, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[3] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(22, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(28, 'days').endOf('day').toISOString()
+                    };
+                    break;
+                case 30:
+                    rangeWeeks[0] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(7, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[1] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(8, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(15, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[2] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(16, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(22, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[3] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(23, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(29, 'days').endOf('day').toISOString()
+                    };
+
+                    break;
+                case 31:
+                    rangeWeeks[0] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(7, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[1] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(8, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(15, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[2] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(16, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(23, 'days').endOf('day').toISOString()
+                    };
+                    rangeWeeks[3] = {
+                        inicio: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(24, 'days').toISOString(),
+                        fin: this.moment().set({ 'year': year, 'month': month }).startOf('month').add(30, 'days').endOf('day').toISOString()
+                    };
+                    break;
+            }
+            //Duración de cada semana en días
+            // rangeWeeks.forEach((param) => {
+            //     var now = moment(new Date(param.inicio)); //todays date
+            //     var end = moment(new Date(param.fin)); // another date
+            //     var duration = moment.duration(end.diff(now));
+            //     var days = duration.asDays();
+            //     console.log(days)
+            //     console.log(param.inicio, param.fin);
+            // });
+            return rangeWeeks;
         },
         pruebaDeFechas: function() {
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).format("YYYY-MM-DD HH:mm:ss.SSS"));
@@ -342,7 +442,6 @@ var vm = new Vue({
                 title: '<div style = "text-align: center;font-size: 1.5rem;font-weight: 800;"> Mes </div>',
                 content: unorderedList + '</ul>',
                 placement: "bottom",
-                disabled: this.popoverShow,
             }
         },
 
