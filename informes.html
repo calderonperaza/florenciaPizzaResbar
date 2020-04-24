@@ -174,7 +174,7 @@
                                     <input type="text" readonly id="mesDate" tabindex="0" ref="mesesito" class="styleInput" v-b-popover.click="popoverConfig" :value="mesPicked.mes"></input>
                                 </div>
                                 <div class="datePick" id="diario" v-bind:class="{ selectedDate: diario}">
-                                    <input type="text" readonly id="diaDate" tabindex="0" ref="diaDate" class="styleInput" v-b-popover.click="popiverDia" :value="semanaNum.nombre"></input>
+                                    <input type="text" readonly id="diaDate" tabindex="0" ref="diaDate" class="styleInput" v-b-popover.click="popiverDia" v-bind:value="semanaNum.nombre"></input>
                                 </div>
                                 <div class="datePick" id="hora" v-bind:class="{ selectedDate: hora}"><label type="text" class="" style="margin: 0;">X</label></div>
                             </div>

@@ -309,54 +309,52 @@ var vm = new Vue({
             });
         },
         getTotalporDia: function(year, month, week) {
-            let nameDays = ["D", "L", "M", "X", "J", "V", "S"];
             this.rangeWeeks = this.rangoSemanas();
-
-            Promise.resolve(() => {
-                //genero los labels por si al inicio se va directo a la semana, y para no tener que llamar al mes para que no consuma tiempo
-                this.rangeWeeks.forEach((param, index) => {
-                    this.labelsSemanas[index] = new Date(param.inicio).getDate() + '-' + new Date(param.fin).getDate();
-                    // console.log("si entré");
-                });
-                console.log(this.rangeWeeks);
-            }).then(() => {
-                let j = 0;
-                while (j < 4) {
-                    if (week === j) {
-                        console.log("si entré")
-                        let rangeDays = this.labelsSemanas[j];
-                        rangeDays = rangeDays.split("-");
-                        let dias = this.moment().set({ 'year': year, 'month': month, 'date': parseInt(rangeDays[0]) });
-                        this.totalPorDia = [];
-                        this.labelsDias = [];
-                        let i = parseInt(rangeDays[0]);
-                        let ind = 0;
-                        let diyas = [];
-                        while (i <= parseInt(rangeDays[1])) {
-                            diyas[ind] = ind;
-                            ind++;
-                            i++;
-                        }
-                        diyas.forEach(param => {
-                            axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + dias.startOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.endOf('day').toISOString() + '&filter[where][and][2][estado][like]=C').
-                            then(response => {
-                                let total = 0;
-                                let ordenes = response.data;
-                                ordenes.forEach((orden) => {
-                                    total = orden.total + total;
-                                });
-                                this.totalPorDia[param] = typeof total === undefined ? 0 : total;
-                                this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
-                                console.log(this.labelsDias[param], param);
-                                // console.log(total);
-                                this.$refs.chart.update();
-                                dias.add(1, 'days');
-                            }).catch((e) => console.log("problemas con dias " + e));
-                        });
+            //genero los labels por si al inicio se va directo a la semana, y para no tener que llamar al mes para que no consuma tiempo
+            this.rangeWeeks.forEach((param, index) => {
+                this.labelsSemanas[index] = new Date(param.inicio).getDate() + '-' + new Date(param.fin).getDate();
+            });
+            this.diaProcedure(week, year, month);
+        },
+        diaProcedure: function(week, year, month) {
+            let nameDays = ["D", "L", "M", "X", "J", "V", "S"];
+            let j = 0;
+            while (j < 4) {
+                if (week === j) {
+                    let rangeDays = this.labelsSemanas[j];
+                    rangeDays = rangeDays.split("-");
+                    let dias = this.moment().set({ 'year': year, 'month': month, 'date': parseInt(rangeDays[0]) });
+                    this.totalPorDia = [];
+                    this.labelsDias = [];
+                    let i = parseInt(rangeDays[0]);
+                    let ind = 0;
+                    let diyas = [];
+                    while (i <= parseInt(rangeDays[1])) {
+                        diyas[ind] = ind;
+                        ind++;
+                        i++;
                     }
-                    j++;
+                    console.log(diyas);
+                    diyas.forEach(param => {
+                        axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + dias.endOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.startOf('day').toISOString() + '&filter[where][and][2][estado][like]=C').
+                        then(response => {
+                            let total = 0;
+                            let ordenes = response.data;
+                            ordenes.forEach((orden) => {
+                                total = orden.total + total;
+                            });
+                            console.log(dias.startOf('day').toISOString());
+                            console.log(ordenes);
+                            console.log(dias.endOf('day').toISOString());
+                            this.totalPorDia[param] = typeof total === undefined ? 0 : total;
+                            this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
+                            this.$refs.chart.update();
+                            dias.add(1, 'days');
+                        }).catch((e) => console.log("problemas con dias " + e));
+                    });
                 }
-            }).catch((e) => console.log(e));
+                j++;
+            }
         },
         rangoSemanas: function(year = this.anioPicker, month = this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id) {
             let rangeWeeks = [];
@@ -467,19 +465,17 @@ var vm = new Vue({
     },
     watch: {
         anioPicker: function(value) {
-            // this.totalPorSemana = [];
+            this.totalPorSemana = [];
             this.$refs.anioRef.click()
         },
         mesPicked: function() {
-            console.log("cambió mes");
             this.$refs.semanaId.click();
-        },
-        semanaNum: function() {
-            console.log("cambió semana num");
-            this.$refs.diaId.click();
         },
     },
     computed: {
+        clickDia() {
+            vm.$refs.diaId.click();
+        },
         popoverConfig() {
             let unorderedList = '<ul class="ul-year">';
             this.mesPicker.forEach((value) => {

@@ -575,11 +575,16 @@ function popOverMonth(params) {
         // console.log("out of focus");
 }
 
-let converterDay = ["Sem 1", "Sem 2", "Sem 3", "Sem 4"];
+
 
 function popOverDay(params) {
-    console.log(params);
-    vm.semanaNum.id = params;
-    vm.semanaNum.nombre = converterDay[params];
-    vm.$nextTick(() => vm.$refs.diaDate.click())
+    let converterDay = ["Sem 1", "Sem 2", "Sem 3", "Sem 4"];
+    // vm.semanaNum.id = params;
+    // vm.semanaNum.nombre = converterDay[params];
+    vm.$nextTick(() => {
+        vm.$set(vm.semanaNum, 'id', params);
+        vm.$set(vm.semanaNum, 'nombre', converterDay[params]);
+        vm.$refs.diaDate.click();
+        vm.clickDia;
+    });
 }
