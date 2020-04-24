@@ -157,7 +157,7 @@
                                             class="fas fa-calendar"></i></i>Mes</a>
                                     <a href="#" ref="semanaId" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
                                             class="fas fa-calendar-week"></i></i>Semana</a>
-                                    <a href="#" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
+                                    <a href="#" ref="diaId" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
                                     <a href="#" class="a-inf" @click="selectRange=3;fillData(selectRange)"><i
                                             class="fas fa-clock"></i></i>Hora</a>
@@ -173,8 +173,10 @@
                                 <div class="datePick" id="semanal" v-bind:class="{ selectedDate: semanal}">
                                     <input type="text" readonly id="mesDate" tabindex="0" ref="mesesito" class="styleInput" v-b-popover.click="popoverConfig" :value="mesPicked.mes"></input>
                                 </div>
-                                <div class="datePick" id="diario" v-bind:class="{ selectedDate: diario}"><label type="text" class="" style="margin: 0;">Sem 1</label></div>
-                                <div class="datePick" id="hora" v-bind:class="{ selectedDate: hora}"><label type="text" class="" style="margin: 0;">Miercoles</label></div>
+                                <div class="datePick" id="diario" v-bind:class="{ selectedDate: diario}">
+                                    <input type="text" readonly id="diaDate" tabindex="0" ref="diaDate" class="styleInput" v-b-popover.click="popiverDia" :value="semanaNum.nombre"></input>
+                                </div>
+                                <div class="datePick" id="hora" v-bind:class="{ selectedDate: hora}"><label type="text" class="" style="margin: 0;">X</label></div>
                             </div>
 
 
