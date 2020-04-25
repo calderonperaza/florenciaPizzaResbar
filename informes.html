@@ -152,7 +152,6 @@
                             <div style="width: 100%; text-align: center;">
                                 <nav class="tabs-inf">
                                     <div class="selector-inf"></div>
-                                    <!-- cambiar icono xddddd ------------- -->
                                     <a href="#" id="reference" ref="anioRef" class="active a-inf" @click="selectRange=0;fillData(selectRange)"><i
                                             class="fas fa-calendar"></i></i>Mes</a>
                                     <a href="#" ref="semanaId" class="a-inf" @click="selectRange=1;fillData(selectRange)"><i
@@ -192,46 +191,70 @@
                     <!-- Inicio de los mejores meseros -->
                     <div class="bestEmployeess" style="margin-left: 10px;">
                         <label class="leyendas" style="margin-left: 0px;">Mejores meseros</label>
+
+                        <div v-show="empWarning" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            El rango de fecha es incorrecto.
+                        </div>
+                        <!-- Fin del div que se muestra si el rango de fecha es incorrecto-->
+
+                        <div class="div-encapsula-dates">
+                            <div class="espacio-divs">
+                                Desde:
+                                <div class="div-date animated bounceIn" id="divStartEmp">
+                                    <input type="date" id="startEmp" class="date-css" v-model="empDesde" :max="today"><br>
+                                </div>
+                            </div>
+                            <div class="espacio-divs">
+                                Hasta:
+                                <div class="div-date animated bounceIn delay1" id="divEndEmp">
+                                    <input type="date" id="endEmp" class="date-css" v-model="empHasta" :max="today"><br>
+                                </div>
+                            </div>
+                            <button class="btn-hover color-9" @click="mejoresMeseros()" style="background-image: linear-gradient(to right, #4766c7, #4481eb, #d339ff, #3f86ed);">ACEPTAR</button>
+                        </div>
+
+
                         <!-- Bloque 1 de best empleados  -->
-                        <div class="border rounded animated bounceIn" style="background-color: #4e4e4e;">
-                            <div id="despacho">
-                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                    <label class="d-flex reziseText">{{meseroOrdenes}}</label>
-                                    <label class="d-flex empName">Mas ordenes
-                    despachadas</label>
+                        <div class="border rounded animated bounceIn" style="background-color: #ffffff;box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.53); margin-top: 1rem;">
+                            <div style="border-radius: 10px 10px 0px 0px;background-color: #4e73df;">
+                                <label class="d-flex empName">Más ordenes despachadas</label>
+                            </div>
+                            <div id="despacho" style="padding: 1rem;display: flex;justify-content: space-between;">
+                                <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);">{{meseroOrdenes[0]._id}}</label>
                                 </div>
-                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                    <label class="d-flex justify-content-center text-centro reziseText">Ordenes:
-                    {{mesOrCantidad}}</label>
-                                    <label class="d-flex justify-content-center text-centro empName">{{mesOrFechaIn}}
-                    Hasta
-                    {{mesOrFechaFin}}</label>
+                                <div id="descEmp" style="text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText" style="color: rgb(0, 0, 0);">
+                                        Ordenes: {{meseroOrdenes[0].Total}}</label>
                                 </div>
-                                <div class="tresPuntos">
-                                    <i class="fas fa-ellipsis-v empName"></i>
-                                </div>
+                                <div class="tresPuntos" style="height: inherit; align-self: center;"><i class="fas fa-ellipsis-v" style="color: rgb(0, 0, 0);height: max-content;"></i></div>
                             </div>
                         </div>
                         <!-- Fin del Bloque 1 de best empleados  -->
 
                         <!-- Bloque 2 de best empleados  -->
-                        <div class="border rounded animated bounceIn delay1" style="background-color: #4e4e4e;margin-top: 10px;">
-                            <div id="despacho">
-                                <div id="textoEmp" style="margin-left: 2rem; width: 30%; text-align: left; display: inline-block; margin-top: 0.5em;">
-                                    <label class="d-flex reziseText">{{meseroTiempo}}</label>
-                                    <label class="d-flex empName">Mas tiempo trabajando</label>
+                        <div class="border rounded animated bounceIn" style="background-color: #ffffff;box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.53); margin-top: 1rem;">
+                            <div style="border-radius: 10px 10px 0px 0px;background-color: #4e73df;">
+                                <label class="d-flex empName">Promedio de ordenes</label>
+                            </div>
+                            <div id="despacho" style="padding: 1rem;display: flex;justify-content: space-between;">
+                                <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Prom: ${{ordenesProm[0].Promedio}}</label>
                                 </div>
-                                <div id="descEmp" style="width: 50%; text-align: center; display: inline-block;">
-                                    <label class="d-flex justify-content-center text-centro reziseText">Inició:
-                    {{mesTimIn}}</label>
-                                    <label class="d-flex justify-content-center text-centro empName">Hasta fecha
-                    actual</label>
+                                <div id="descEmp" style="text-align: center; display: inline-block;">
+                                    <label class="d-flex justify-content-center text-centro reziseText" style="color: rgb(0, 0, 0);text-align: center;">
+                                        Ordenes: {{ordenesProm[0].Count}}</label>
                                 </div>
-                                <div class="tresPuntos">
-                                    <i class="fas fa-ellipsis-v empName"></i>
+                                <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Min: ${{ordenesProm[0].Minimo}}</label>
+                                </div>
+                                <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Max: ${{ordenesProm[0].Maximo}}</label>
                                 </div>
                             </div>
                         </div>
+
+
                         <!-- Fin del Bloque 2 de best empleados  -->
                         <!-- Bloque 3 de best empleados  -->
                         <div class="border rounded animated bounceIn delay2" style="background-color: #4e4e4e;margin-top: 10px; display: none;">

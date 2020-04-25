@@ -75,12 +75,17 @@ var vm = new Vue({
         pmvCantidad: 104,
         ordenesActivas: 30,
         //mejor mesero block a
-        meseroOrdenes: "Mesero A",
-        mesOrCantidad: 320,
+        meseroOrdenes: [{ _id: "Mesero A", Total: "321" }],
         mesOrFechaIn: "23-01-20",
         mesOrFechaFin: "23-02-20",
         //mejor mesero block b
-        meseroTiempo: "Mesero B",
+        ordenesProm: [{
+            "_id": "Datos de Ordenes",
+            "Promedio": 25.825,
+            "Count": 6,
+            "Minimo": 13.99,
+            "Maximo": 53
+        }],
         mesTimIn: "01-01-12",
         //mejor mesero bloc c
         menosFaltas: "Mesero C",
@@ -113,6 +118,9 @@ var vm = new Vue({
         totalPorDia: [],
         labelsDias: [],
         semanaNum: { "nombre": "Sem 1", "id": 0 },
+        empDesde: 0,
+        empHasta: 0,
+        empWarning: false
     },
     created() {
         // Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
@@ -129,6 +137,7 @@ var vm = new Vue({
         this.today = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
         this.mesPicked.mes = this.mesPicker[parseInt(this.today.substring(5, 7)) - 1].mes;
         this.mesPicked.id = parseInt(this.today.substring(5, 7)) - 1;
+        this.mejoresMeseros();
     },
     methods: {
         fillData(rango) {
@@ -193,10 +202,12 @@ var vm = new Vue({
         mesActual: function() {
             this.hasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
             this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
+            this.empDesde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
+            this.empHasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
         },
         getFourDivsData: function() {
             /*     if (moment.duration(moment(this.hasta, "YYYY-MM-DD").diff(moment(this.desde, "YYYY-MM-DD"))).asDays() > 0) {*/
-            if (!moment(this.hasta, "YYYY-MM-DD").isSameOrBefore(moment(this.desde, "YYYY-MM-DD"))) {
+            if (!moment(this.hasta).isSameOrBefore(this.desde)) {
                 this.divDos();
                 this.divTres();
                 this.divCuatro();
@@ -261,6 +272,25 @@ var vm = new Vue({
                     element.style.removeProperty('background-image');
                 });
                 document.querySelectorAll('.date-css').forEach(element => {
+                    element.style.removeProperty('box-shadow');
+                });
+            }
+        },
+        applyCssAlertEmp: function(parameter) {
+            if (parameter === true) {
+                [document.getElementById("divStartEmp"), document.getElementById("divEndEmp")].forEach(element => {
+                    element.style.backgroundImage = "linear-gradient(to right, #e7da3b, rgb(249, 103, 20), #e74a3bba, #e74a3b)";
+                    element.classList.remove('bounceIn');
+                    element.classList.add('shake');
+                });
+                [document.getElementById("startEmp"), document.getElementById("endEmp")].forEach(element => {
+                    element.style.boxShadow = "5px 5px 25px -2px #e74a3b70";
+                });
+            } else {
+                [document.getElementById("divStartEmp"), document.getElementById("divEndEmp")].forEach(element => {
+                    element.style.removeProperty('background-image');
+                });
+                [document.getElementById("startEmp"), document.getElementById("endEmp")].forEach(element => {
                     element.style.removeProperty('box-shadow');
                 });
             }
@@ -456,11 +486,39 @@ var vm = new Vue({
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).toISOString());
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').toISOString());
         },
-        dismissPopover() {
-            this.$nextTick(() => {
-                this.$refs.mesesito.focus();
-                console.log("nextTick")
-            });
+        mejoresMeseros: function() {
+            if (!moment(this.empHasta).isSameOrBefore(this.empDesde)) {
+                this.empWarning = false;
+                axios.get(this.uri + '/MeseroconMasOrdenes/' + this.empDesde + '/' + this.empHasta).
+                then(response => {
+                    if (response.data.length) {
+                        this.meseroOrdenes = response.data;
+                        this.mesOrFechaIn = this.empDesde;
+                        this.mesOrFechaFin = this.empHasta;
+                    } else {
+                        this.meseroOrdenes = [{ _id: "Sin datos", Total: "0" }];
+                        this.mesOrFechaIn = this.empDesde;
+                        this.mesOrFechaFin = this.empHasta;
+                    }
+                }).catch((e) => console.log("problemas con mejores emp " + e));
+                axios.get(this.uri + '/OrdenPromedios/' + this.empDesde + '/' + this.empHasta).
+                then(response => {
+                    if (response.data.length) {
+                        this.ordenesProm = response.data;
+                    } else {
+                        this.ordenesProm = [{
+                            "_id": "Datos de Ordenes",
+                            "Promedio": 0,
+                            "Count": 0,
+                            "Minimo": 0,
+                            "Maximo": 0
+                        }]
+                    }
+                }).catch((e) => console.log("problemas con mejores emp " + e));
+            } else {
+                this.empWarning = true;
+            }
+            this.applyCssAlertEmp(this.empWarning);
         }
     },
     watch: {
