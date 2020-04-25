@@ -120,7 +120,8 @@ var vm = new Vue({
         semanaNum: { "nombre": "Sem 1", "id": 0 },
         empDesde: 0,
         empHasta: 0,
-        empWarning: false
+        empWarning: false,
+        totalModalOrdenes: 0,
     },
     created() {
         // Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
@@ -222,7 +223,11 @@ var vm = new Vue({
             axios.get(
                 this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde + '&filter[where][and][2][estado][like]=C').then(response => {
                 this.ordenesCerradas = response.data;
+                this.totalModalOrdenes = 0;
                 this.numOrdenesFin = this.ordenesCerradas.length;
+                this.ordenesCerradas.forEach((param) => {
+                    this.totalModalOrdenes = this.totalModalOrdenes + param.total;
+                });
             }).catch(e => { console.log(e) });
 
         },
@@ -364,18 +369,18 @@ var vm = new Vue({
                         ind++;
                         i++;
                     }
-                    console.log(diyas);
                     diyas.forEach(param => {
-                        axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + dias.endOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.startOf('day').toISOString() + '&filter[where][and][2][estado][like]=C').
+                        axios.get(this.uri + '/resumenDeVentas?filter[where][and][0][fecha][lte]=' + dias.endOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.startOf('day').toISOString()).
                         then(response => {
+                            console.log("día:", param)
                             let total = 0;
                             let ordenes = response.data;
                             ordenes.forEach((orden) => {
                                 total = orden.total + total;
                             });
-                            console.log(dias.startOf('day').toISOString());
+                            console.log("inicio:", dias.startOf('day').toISOString());
                             console.log(ordenes);
-                            console.log(dias.endOf('day').toISOString());
+                            console.log("Fin:", dias.endOf('day').toISOString());
                             this.totalPorDia[param] = typeof total === undefined ? 0 : total;
                             this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
                             this.$refs.chart.update();
