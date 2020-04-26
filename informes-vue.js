@@ -101,7 +101,6 @@ var vm = new Vue({
         uri: ApiRestUrl,
         topProductos: "",
         ordenesCerradas: "",
-        alertaBool: false,
         today: 0,
         mesTotal: [],
         selectRange: 0,
@@ -207,17 +206,17 @@ var vm = new Vue({
             this.empHasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
         },
         getFourDivsData: function() {
+            let boolean;
             /*     if (moment.duration(moment(this.hasta, "YYYY-MM-DD").diff(moment(this.desde, "YYYY-MM-DD"))).asDays() > 0) {*/
             if (!moment(this.hasta).isSameOrBefore(this.desde)) {
+                boolean = false;
                 this.divDos();
                 this.divTres();
                 this.divCuatro();
-                this.alertaBool = false;
-
             } else {
-                this.alertaBool = true;
+                boolean = true;
             }
-            this.applyCssAlert(this.alertaBool);
+            this.applyCssAlert(boolean);
         },
         divDos: function() {
             axios.get(
@@ -264,6 +263,7 @@ var vm = new Vue({
         },
         applyCssAlert: function(parameter) {
             if (parameter === true) {
+                document.getElementById("modalError").style.display = "block";
                 document.querySelectorAll('.div-date').forEach(element => {
                     element.style.backgroundImage = "linear-gradient(to right, #e7da3b, rgb(249, 103, 20), #e74a3bba, #e74a3b)";
                     element.classList.remove('bounceIn');
@@ -273,6 +273,7 @@ var vm = new Vue({
                     element.style.boxShadow = "5px 5px 25px -2px #e74a3b70";
                 });
             } else {
+                document.getElementById("modalError").style.display = "none";
                 document.querySelectorAll('.div-date').forEach(element => {
                     element.style.removeProperty('background-image');
                 });
@@ -283,6 +284,7 @@ var vm = new Vue({
         },
         applyCssAlertEmp: function(parameter) {
             if (parameter === true) {
+                document.getElementById("empWarning").style.display = "block";
                 [document.getElementById("divStartEmp"), document.getElementById("divEndEmp")].forEach(element => {
                     element.style.backgroundImage = "linear-gradient(to right, #e7da3b, rgb(249, 103, 20), #e74a3bba, #e74a3b)";
                     element.classList.remove('bounceIn');
@@ -292,6 +294,7 @@ var vm = new Vue({
                     element.style.boxShadow = "5px 5px 25px -2px #e74a3b70";
                 });
             } else {
+                document.getElementById("empWarning").style.display = "none";
                 [document.getElementById("divStartEmp"), document.getElementById("divEndEmp")].forEach(element => {
                     element.style.removeProperty('background-image');
                 });
@@ -488,8 +491,9 @@ var vm = new Vue({
             console.log(this.moment().set({ 'year': 2020, 'month': 01, 'date': 12, 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 999 }).add(1, 'millisecond').toISOString());
         },
         mejoresMeseros: function() {
+            let empWarning;
             if (!moment(this.empHasta).isSameOrBefore(this.empDesde)) {
-                this.empWarning = false;
+                empWarning = false;
                 axios.get(this.uri + '/MeseroconMasOrdenes/' + this.empDesde + '/' + this.empHasta).
                 then(response => {
                     if (response.data.length) {
@@ -517,9 +521,9 @@ var vm = new Vue({
                     }
                 }).catch((e) => console.log("problemas con mejores emp " + e));
             } else {
-                this.empWarning = true;
+                empWarning = true;
             }
-            this.applyCssAlertEmp(this.empWarning);
+            this.applyCssAlertEmp(empWarning);
         }
     },
     watch: {

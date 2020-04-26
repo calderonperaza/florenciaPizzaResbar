@@ -87,7 +87,7 @@
                 <label class="leyendas" style="margin-top: 20px;">Reportes</label>
                 <div class="container-fluid" id="appRESBAR">
                     <!-- Este es el div que se muestra si el rango de fecha es incorrecto-->
-                    <div v-show="alertaBool" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div id="modalError" class="alert alert-danger alert-dismissible fade show" role="alert">
                         El rango de fecha es incorrecto.
                     </div>
                     <!-- Fin del div que se muestra si el rango de fecha es incorrecto-->
@@ -192,7 +192,7 @@
                     <div class="bestEmployeess" style="margin-left: 10px;">
                         <label class="leyendas" style="margin-left: 0px;">Mejores meseros</label>
 
-                        <div v-show="empWarning" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div id="empWarning" class="alert alert-danger alert-dismissible fade show" role="alert">
                             El rango de fecha es incorrecto.
                         </div>
                         <!-- Fin del div que se muestra si el rango de fecha es incorrecto-->
@@ -389,7 +389,7 @@
                                         </ul>
                                     </div>
                                     <!-- fin de table responsive -->
-                                    <div style="text-align: center;">Total: ${{totalModalOrdenes}}</div>
+                                    <div style="text-align: center;">Total: ${{totalModalOrdenes.toFixed(2)}}</div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
