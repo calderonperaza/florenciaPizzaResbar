@@ -39,7 +39,7 @@ var vm = new Vue({
             
         if(this.detallesDeNuevaOrden.length === 0){
           this.nuevoDetalleOrden.cantidad = 1;
-          this.nuevoDetalleOrden.subtotal = this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+          this.nuevoDetalleOrden.subtotal = (this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio).toFixed(2);
           this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
         }else{
             for (var index = 0; index < this.detallesDeNuevaOrden.length; index++) {
@@ -49,7 +49,7 @@ var vm = new Vue({
                 cantidad = cantidad + 1;
                 this.nuevoDetalleOrden.cantidad = cantidad;                 
                 Vue.set(vm.detallesDeNuevaOrden,index,this.nuevoDetalleOrden);
-                this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+                this.detallesDeNuevaOrden[index].subtotal = (this.detallesDeNuevaOrden[index].precio * cantidad).toFixed(2);
               }
             }
             
@@ -59,7 +59,7 @@ var vm = new Vue({
 
         if(typeof producto === 'undefined'){
           this.nuevoDetalleOrden.cantidad=1;
-          this.nuevoDetalleOrden.subtotal =  this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio;
+          this.nuevoDetalleOrden.subtotal =  (this.nuevoDetalleOrden.cantidad * this.nuevoDetalleOrden.precio).toFixed(2);
           this.detallesDeNuevaOrden.push(this.nuevoDetalleOrden);
         }
        }
@@ -89,7 +89,7 @@ var vm = new Vue({
             if(cantidad>0){
               cantidad = cantidad - 1;
               this.detallesDeNuevaOrden[index].cantidad = cantidad;
-              this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+              this.detallesDeNuevaOrden[index].subtotal = (this.detallesDeNuevaOrden[index].precio * cantidad).toFixed(2);
             }
             if(cantidad === 0){
               this.detallesDeNuevaOrden.splice(index,1);
