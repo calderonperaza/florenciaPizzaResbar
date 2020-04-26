@@ -370,22 +370,18 @@ var vm = new Vue({
                         i++;
                     }
                     diyas.forEach(param => {
-                        axios.get(this.uri + '/resumenDeVentas?filter[where][and][0][fecha][lte]=' + dias.endOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.startOf('day').toISOString()).
+                        axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + dias.endOf('day').toISOString() + '&filter[where][and][1][fecha][gte]=' + dias.startOf('day').toISOString() + '&filter[where][and][2][estado][like]=C').
                         then(response => {
-                            console.log("día:", param)
-                            let total = 0;
                             let ordenes = response.data;
+                            let total = 0;
                             ordenes.forEach((orden) => {
                                 total = orden.total + total;
                             });
-                            console.log("inicio:", dias.startOf('day').toISOString());
-                            console.log(ordenes);
-                            console.log("Fin:", dias.endOf('day').toISOString());
-                            this.totalPorDia[param] = typeof total === undefined ? 0 : total;
-                            this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
+                            this.totalPorDia[param] = total;
                             this.$refs.chart.update();
-                            dias.add(1, 'days');
                         }).catch((e) => console.log("problemas con dias " + e));
+                        this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
+                        dias.add(1, 'days');
                     });
                 }
                 j++;
