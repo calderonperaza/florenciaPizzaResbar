@@ -154,7 +154,7 @@ var vm = new Vue({
           ordenSelecte sean actualizados*/
         agregarProductosOrden() {
             this.addOrdenSelected();
-            axios.put('http://localhost:3000/ordenes/' + this.ordenSelected.id, this.ordenSelected)
+            axios.put(ApiRestUrl + '/ordenes/' + this.ordenSelected.id, this.ordenSelected)
                 .then(response => {
                     console.log("exito");
                     if (this.detallesDeNuevaOrden.length == 0) {
