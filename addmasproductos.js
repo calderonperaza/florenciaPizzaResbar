@@ -172,7 +172,7 @@ var vm = new Vue({
         /*Esta función mediante metodo get extrae todas las Categorias por medio del api rest que estan en la base de datos
           categorias: Es el array donde son guardados todas las categorias disponibles */
         obtenerCategorias() {
-            axios.get(this.uri + 'categorias').then((result) => {
+            axios.get(this.uri + '/categorias').then((result) => {
                 this.categorias = result.data
             }).catch((err) => {
                 console.log(err)
@@ -182,7 +182,7 @@ var vm = new Vue({
         /*Esta función mediante metodo get extrae todos los productos por medio del api rest que estan en la base de datos
           ordenes: Es el array donde son guardados todos los productos disponibles */
         obtenerProductos() {
-            axios.get(this.uri + 'productos').then((result) => {
+            axios.get(this.uri + '/productos').then((result) => {
                 this.productos = result.data
             }).catch((err) => {
                 console.log(err)
@@ -192,7 +192,7 @@ var vm = new Vue({
         /*Esta función mediante metodo get extrae todas las ordenes por medio del api rest que estan en la base de datos
           ordenes: Es el array donde son guardadas todas estas ordenes */
         obtenerOrdenes() {
-            axios.get(this.uri + 'ordenes').then(response => {
+            axios.get(this.uri + '/ordenes').then(response => {
                 this.ordenes = response.data;
                 this.obtenerSelected();
             }).catch(e => {
