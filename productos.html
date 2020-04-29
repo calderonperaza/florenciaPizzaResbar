@@ -107,33 +107,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(producto, index) in productos " v-show="buscar(index)"  v-on:click="productoSelected=producto" v-bind:class="{ 'font-weight-bold' : productoSelected==producto, 'text-dark': productoSelected==producto }">
+                                <tr v-for="(producto, index) in productos " v-show="buscar(index)" v-on:click="productoSelected=producto" v-bind:class="{ 'font-weight-bold' : productoSelected==producto, 'text-dark': productoSelected==producto }">
                                     <td style="text-align: center;">{{producto.id.substring(producto.id.length - 4, producto.id.length)}}</td>
                                     <td style="text-align: center;">{{producto.nombre}}</td>
                                     <td style="text-align: center;">$ {{producto.precio}}</td>
                                     <td style="text-align: center;">{{producto.categoria.nombre}}</td>
-                                    <td> 
+                                    <td>
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" title="Modificar Orden" data-target="#frmmodificar" @click="productoSelected=producto; modalmodificarProducto()">
                                             <i class="fa fa-edit mr-2"></i>
                                         </button>
 
-                                        <button class="btn btn-danger btn-sm" id="btnborrar" data-toggle="modal" data-target="#frmeliminar" title="Eliminar Orden" ><i
+                                        <button class="btn btn-danger btn-sm" id="btnborrar" data-toggle="modal" data-target="#frmeliminar" title="Eliminar Orden"><i
                                             class="fa fa-trash-alt mr-2"></i>
                                         </button>
 
                                 </tr>
                             </tbody>
                         </table>
-                        
+
                     </div>
                     <!-- Termina Tabla -->
 
-                    
 
-                   
 
-                    
-                    
+
+
+
+
 
 
                     <!--Solo para depuracion y desarrollo mostramos el vue.Data
@@ -143,165 +143,158 @@
                     <pre>{{ $data }}</pre>-->
 
 
-              
-            <!-- AGREGAR PRODUCTOS-->
-<div class="modal fade" id="frmagregar" tabindex="-1" role="dialog"
-aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-<div class="modal-dialog modal-dialog-centered" role="document">
+                    <!-- AGREGAR PRODUCTOS-->
+                    <div class="modal fade" id="frmagregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-    <div class="modal-content">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
 
-        <div class="modal-header bg-primary">
-            <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div class="modal-content">
+
+                                <div class="modal-header bg-primary">
+                                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-        </div>
+                                </div>
 
-        <div class="modal-body">
-            
-            <!-- formulario-->
-            <form>
+                                <div class="modal-body">
 
-            <div class="form-group">
-                <label for="nombre">Nombre del producto:</label>
-                <input v-model="producto.nombre" type="text" class="form-control"
-                id="idproducto" placeholder="Nombre x">
-            </div>
+                                    <!-- formulario-->
+                                    <form>
 
-            <div class="form-group">
-                <label for="categoria">Categoria</label>
-                <select v-model="producto.categoria"  class="form-control" id="inputcategoria">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre del producto:</label>
+                                            <input v-model="producto.nombre" type="text" class="form-control" id="idproducto" placeholder="Nombre x">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="categoria">Categoria</label>
+                                            <select v-model="producto.categoria" class="form-control" id="inputcategoria">
                     <option v-for="(categoria, index) in categorias " v-bind:value="categoria">{{categoria.nombre}}</option>
               
-                </select>   
-
-               
+                </select>
 
 
-            </div>
-
-            <div class="form-group">
-                <label for="precio"> Ingrese el precio:</label>
-                <input v-model="producto.precio" type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control"
-                id="precioholder" placeholder="$0.00">
-            </div>
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-            @click="clearData">Cancelar</button>
-            <button type="button" class="btn btn-primary" v-on:click="crearProducto" data-dismiss="modal"
-            >Guardar</button>
-        </div>
-    </div>
-</div>
-</div>
 
 
-<!--fin de agregar-->
+                                        </div>
 
-       
+                                        <div class="form-group">
+                                            <label for="precio"> Ingrese el precio:</label>
+                                            <input v-model="producto.precio" type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control" id="precioholder" placeholder="$0.00">
+                                        </div>
+                                    </form>
+                                </div>
 
-                   <!-- Modal modificar orden -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearData">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" v-on:click="crearProducto" data-dismiss="modal">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
- <div class="modal fade" id="frmmodificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        
-    <div class="modal-dialog modal-lg" role="document">
-       
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modificar Orden</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <!--fin de agregar-->
+
+
+
+                    <!-- Modal modificar orden -->
+
+                    <div class="modal fade" id="frmmodificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+                        <div class="modal-dialog modal-lg" role="document">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modificar Orden</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
+                                </div>
 
-            <div class="modal-body">
-                <div class="container">
-                    <!-- <form class="form-inline"> -->
-                    <form>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <!-- <form class="form-inline"> -->
+                                        <form>
 
-                        <div class="form-group row my-0">
-                            <label for="lblnombre" class="col-sm-2 col-lg-1.2 col-form-label">Nombre:     </label>
-                            
-                            <div class="col-sm-3 mr-md-5 col-lg-3">
-                                <input type="text"  class="form-control form-control-sm" id="lblnombre" v-model="productomodificado.nombre">
-                            </div>
-                            <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productomodificado.id.substring(productomodificado.id.length - 4, productomodificado.id.length)}} </label>
-                        </div>
+                                            <div class="form-group row my-0">
+                                                <label for="lblnombre" class="col-sm-2 col-lg-1.2 col-form-label">Nombre:     </label>
 
-                        <div class="form-group row my-0 ">
-                            
-                            <div class="col-md-2 col-sm-2 col-lg-1.2 ">
-                                <label for="lblprecio " class="col-form-label ">Precio: </label>
-                            </div>
+                                                <div class="col-sm-3 mr-md-5 col-lg-3">
+                                                    <input type="text" class="form-control form-control-sm" id="lblnombre" v-model="productomodificado.nombre">
+                                                </div>
+                                                <label class=" col-sm col-lg ml-md-5 d-none d-lg-block ">id: {{productomodificado.id.substring(productomodificado.id.length - 4, productomodificado.id.length)}} </label>
+                                            </div>
 
-                            <div class="col-md-6 col-sm-4 col-lg-3 ">
-                                <input type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productomodificado.precio ">
-                            </div>
+                                            <div class="form-group row my-0 ">
 
-                            <div class="col-md-4 col-sm-6 col-lg-6 ">
-                            </div>
-                        </div>
+                                                <div class="col-md-2 col-sm-2 col-lg-1.2 ">
+                                                    <label for="lblprecio " class="col-form-label ">Precio: </label>
+                                                </div>
 
-                        <div class="form-group row ">
+                                                <div class="col-md-6 col-sm-4 col-lg-3 ">
+                                                    <input type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productomodificado.precio ">
+                                                </div>
 
-                            <div class="col-md-2 col-md-2 col-lg-1.2 ">
-                                <label for="lblcategoria " class="col-form-label ">Categoria: </label>
-                            </div>
+                                                <div class="col-md-4 col-sm-6 col-lg-6 ">
+                                                </div>
+                                            </div>
 
-                            <div class="col-md-9 col-sm-4 col-lg-3 ">
-                                <select v-model="productomodificado.categoria"  class="form-control" id="inputacategoria">
+                                            <div class="form-group row ">
+
+                                                <div class="col-md-2 col-md-2 col-lg-1.2 ">
+                                                    <label for="lblcategoria " class="col-form-label ">Categoria: </label>
+                                                </div>
+
+                                                <div class="col-md-9 col-sm-4 col-lg-3 ">
+                                                    <select v-model="productomodificado.categoria" class="form-control" id="inputacategoria">
                                     <option v-for="(categoria, index) in categorias " v-bind:value="categoria">{{categoria.nombre}}</option>
                               
-                                </select>   
-                            </div>
+                                </select>
+                                                </div>
 
-                            <div class="col-md-1 col-sm-1 col-lg-2 ">
+                                                <div class="col-md-1 col-sm-1 col-lg-2 ">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        <!-- termina formulario-->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="clearData">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" v-on:click="modificarProducto" data-dismiss="modal">Guardar</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Termina modal modificar orden -->
 
-                    </form>
-                    <!-- termina formulario-->
-                </div>
-            </div>
-
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                v-on:click="clearData" >Cancelar</button>
-                <button type="button" class="btn btn-primary" v-on:click="modificarProducto"
-                data-dismiss="modal">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Termina modal modificar orden -->
-
- <!-- modal de confirmacion eliminar orden -->
- <div class="modal fade " id="frmeliminar" tabindex="-1 " role="dialog " aria-labelledby="tituloEliminar " aria-hidden="true ">
-    <div class="modal-dialog " role="document ">
-        <div class="modal-content ">
-            <div class="modal-header ">
-                <h5 class="modal-title " id="tituloEliminar ">Eliminar Producto # {{productoSelected.id.substring(productoSelected.id.length - 4, productoSelected.id.length)}}</h5>
-                <button type="button " class="close " data-dismiss="modal" aria-label="Close ">
+                    <!-- modal de confirmacion eliminar orden -->
+                    <div class="modal fade " id="frmeliminar" tabindex="-1 " role="dialog " aria-labelledby="tituloEliminar " aria-hidden="true ">
+                        <div class="modal-dialog " role="document ">
+                            <div class="modal-content ">
+                                <div class="modal-header ">
+                                    <h5 class="modal-title " id="tituloEliminar ">Eliminar Producto # {{productoSelected.id.substring(productoSelected.id.length - 4, productoSelected.id.length)}}</h5>
+                                    <button type="button " class="close " data-dismiss="modal" aria-label="Close ">
                  <span aria-hidden="true ">&times;</span>
                 </button>
-            </div>
-            <div class="modal-body ">
-                ¿Desea eliminar el producto: {{productoSelected.nombre}} ?
-            </div>
-            <div class="modal-footer ">
-                <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                <button type="button " class="btn btn-danger " data-dismiss="modal" v-on:click="eliminarProducto" onClick="alerta()">Eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- fin modal eliminar  -->
+                                </div>
+                                <div class="modal-body ">
+                                    ¿Desea eliminar el producto: {{productoSelected.nombre}} ?
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                                    <button type="button " class="btn btn-danger " data-dismiss="modal" v-on:click="eliminarProducto" onClick="alerta()">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fin modal eliminar  -->
 
 
                 </div>
@@ -311,8 +304,8 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
 
 
-           
-            
+
+
 
             <!-- Inicia el pie de pagina -->
             <footer class="bg-white sticky-footer">
@@ -331,6 +324,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/Script.js"></script>
     <!--Aqui va tu codigo de vue js-->
+    <script src="./config.js"></script>
     <script src="productos.js"></script>
 
 
