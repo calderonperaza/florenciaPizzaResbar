@@ -150,8 +150,8 @@
                                         <label for="txtCliente">Cliente: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text"
-                                            class="form-control" id="txtCliente" placeholder="Enter name" required>
+                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]+[A-Za-z .]{2,}"
+                                            type="text" class="form-control" id="txtCliente" placeholder="Enter name">
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
                                         </div>
@@ -162,8 +162,9 @@
                                         <label for="txtMesero">Mesero: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.mesero" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text"
-                                            class="form-control" id="txtMesero" placeholder="Enter name" required>
+                                        <input v-model.lazy.number="nuevaOrden.mesero" pattern="[A-Za-z]+[A-Za-z .]{2,}"
+                                            type="text" class="form-control" id="txtMesero" placeholder="Enter name"
+                                            required>
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
                                         </div>
@@ -315,10 +316,11 @@
     <script src="assets/js/axios.min.js "></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/Script.js"></script>
-    
+
     <!--Aqui va tu codigo de vue js-->
     <script src="./config.js"></script>
     <script src="nuevaorden.js"></script>
+
 
 </body>
 

@@ -5,7 +5,7 @@ var app = new Vue({
             fecha: null,
             mesero: null,
             mesa: null,
-            cliente: null,
+            cliente: "",
             estado: "A",
             total: 0,
             observacion: '',
