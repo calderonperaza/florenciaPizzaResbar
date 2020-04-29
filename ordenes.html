@@ -111,8 +111,10 @@
 
                     <!-- Incia Tabla -->
                     <!--Tabla para desktop-->
-                    <!--Tabla para todas las ordenes-->
-                    <div class="table-wrapper-scroll-y my-custom-scrollbar d-none d-lg-block">
+                    <!--Tabla para todas las ordenes
+                    de la tabla quite la clase "my-custom-scrollbar"
+                    -->
+                    <div class="table-wrapper-scroll-y d-none d-lg-block">
                         <table v-if="activos" class="table table-sm mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
@@ -172,7 +174,7 @@
                         <!--Fin Tabla para desktop-->
 
                         <!--Tabla para las ordenes filtradas por activas-->
-                        <table v-else class="table table-sm mb-0 ">
+                        <table v-else class="table table-sm mb-0">
                             <thead class="bg-primary text-white ">
                                 <tr>
                                     <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
