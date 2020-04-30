@@ -49,7 +49,7 @@ var vm = new Vue({
                         cantidad = cantidad + 1;
                         this.nuevoDetalleOrden.cantidad = cantidad;
                         Vue.set(vm.detallesDeNuevaOrden, index, this.nuevoDetalleOrden);
-                        this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+                        this.detallesDeNuevaOrden[index].subtotal = parseFloat((this.detallesDeNuevaOrden[index].precio * cantidad).toFixed(2));
                     }
                 }
 
@@ -73,7 +73,6 @@ var vm = new Vue({
                 },
                 "subtotal": ''
             }
-            console.log(this.detallesDeNuevaOrden);
         },
 
         /*Esta funcion elimina cantidades del array detallesDeNuevaOrden los productos que quiere disminuir 
@@ -89,7 +88,7 @@ var vm = new Vue({
                         if (cantidad > 0) {
                             cantidad = cantidad - 1;
                             this.detallesDeNuevaOrden[index].cantidad = cantidad;
-                            this.detallesDeNuevaOrden[index].subtotal = this.detallesDeNuevaOrden[index].precio * cantidad;
+                            this.detallesDeNuevaOrden[index].subtotal = parseFloat((this.detallesDeNuevaOrden[index].precio * cantidad).toFixed(2));
                         }
                         if (cantidad === 0) {
                             this.detallesDeNuevaOrden.splice(index, 1);
@@ -107,7 +106,6 @@ var vm = new Vue({
                 },
                 "subtotal": ''
             }
-            console.log(this.detallesDeNuevaOrden);
         },
 
         /*Verifica si un producto ya esta en la orden Seleccionada y aumenta su cantidad al igual que verfica si algun
@@ -125,7 +123,6 @@ var vm = new Vue({
             }
             this.ordenSelected.detalleOrden.push.apply(this.ordenSelected.detalleOrden, this.arrayAux);
             this.nuevoTotal();
-            console.log(this.ordenSelected);
         },
 
         /*Esta función calculara en nuevo total de la orden mediante sumando los subtotales de todos los elementos agregados
@@ -156,7 +153,6 @@ var vm = new Vue({
             this.addOrdenSelected();
             axios.put(ApiRestUrl + '/ordenes/' + this.ordenSelected.id, this.ordenSelected)
                 .then(response => {
-                    console.log("exito");
                     if (this.detallesDeNuevaOrden.length == 0) {
                         window.location = `./ordenes.html?alert=No se realizo ningun cambio a la orden ${this.ordenSelected.id.substring(20,24)}`
                     } else {

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RESBAR</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/googlefonts.css">
@@ -72,11 +72,11 @@
 
                     <div class="row my-5">
                         <!-- Filtro buscar -->
-                            <div class="col-md-4">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
-                                    </div>
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
+                                </div>
                                 <input type="text" placeholder="Buscar" v-model="searchDisplay">
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" @click="clearData">Cancelar</button>
                                     <div v-if="displayOption=='Agregue una nueva Categoria'">
-                                    <button type="button" class="btn btn-primary btn-sm" v-on:click="createRegistro" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
+                                        <button type="button" class="btn btn-primary btn-sm" v-on:click="createRegistro" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
                                     </div>
                                     <div v-if="this.displayOption=='Modifique la Categoria'">
                                         <button type="button" class="btn btn-primary btn-sm" v-on:click="edithRegistro" data-dismiss="modal" onclick="alerta()">Guardar Cambios</button>
