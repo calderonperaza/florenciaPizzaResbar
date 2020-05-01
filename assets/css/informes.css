@@ -607,3 +607,26 @@
 
 
 /* fin  del estilo popover para las semanas 1 al 4 */
+
+
+/* Comienza estilo para popover de los dias */
+
+.items-semana {
+    list-style: none;
+    padding: 1rem 0.5rem;
+    flex: 0 0 33.3%;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.listItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}

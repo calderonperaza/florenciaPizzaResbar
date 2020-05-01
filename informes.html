@@ -96,13 +96,13 @@
                         <div class="espacio-divs">
                             Desde:
                             <div class="div-date animated bounceIn">
-                                <input type="date" id="start" class="date-css" v-model="desde" :max="today"><br>
+                                <input type="date" id="start" class="date-css" v-model="desde"><br>
                             </div>
                         </div>
                         <div class="espacio-divs">
                             Hasta:
                             <div class="div-date animated bounceIn delay1">
-                                <input type="date" id="end" class="date-css" v-model="hasta" :max="today"><br>
+                                <input type="date" id="end" class="date-css" v-model="hasta"><br>
                             </div>
                         </div>
                         <button class="btn-hover color-9" @click="getFourDivsData()">ACEPTAR</button>
@@ -158,7 +158,7 @@
                                             class="fas fa-calendar-week"></i></i>Semana</a>
                                     <a href="#" ref="diaId" class="a-inf" @click="selectRange=2;fillData(selectRange)"><i
                                             class="fas fa-calendar-day"></i>Día</a>
-                                    <a href="#" class="a-inf" @click="selectRange=3;fillData(selectRange)"><i
+                                    <a href="#" ref="horaId" class="a-inf" @click="selectRange=3;fillData(selectRange)"><i
                                             class="fas fa-clock"></i></i>Hora</a>
                                 </nav>
                             </div>
@@ -174,8 +174,10 @@
                                 </div>
                                 <div class="datePick" id="diario" v-bind:class="{ selectedDate: diario}">
                                     <input type="text" readonly id="diaDate" tabindex="0" ref="diaDate" class="styleInput" v-b-popover.click="popiverDia" v-bind:value="semanaNum.nombre"></input>
-                                </div>
-                                <div class="datePick" id="hora" v-bind:class="{ selectedDate: hora}"><label type="text" class="" style="margin: 0;">X</label></div>
+                                </div class="datePick" id="horario">
+                                <div class="datePick" id="diario" v-bind:class="{ selectedDate: hora}">
+                                    <input type="text" readonly id="horaDate" tabindex="0" ref="horaDate" class="styleInput" v-b-popover.click="popoverHora" v-bind:value="horaNombre"></input>
+                                </div class="datePick" id="horario">
                             </div>
 
 
@@ -201,13 +203,13 @@
                             <div class="espacio-divs">
                                 Desde:
                                 <div class="div-date animated bounceIn" id="divStartEmp">
-                                    <input type="date" id="startEmp" class="date-css" v-model="empDesde" :max="today"><br>
+                                    <input type="date" id="startEmp" class="date-css" v-model="empDesde"><br>
                                 </div>
                             </div>
                             <div class="espacio-divs">
                                 Hasta:
                                 <div class="div-date animated bounceIn delay1" id="divEndEmp">
-                                    <input type="date" id="endEmp" class="date-css" v-model="empHasta" :max="today"><br>
+                                    <input type="date" id="endEmp" class="date-css" v-model="empHasta"><br>
                                 </div>
                             </div>
                             <button class="btn-hover color-9" @click="mejoresMeseros()" style="background-image: linear-gradient(to right, #4766c7, #4481eb, #d339ff, #3f86ed);">ACEPTAR</button>
@@ -239,17 +241,17 @@
                             </div>
                             <div id="despacho" style="padding: 1rem;display: flex;justify-content: space-between;">
                                 <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
-                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Prom: ${{ordenesProm[0].Promedio}}</label>
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Prom: ${{ordenesProm[0].Promedio.toFixed(2)}}</label>
                                 </div>
                                 <div id="descEmp" style="text-align: center; display: inline-block;">
                                     <label class="d-flex justify-content-center text-centro reziseText" style="color: rgb(0, 0, 0);text-align: center;">
                                         Ordenes: {{ordenesProm[0].Count}}</label>
                                 </div>
                                 <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
-                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Min: ${{ordenesProm[0].Minimo}}</label>
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Min: ${{ordenesProm[0].Minimo.toFixed(2)}}</label>
                                 </div>
                                 <div id="textoEmp" style="text-align: left; display: inline-block; height: inherit;">
-                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Max: ${{ordenesProm[0].Maximo}}</label>
+                                    <label class="d-flex reziseText" style="color: rgb(0, 0, 0);text-align: center;">Max: ${{ordenesProm[0].Maximo.toFixed(2)}}</label>
                                 </div>
                             </div>
                         </div>
