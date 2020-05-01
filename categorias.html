@@ -107,7 +107,7 @@
                     <!-- Termina seccion de alertas -->
 
                     <!-- Incia Tabla -->
-                    <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+                    <div class=" table-responsive">
                         <table class="table table-sm table-bordered table-hover table-striped mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
@@ -118,7 +118,7 @@
                             </thead>
                             <tbody>
                                 <tr class="active " v-for="(cat,index) in categorias" v-show="filtro(index)">
-                                    <td style="text-align: center;" scope="col">{{cat.id.substring(17,24)}}</td>
+                                    <td style="text-align: center;" scope="col">{{String((cat.id).substring(17,24))}}</td>
                                     <td style="text-align: center;" scope="col">{{cat.nombre }}</td>
                                     <td>
 
