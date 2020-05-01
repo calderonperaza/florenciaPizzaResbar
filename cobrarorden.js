@@ -58,8 +58,8 @@ new Vue({
                 .catch(e => { console.log(e) });
         },
 
-        redireccionarAOrdenes(alert) {
-            window.location = "./ordenes.html" + alert;
+        redireccionarAOrdenes() {
+            window.location = "./ordenes.html";
         },
 
         //Metodo para cambiar la fecha a formato YYYY-MM-DD
