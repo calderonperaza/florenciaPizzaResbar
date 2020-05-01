@@ -121,6 +121,10 @@ var vm = new Vue({
         empHasta: 0,
         empWarning: false,
         totalModalOrdenes: 0,
+        horaNombre: "X 11",
+        nameDays: ["D", "L", "M", "X", "J", "V", "S"],
+        totalPorDiaOrdenes: [],
+
     },
     created() {
         // Promise.resolve(this.getTotalPorMes()).then(this.fillData(0)).catch(function(reason) { console.log('Filling data to chart, razón (' + reason + ') aquí.'); });
@@ -138,6 +142,8 @@ var vm = new Vue({
         this.mesPicked.mes = this.mesPicker[parseInt(this.today.substring(5, 7)) - 1].mes;
         this.mesPicked.id = parseInt(this.today.substring(5, 7)) - 1;
         this.mejoresMeseros();
+        this.inicioDiaPorSemana();
+        this.horaInicio();
     },
     methods: {
         fillData(rango) {
@@ -157,6 +163,7 @@ var vm = new Vue({
                 this.diario = true;
                 this.hora = false;
             } else if (rango === 3) {
+                this.totalPorHora(this.horaNombre);
                 this.semanal = true;
                 this.diario = true;
                 this.hora = true;
@@ -189,7 +196,7 @@ var vm = new Vue({
                 },
                 {
                     labels: ['00:00 a.m.', '04:00 a.m.', '08:00 a.m.', '12:00 m.', '04:00 p.m.', '08:00 p.m.', '12:00 p.m.'],
-                    datos: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+                    datos: this.totalPorDiaOrdenes
                 }
             ];
         },
@@ -200,10 +207,11 @@ var vm = new Vue({
             return moment();
         },
         mesActual: function() {
-            this.hasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
-            this.desde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
-            this.empDesde = this.moment(this.moment().calendar()).subtract(30, 'days').format('YYYY-MM-DD');
-            this.empHasta = this.moment(this.moment().calendar()).format('YYYY-MM-DD');
+            var date = new Date();
+            this.hasta = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
+            this.desde = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
+            this.empHasta = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
+            this.empDesde = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
         },
         getFourDivsData: function() {
             let boolean;
@@ -219,8 +227,10 @@ var vm = new Vue({
             this.applyCssAlert(boolean);
         },
         divDos: function() {
-            axios.get(
-                this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde + '&filter[where][and][2][estado][like]=C').then(response => {
+            let inicio = new Date(new Date(this.desde).setHours(0, 0, 0, 0)).toISOString();
+            let fin = new Date(new Date(new Date(this.hasta).setDate(new Date(this.hasta).getDate() + 1)).setHours(23, 59, 59, 999)).toISOString();
+            axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + fin + '&filter[where][and][1][fecha][gte]=' + inicio + '&filter[where][and][2][estado][like]=C').
+            then(response => {
                 this.ordenesCerradas = response.data;
                 this.totalModalOrdenes = 0;
                 this.numOrdenesFin = this.ordenesCerradas.length;
@@ -231,6 +241,7 @@ var vm = new Vue({
 
         },
         divTres: function() {
+            console.log(this.uri + '/resumenDeVentas?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde);
             axios.get(
                 this.uri + '/resumenDeVentas?filter[where][and][0][fecha][lte]=' + this.hasta + '&filter[where][and][1][fecha][gte]=' + this.desde).then(response => {
                 let producto = response.data;
@@ -304,7 +315,6 @@ var vm = new Vue({
             }
         },
         getTotalPorMes: function(year = this.moment().format('YYYY')) {
-            console.log("Total por mes");
             let i = 0;
             let rangeMonth = [];
             this.mesTotal = [];
@@ -324,7 +334,7 @@ var vm = new Vue({
                     this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
-            // console.log("para ver cuantas veces me llaman");
+            this.recalcularDia();
         },
         getTotalPorSemana: function(year = this.anioPicker, month = this.moment().format('MM')) {
             let i = 0;
@@ -345,6 +355,7 @@ var vm = new Vue({
                     this.$refs.chart.update();
                 }).catch(e => { console.log("problemas con semanas " + e) });
             });
+            this.recalcularDia();
         },
         getTotalporDia: function(year, month, week) {
             this.rangeWeeks = this.rangoSemanas();
@@ -355,7 +366,6 @@ var vm = new Vue({
             this.diaProcedure(week, year, month);
         },
         diaProcedure: function(week, year, month) {
-            let nameDays = ["D", "L", "M", "X", "J", "V", "S"];
             let j = 0;
             while (j < 4) {
                 if (week === j) {
@@ -383,12 +393,13 @@ var vm = new Vue({
                             this.totalPorDia[param] = total;
                             this.$refs.chart.update();
                         }).catch((e) => console.log("problemas con dias " + e));
-                        this.labelsDias[param] = nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
+                        this.labelsDias[param] = this.nameDays[new Date(dias.toISOString()).getDay()] + ' ' + dias.format('D');
                         dias.add(1, 'days');
                     });
                 }
                 j++;
             }
+            this.recalcularDia();
         },
         rangoSemanas: function(year = this.anioPicker, month = this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id) {
             let rangeWeeks = [];
@@ -524,7 +535,62 @@ var vm = new Vue({
                 empWarning = true;
             }
             this.applyCssAlertEmp(empWarning);
-        }
+        },
+        horaInicio: function() {
+            this.horaNombre = this.nameDays[new Date().getDay()] + " " + new Date().getDate();
+            //Generar labels por semana por si se selecciona no tener que cargar datos de la semana
+            let inicio = new Date(this.rangoSemanas()[this.semanaNum.id].inicio);
+            let fin = new Date(this.rangoSemanas()[this.semanaNum.id].fin);
+            let contador = 0;
+            let finDelwhile = fin.getDate() - inicio.getDate();
+            let dias = new Date(inicio);
+            while (contador <= finDelwhile) {
+                this.labelsSemanas[contador] = this.nameDays[dias.getDay()] + ' ' + dias.getDate();
+                dias.setDate(dias.getDate() + 1);
+                contador++;
+            }
+        },
+        inicioDiaPorSemana: function() {
+            let semanas = ["Sem 1", "Sem 2", "Sem 3", "Sem 4"];
+            this.rangoSemanas().forEach((param, index) => {
+                let inicio = new Date(param.inicio);
+                let fin = new Date(param.fin);
+                if (inicio.getDate() <= new Date().getDate() && new Date().getDate() <= fin.getDate()) {
+                    this.semanaNum.id = index;
+                    this.semanaNum.nombre = semanas[index];
+                }
+            });
+        },
+        recalcularDia: function() {
+            let diaChange = this.moment().set({ 'year': this.anioPicker, 'month': (this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id), 'date': (new Date(this.rangoSemanas()[this.semanaNum.id].inicio).getDate()) });
+            this.horaNombre = this.nameDays[diaChange.format("d")] + " " + diaChange.format("D");
+        },
+        totalPorHora: function(param) {
+            let diaChange = this.moment().set({ 'year': this.anioPicker, 'month': (this.mesPicked.id < 10 ? ('0' + this.mesPicked.id) : this.mesPicked.id), 'date': parseInt(this.horaNombre.trim().substring(1, this.horaNombre.length)) }).startOf('day');
+            let horaAdelante = diaChange.clone().add(4, 'hours');
+            [0, 1, 2, 3, 4, 5].forEach((index) => {
+                axios.get(this.uri + '/ordenes?filter[where][and][0][fecha][lte]=' + horaAdelante.toISOString() + '&filter[where][and][1][fecha][gte]=' + diaChange.toISOString() + '&filter[where][and][2][estado][like]=C').
+                then(response => {
+                    let ordenes = response.data;
+                    let total = 0;
+                    ordenes.forEach((orden) => {
+                        total = orden.total + total;
+                    });
+                    this.totalPorDiaOrdenes[index] = total;
+                    this.$refs.chart.update();
+                }).catch((e) => console.log("problemas con dias " + e));
+                diaChange = horaAdelante;
+                horaAdelante = diaChange.clone().add(4, 'hours');
+            })
+
+
+        },
+        clickDia() {
+            vm.$refs.diaId.click();
+        },
+        clickHora() {
+            this.$refs.horaId.click();
+        },
     },
     watch: {
         anioPicker: function(value) {
@@ -536,9 +602,6 @@ var vm = new Vue({
         },
     },
     computed: {
-        clickDia() {
-            vm.$refs.diaId.click();
-        },
         popoverConfig() {
             let unorderedList = '<ul class="ul-year">';
             this.mesPicker.forEach((value) => {
@@ -552,6 +615,11 @@ var vm = new Vue({
             }
         },
         popiverDia() {
+            let jelou = this.rangoSemanas();
+            let content = (new Date(jelou[0].inicio).getDate()) + "-" + (new Date(jelou[0].fin).getDate());
+            let content2 = (new Date(jelou[1].inicio).getDate()) + "-" + (new Date(jelou[1].fin).getDate());
+            let content3 = (new Date(jelou[2].inicio).getDate()) + "-" + (new Date(jelou[2].fin).getDate());
+            let content4 = (new Date(jelou[3].inicio).getDate()) + "-" + (new Date(jelou[3].fin).getDate());
             return {
                 html: true,
                 title: '<div style = "text-align: center;font-size: 1rem;font-weight: 800;padding: 0.5rem 0 0.5rem 0;"> Semana </div>',
@@ -559,25 +627,49 @@ var vm = new Vue({
                 <ul class="ul-day">
                 <div class="div-ul">
                 <li class="ul-day-items" onclick="popOverDay(0)">Sem 1</li>
-                <li class="ul-day-end" onclick="popOverDay(0)">1-7</li>
+                <li class="ul-day-end" onclick="popOverDay(0)">${content}</li>
                 </div>
                 <div class="div-ul" onclick="popOverDay(1)">
                 <li class="ul-day-items">Sem 2</li>
-                <li class="ul-day-end" >8-15</li>
+                <li class="ul-day-end" >${content2}</li>
                 </div>
                 <div class="div-ul" onclick="popOverDay(2)">
                 <li class="ul-day-items">Sem 3</li>
-                <li class="ul-day-end">15-23</li>
+                <li class="ul-day-end">${content3}</li>
                 </div>
                 <div class="div-ul" onclick="popOverDay(3)">
                 <li class="ul-day-items">Sem 4</li>
-                <li class="ul-day-end">23-30</li>
+                <li class="ul-day-end">${content4}</li>
                 </div>
                 </ul>
                 `,
                 placement: "bottom",
             }
         },
+        popoverHora() {
+            let inicio = new Date(this.rangoSemanas()[this.semanaNum.id].inicio);
+            let fin = new Date(this.rangoSemanas()[this.semanaNum.id].fin);
+            let contador = 0;
+            let finDelwhile = fin.getDate() - inicio.getDate();
+            let dias = new Date(inicio);
+            let diasDeLaSemana = [];
+            while (contador <= finDelwhile) {
+                diasDeLaSemana[contador] = this.nameDays[dias.getDay()] + ' ' + dias.getDate();
+                dias.setDate(dias.getDate() + 1);
+                contador++;
+            }
+            let unorderedList = '<ul class="listItems">';
+            diasDeLaSemana.forEach((value) => {
+                unorderedList = unorderedList + '<li class="items-semana" id="' + value.trim() + '" onclick="popOverHora(this.id)">' + value + '</li>'
+            });
+            return {
+                html: true,
+                title: '<div style = "text-align: center;font-size: 1rem;font-weight: 800;"> Dia </div>',
+                content: unorderedList + '</ul>',
+                placement: "bottom",
+            }
+        },
+
 
     }
 });
