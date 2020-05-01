@@ -69,6 +69,8 @@ new Vue({
         modificarProducto() {
             this.productomodificado = this.productoSelected;
             let precio = parseFloat(this.productomodificado.precio).toFixed(2);
+            if(this.productomodificado.precio>0 && this.productomodificado.nombre.replace(/\s/g, '').length>0 && this.productomodificado.categoria.nombre.replace(/\s/g, '').length>0 )
+           { 
             this.productomodificado.precio = "aaaa";
             let data = JSON.stringify(this.productomodificado);
             data = data.replace('"aaaa"', precio);
@@ -83,14 +85,20 @@ new Vue({
                 this.obtenerProductos();
             }).catch(ex => {
                 console.log(ex)
-            });
+            })}else{
+                this.clearData();
+                alert("!No se ha Podido realizar la modificacion!\n\nVerifique que los campos del formulario sean correctos");
+
+            }
+            ;
 
 
         },
 
         crearProducto() {
             let precio = parseFloat(this.producto.precio).toFixed(2);
-            this.producto.precio = "aaaa";
+            if(this.producto.precio>0 && this.producto.nombre.replace(/\s/g, '').length>0 && this.productomodificado.categoria.nombre.replace(/\s/g, '').length>0)
+            {this.producto.precio = "aaaa";
             delete this.producto.id;
             let data = JSON.stringify(this.producto);
             data = data.replace('"aaaa"', precio);
@@ -105,7 +113,11 @@ new Vue({
                 this.obtenerProductos();
             }).catch(ex => {
                 console.log(ex)
-            });
+            })}else{
+                this.clearData();
+                alert("!No se ha Podido Guardar!\n\nVerifique que los campos del formulario sean correctos");
+
+            };
 
 
         },
