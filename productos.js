@@ -61,7 +61,8 @@ new Vue({
         modalmodificarProducto() {
             this.obtenerCategorias();
             this.productomodificado = this.productoSelected;
-            console.log(this.categorias.nombre);
+            console.log(this.productomodificado);
+            
 
             this.obtenerProductos();
         },
@@ -69,7 +70,7 @@ new Vue({
         modificarProducto() {
             this.productomodificado = this.productoSelected;
             let precio = parseFloat(this.productomodificado.precio).toFixed(2);
-            if(this.productomodificado.precio>0 && this.productomodificado.nombre.replace(/\s/g, '').length>0 && this.productomodificado.categoria.nombre.replace(/\s/g, '').length>0 )
+            if(precio>0 && this.productomodificado.nombre.replace(/\s/g, '').length>0 && this.productomodificado.categoria.nombre.replace(/\s/g, '').length>0 )
            { 
             this.productomodificado.precio = "aaaa";
             let data = JSON.stringify(this.productomodificado);
@@ -97,12 +98,12 @@ new Vue({
 
         crearProducto() {
             let precio = parseFloat(this.producto.precio).toFixed(2);
-            if(this.producto.precio>0 && this.producto.nombre.replace(/\s/g, '').length>0 && this.productomodificado.categoria.nombre.replace(/\s/g, '').length>0)
+            if(precio>0.00 && this.producto.nombre.replace(/\s/g, '').length>0 && this.producto.categoria.nombre.replace(/\s/g, '').length>0)
             {this.producto.precio = "aaaa";
             delete this.producto.id;
             let data = JSON.stringify(this.producto);
             data = data.replace('"aaaa"', precio);
-            console.log(data);
+            console.log(this.producto);
             axios.post(ApiRestUrl + '/productos',
                 data, { headers: { 'content-type': 'application/json', } }
 

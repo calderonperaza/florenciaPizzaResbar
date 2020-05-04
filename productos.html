@@ -182,7 +182,7 @@
 
                                         <div class="form-group">
                                             <label for="precio"> Ingrese el precio:</label>
-                                            <input v-model="producto.precio" type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control" id="precioholder" placeholder="$0.00">
+                                            <input v-model="producto.precio" type="number" min="0"  class="form-control" id="precioholder" placeholder="$0.00">
                                         </div>
                                     </form>
                                 </div>
@@ -236,7 +236,7 @@
                                                 </div>
 
                                                 <div class="col-md-6 col-sm-4 col-lg-3 ">
-                                                    <input type="number" min="0" pattern="[[0-9]{1,10}[.][0-9]{1,10}" class="form-control form-control-sm " id="iptprecio " v-model="productomodificado.precio ">
+                                                    <input type="number" min="0"  class="form-control form-control-sm " id="iptprecio " v-model="productomodificado.precio ">
                                                 </div>
 
                                                 <div class="col-md-4 col-sm-6 col-lg-6 ">
@@ -251,6 +251,7 @@
 
                                                 <div class="col-md-9 col-sm-4 col-lg-3 ">
                                                     <select v-model="productomodificado.categoria" class="form-control" id="inputacategoria">
+                                                        
                                     <option v-for="(categoria, index) in categorias " v-bind:value="categoria">{{categoria.nombre}}</option>
                               
                                 </select>
