@@ -38,7 +38,7 @@ new Vue({
             axios
                 .get(ApiRestUrl + '/categorias')
                 .then(response => {
-                    console.log(response)
+                   // console.log(response)
                     this.categorias = response.data;
                 })
 
@@ -57,13 +57,33 @@ new Vue({
 
 
         },
+        
+        async setCategoriaProducto(producto){
+           var categorias = await axios
+            .get(ApiRestUrl + '/categorias')
+           
+           categorias=categorias.data
+           console.log(categorias)
+           categorias.forEach(categoria => {
+               if(categoria.nombre==producto.categoria.nombre){
+                   producto.categoria=categoria;
+               }
+           });
+           return producto
+
+        },
 
         modalmodificarProducto() {
+            
             this.obtenerCategorias();
             this.productomodificado = this.productoSelected;
-            console.log(this.productomodificado);
-            
-
+            //console.log(this.categoria);
+            this.setCategoriaProducto(this.productomodificado).then(
+                resultado=>{
+                    console.log(resultado)
+                }
+            )
+        
             this.obtenerProductos();
         },
 
