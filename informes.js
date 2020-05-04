@@ -585,6 +585,14 @@ function popOverDay(params) {
         vm.$set(vm.semanaNum, 'id', params);
         vm.$set(vm.semanaNum, 'nombre', converterDay[params]);
         vm.$refs.diaDate.click();
-        vm.clickDia;
+        vm.clickDia();
+    });
+}
+
+function popOverHora(params) {
+    vm.$nextTick(() => {
+        vm.horaNombre = params;
+        vm.clickHora();
+        vm.$refs.horaDate.click();
     });
 }
