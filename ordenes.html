@@ -64,7 +64,7 @@
 
                     <!-- TITULO -->
                     <div class="row my-4 ag">
-                        <h1 class="text-center col-12">Sistema de Ordenes RESBAR v. 1.0</h1>
+                        <h1 class="text-center col-12">Pupusería PATTY</h1>
                     </div>
 
                     <div class="row">
@@ -115,19 +115,19 @@
                     <!--Tabla para todas las ordenes
                     de la tabla quite la clase "my-custom-scrollbar"
                     -->
-                <div class="container container-sm container-md">
-                    <div class="table-wrapper-scroll-y d-none d-lg-block">
-                        <table v-if="activos" class="table table-sm mb-0">
-                            <thead class="bg-primary text-white">
-                                <tr>
-                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                    <div class="container container-sm container-md">
+                        <div class="table-wrapper-scroll-y d-none d-lg-block">
+                            <table v-if="activos" class="table table-sm mb-0">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                        <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarMesero" v-if="ascendente">Mesero <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col">Observaciones</th>
                                     <th scope="col">Total</th>
                                     <th scope="col">Acciones</th>
@@ -145,49 +145,49 @@
                                     <td v-if="orden.estado == 'A'">
                                         <button  type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
                                             <i class="fas text-white fa-plus-circle"></i></a>
-                                        </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
+                                            </button>
+                                            <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
                                                 <i class="fas text-white fa-edit"></i></a>
                                         </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
+                                            <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
                                                 <i class="fas text-white fa-money-bill"></i></a>
                                         </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()">
+                                            <button type="button" class="btn btntable btn-sm" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()">
                                             <i class="fas text-white fa-trash"></i></a>
                                         </button>
-                                        </td>
-                                        <td v-else>
-                                            <button type="button" class="btn btntable btn-sm disabled" title="Agregar Mas Productos">
+                                            </td>
+                                            <td v-else>
+                                                <button type="button" class="btn btntable btn-sm disabled" title="Agregar Mas Productos">
                                             <i class="fas text-white fa-plus-circle"></i></a>
                                         </button>
-                                            <button type="button" class="btn btntable btn-sm disabled" title="Modificar Orden">
+                                                <button type="button" class="btn btntable btn-sm disabled" title="Modificar Orden">
                                                 <i class="fas text-white fa-edit"></i></a>
                                         </button>
-                                            <button type="button" class="btn btntable btn-sm disabled" title="Cobrar Orden">
+                                                <button type="button" class="btn btntable btn-sm disabled" title="Cobrar Orden">
                                                 <i class="fas text-white fa-money-bill"></i></a>
                                         </button>
-                                            <button type="button" class="btn btntable btn-sm disabled" title="Eliminar Orden">
+                                                <button type="button" class="btn btntable btn-sm disabled" title="Eliminar Orden">
                                             <i class="fas text-white fa-trash"></i></a>
                                         </button>
-                                        </td>
-                                </tr>
-                                </tbody>
-                        </table>
-                    
-                        <!--Fin Tabla para desktop-->
+                                            </td>
+                                    </tr>
+                                    </tbody>
+                            </table>
 
-                        <!--Tabla para las ordenes filtradas por activas-->
-                        <table v-else class="table table-sm mb-0">
-                            <thead class="bg-primary text-white ">
-                                <tr>
-                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                            <!--Fin Tabla para desktop-->
+
+                            <!--Tabla para las ordenes filtradas por activas-->
+                            <table v-else class="table table-sm mb-0">
+                                <thead class="bg-primary text-white ">
+                                    <tr>
+                                        <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                        <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarMesero" v-if="ascendente">Mesero <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarMesero" v-else>Mesero <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col ">Observaciones</th>
                                     <th scope="col ">Total</th>
                                     <th scope="col ">Acciones</th>
@@ -204,35 +204,36 @@
                                     <td>
                                         <button type="button" class="btn btntable btn-sm" title="Agregar Mas Productos" @click="ordenSelected=orden; agregarProductos();">
                                             <i class="fas text-white fa-plus-circle"></i></a>
-                                        </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
+                                            </button>
+                                            <button type="button" class="btn btntable btn-sm" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();">
                                                 <i class="fas text-white fa-edit"></i></a>
                                         </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
+                                            <button type="button" class="btn btntable btn-sm" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();">
                                                 <i class="fas text-white fa-money-bill"></i></a>
                                         </button>
-                                        <button type="button" class="btn btntable btn-sm" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()">
+                                            <button type="button" class="btn btntable btn-sm" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()">
                                             <i class="fas text-white fa-trash"></i></a>
                                         </button>
-                                        </td>
-                                </tr>
-                                </tbody>
-                        </table>
-                    </div>    <!--Fin Tabla filtrada para desktop-->
-                </div>
-                
-                <div class="container container-sm container-md">
-                    <!--Tabla para smartphone y tablet-->
-                    <div class="table-wrapper-scroll-y my-custom-scrollbar d-sm-block d-lg-none">
-                        <table v-if="activos" class="table table-sm mb-0">
-                            <thead class="bg-primary text-white">
-                                <tr>
-                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                                            </td>
+                                    </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                        <!--Fin Tabla filtrada para desktop-->
+                    </div>
+
+                    <div class="container container-sm container-md">
+                        <!--Tabla para smartphone y tablet-->
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar d-sm-block d-lg-none">
+                            <table v-if="activos" class="table table-sm mb-0">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                        <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -243,29 +244,29 @@
                                     <td>{{orden.mesa}}</td>
                                     <td v-if="orden.estado == 'A'">
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos" @click="ordenSelected=orden; agregarProductos();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()"></i></button>
-                                        </td>
-                                        <td v-else>
-                                            <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos"></i></button>
-                                            <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden"></i></button>
-                                            <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden"></i></button>
-                                            <button type="button" class="btn btntable btn-sm disabled"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden"></i></button>
-                                        </td>
-                                </tr>
-                                </tbody>
-                        </table>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()"></i></button>
+                                            </td>
+                                            <td v-else>
+                                                <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos"></i></button>
+                                                <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden"></i></button>
+                                                <button type="button" class="btn btntable btn-sm disabled"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden"></i></button>
+                                                <button type="button" class="btn btntable btn-sm disabled"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden"></i></button>
+                                            </td>
+                                    </tr>
+                                    </tbody>
+                            </table>
 
-                        <table v-else class="table table-sm mb-0 ">
-                            <thead class="bg-primary text-white ">
-                                <tr>
-                                    <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
+                            <table v-else class="table table-sm mb-0 ">
+                                <thead class="bg-primary text-white ">
+                                    <tr>
+                                        <th scope="col" v-on:click="ordenarID" v-if="ascendente">ID<i class="far fa-arrow-alt-circle-down"></i></th>
+                                        <th scope="col" v-on:click="ordenarID" v-else>ID <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenarCliente" v-if="ascendente">Cliente<i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenarCliente" v-else>Cliente <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col" v-on:click="ordenar" v-if="ascendente">Mesa <i class="far fa-arrow-alt-circle-down"></i></th>
-                                    <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
+                                        <th scope="col" v-on:click="ordenar" v-else>Mesa <i class="far fa-arrow-alt-circle-up"></th>
                                     <th scope="col ">Acciones</th>
                                 </tr>
                             </thead>
@@ -276,18 +277,18 @@
                                     <td>{{orden.mesa}}</td>
                                     <td>
                                         <button type="button" class="btn btntable btn-sm"><i class="fas fa-plus-circle" style="color: rgb(233, 235, 240);" title="Agregar mas productos" @click="ordenSelected=orden; agregarProductos();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
-                                        <button type="button" class="btn btntable btn-sm"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()"></i></button>
-                                        </td>
-                                </tr>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas fa-edit" style="color: rgb(249, 250, 252);" title="Modificar Orden" @click="ordenSelected=orden; modificarOrden();"></i></button>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas fa-money-bill" style="color: rgb(254, 254, 255);" title="Cobrar Orden" @click="ordenSelected=orden; cobrarOrden();"></i></button>
+                                            <button type="button" class="btn btntable btn-sm"><i class="fas text-white fa-trash" style="color: rgb(254, 254, 255);" title="Eliminar Orden" @click="ordenSelected=orden; mostrarEliminar()"></i></button>
+                                            </td>
+                                    </tr>
 
 
-                                </tbody>
-                        </table>
+                                    </tbody>
+                            </table>
 
+                        </div>
                     </div>
-                </div>
                     <!-- Termina Tabla -->
 
 
@@ -342,7 +343,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="staticClient" class="col-3 col-form-label text-white text-center total">Observacion:</label>
+                                                <label for="staticClient" class="col-3 col-form-label text-white text-center total">Direccion:</label>
                                                 <div class="col-9">
                                                     <label style="color: #000000;" class="form-control-plaintext">{{orden.observacion}} </label>
                                                 </div>

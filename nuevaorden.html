@@ -16,13 +16,13 @@
             border: none;
             text-align: center;
         }
-
+        
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-
+        
         input[type=number] {
             -moz-appearance: textfield;
         }
@@ -51,8 +51,7 @@
                                 class="fas fa-file-alt"></i><span>INFORMES</span></a>
                     </li>
                 </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
-                        id="sidebarToggle" type="button"></button></div>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
         <!-- Termina navbar lateral -->
@@ -88,9 +87,7 @@
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <!-- Se evalua  si la categoria es la primera en la lista, si es asi el tab se marca como activo-->
                                         <li v-for="categoria in categorias" class="nav-item">
-                                            <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }"
-                                                data-toggle="tab" v-bind:id="categoria.nombre+'-tab'"
-                                                v-bind:href="'#'+categoria.nombre" role="tab">
+                                            <a class="nav-link" :class="{ active:categorias.indexOf(categoria) === 0 }" data-toggle="tab" v-bind:id="categoria.nombre+'-tab'" v-bind:href="'#'+categoria.nombre" role="tab">
                                                 {{categoria.nombre}}
                                             </a>
                                         </li>
@@ -99,9 +96,7 @@
                                     <!-- Incia div.tab-content de productos a agregar-->
                                     <div class="tab-content" id="myTabContent">
                                         <!-- crea un div de con clases active,show si la categoria es la primera, la referencia del div activo es por id-->
-                                        <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']"
-                                            v-bind:id="categoria.nombre" v-for="categoria in categorias"
-                                            role="tabpanel">
+                                        <div :class="[ categorias.indexOf(categoria) === 0? ['active','show']:'','tab-pane','fade']" v-bind:id="categoria.nombre" v-for="categoria in categorias" role="tabpanel">
                                             <table class="table table-sm table-bordered table-striped mt-2 ">
                                                 <thead class="text-center ">
                                                     <tr>
@@ -112,8 +107,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <!-- Se renderiza unicamente la fila si el nombre en la propiedad categoria del producto activo es igual a la categoria activa -->
-                                                    <tr v-if='producto.categoria.nombre == categoria.nombre '
-                                                        v-for="producto in productos">
+                                                    <tr v-if='producto.categoria.nombre == categoria.nombre ' v-for="producto in productos">
                                                         <td>
                                                             {{producto.nombre}}
                                                         </td>
@@ -122,13 +116,9 @@
                                                         </td>
                                                         <td class="text-center px-0 ">
                                                             <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
-                                                            <button type="button" class="btn btn-secondary btn-sm p-1"
-                                                                @click="decProducto(producto)">-</button>
-                                                            <input type="number" class="inp-cantidad input-sm"
-                                                                v-model.lazy.number="producto.cantidad" min="0" max="99"
-                                                                step="1" disabled>
-                                                            <button type="button" class="btn btn-primary btn-sm p-1"
-                                                                @click="incProducto(producto)">+</button>
+                                                            <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(producto)">-</button>
+                                                            <input type="number" class="inp-cantidad input-sm" v-model.lazy.number="producto.cantidad" min="0" max="99" step="1" disabled>
+                                                            <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(producto)">+</button>
 
                                                         </td>
                                                     </tr>
@@ -150,8 +140,7 @@
                                         <label for="txtCliente">Cliente: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]+[A-Za-z .]{2,}"
-                                            type="text" class="form-control" id="txtCliente" placeholder="Enter name">
+                                        <input v-model="nuevaOrden.cliente" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text" class="form-control" id="txtCliente" placeholder="Enter name">
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
                                         </div>
@@ -162,9 +151,7 @@
                                         <label for="txtMesero">Mesero: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model.lazy.number="nuevaOrden.mesero" pattern="[A-Za-z]+[A-Za-z .]{2,}"
-                                            type="text" class="form-control" id="txtMesero" placeholder="Enter name"
-                                            required>
+                                        <input v-model.lazy.number="nuevaOrden.mesero" pattern="[A-Za-z]+[A-Za-z .]{2,}" type="text" class="form-control" id="txtMesero" placeholder="Enter name" required>
                                         <div class="invalid-feedback">
                                             Ingrese un nombre valido mayor a 3 caracteres
                                         </div>
@@ -175,8 +162,7 @@
                                         <label for="txtMesa">Mesa: </label>
                                     </div>
                                     <div class="col">
-                                        <input v-model="nuevaOrden.mesa" type="number" min="1" pattern="^[0-9]+"
-                                            class="form-control" id="txtMesa" placeholder="#" required>
+                                        <input v-model="nuevaOrden.mesa" type="number" min="1" pattern="^[0-9]+" class="form-control" id="txtMesa" placeholder="#" required>
                                         <div class="invalid-feedback">
                                             Ingrese un valor numerico entero
                                         </div>
@@ -184,16 +170,13 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col">
-                                        <textarea v-model="nuevaOrden.observacion" type="text" class="form-control"
-                                            id="txtObservacion" placeholder="Observacion" rows="3"
-                                            style="resize: none;"></textarea>
+                                        <textarea v-model="nuevaOrden.observacion" type="text" class="form-control" id="txtObservacion" placeholder="Direccion de entrega" rows="4" style="resize: none;"></textarea>
                                     </div>
                                 </div>
                                 <!-- Botones de accion para el formulario-->
                                 <div class="form-group row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-secondary col"
-                                            @click='redireccionarAOrdenes' data-target="#resumenModal">
+                                        <button type="button" class="btn btn-secondary col" @click='redireccionarAOrdenes' data-target="#resumenModal">
                                             Cancelar
                                         </button>
                                     </div>
@@ -250,37 +233,31 @@
                                             <div class="form-group row">
                                                 <label for="staticClient" class="col-3 col-form-label">Cliente:</label>
                                                 <div class="col-9">
-                                                    <input type="text" readonly class="form-control-plaintext"
-                                                        id="staticClient" v-model="nuevaOrden.cliente">
+                                                    <input type="text" readonly class="form-control-plaintext" id="staticClient" v-model="nuevaOrden.cliente">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="staticWaiter" class="col-3 col-form-label">Mesero:</label>
                                                 <div class="col-9">
-                                                    <input type="text" readonly class="form-control-plaintext"
-                                                        id="staticWaiter" v-model="nuevaOrden.mesero">
+                                                    <input type="text" readonly class="form-control-plaintext" id="staticWaiter" v-model="nuevaOrden.mesero">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="staticTable" class="col-3 col-form-label">#Mesa:</label>
                                                 <div class="col-9">
-                                                    <input type="text" readonly class="form-control-plaintext"
-                                                        id="staticTable" v-model="nuevaOrden.mesa">
+                                                    <input type="text" readonly class="form-control-plaintext" id="staticTable" v-model="nuevaOrden.mesa">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="staticObs" class="col-3 col-form-label">Nota:</label>
+                                                <label for="staticObs" class="col-3 col-form-label">Direccion Entrega:</label>
                                                 <div class="col-9">
-                                                    <textarea readonly class="form-control-plaintext" id="staticObs"
-                                                        v-model="nuevaOrden.observacion" style="resize: none;
+                                                    <textarea readonly class="form-control-plaintext" id="staticObs" v-model="nuevaOrden.observacion" style="resize: none;
                                               "></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <button type="button" class="btn btn-light col-6"
-                                                    data-dismiss="modal">Regresar</button>
-                                                <button type="button" class="btn btn-primary col-6" data-dismiss="modal"
-                                                    @click="saveOrden">Confirmar</button>
+                                                <button type="button" class="btn btn-light col-6" data-dismiss="modal">Regresar</button>
+                                                <button type="button" class="btn btn-primary col-6" data-dismiss="modal" @click="saveOrden">Confirmar</button>
                                             </div>
                                         </div>
 
