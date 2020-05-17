@@ -1,2 +1,2 @@
-# ResBarV1.0Texas
+# PUPUSERIA PATTY
 Sistema Resbar en su version 1.0 Texas
