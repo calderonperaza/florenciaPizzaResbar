@@ -2,5 +2,4 @@
 //archivo html, todo el codigo comun va aqui
 
 //Direccion URL de la api rest que se va a consumir por la aplicacion
-const ApiRestUrl = "https://pupuseriapattybackend.us-south.cf.appdomain.cloud/"
-
+const ApiRestUrl = "https://pupuseriapattybackend.us-south.cf.appdomain.cloud"
