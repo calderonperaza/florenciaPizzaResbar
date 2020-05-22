@@ -263,7 +263,7 @@ new Vue({
                     $(this).remove();
 
                 });
-            }, 4000);
+            }, 10000);
 
         },
         cobrarOrden() {
