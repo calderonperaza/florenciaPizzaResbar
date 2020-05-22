@@ -177,7 +177,7 @@
                                         </div>
                                         <div class="form-group row my-0">
                                             <label for="name"><h3>Categoria</h3></label>
-                                            <input v-model="categoria.nombre" type="text" class="form-control" id="name" placeholder="Nombre de la Categoria">
+                                            <input v-model="categoria.nombre" type="text" class="form-control" id="name" placeholder="Nombre de la Categoria" onkeypress="return AvoidSpace(event)">
                                         </div>
                                     </form>
 
