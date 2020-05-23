@@ -123,7 +123,7 @@ new Vue({
                         window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
                     } else {
                         this.updateResumenDeVentas();
-                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id..substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
                     }
                     console.log("estoy aqui");
                 })
