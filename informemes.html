@@ -46,51 +46,25 @@
 
                     <!-- TITULO -->
                     <div class="row my-4">
-                        <h3 class="text-center col-12">un titulo</h3>
+                        <h3 class="text-center col-12">RESUMEN DE LAS VENTAS DEL MES ACTUAL</h3>
                     </div>
 
                     <div class="row my-5">
-                        <!-- Filtro buscar -->
-                        <div class="col-md-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text buscar"><i class="fas fa-search"></i></span>
-                                </div>
-                                <input type="text" placeholder="Buscar" v-model="searchDisplay">
-                            </div>
-                        </div>
-
-
-                        <!-- Inicia seccion de alertas -->
-                        <div class="alert alert-success collapse" role="alert" id="buttonAlert">
-                            <span v-if="displayOption==='Modifique la Categoria'">
-                         <strong>Success!</strong> Registro Modificado correctamente.</span>
-                            <span v-if="agg==false">
-                          <strong>categoria no puede ir vacio </strong> </span>
-                            <span v-else-if="agg==true && displayOption==='Agregue una nueva Categoria'">
-                          <strong>Success!</strong> Registro Agregado correctamente.</span>
-                            <span v-if="displayOption==='eliminar'">
-                              <strong>Success!</strong> Registro Eliminado correctamente.</span>
-                            <div>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                        </div>
-                        <!-- Termina seccion de alertas -->
 
                         <!-- Incia Tabla -->
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
-                            <table class="table table-sm table-bordered table-hover table-striped mb-0">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive col-md-6">
+                            <table class="table table-md table-bordered table-hover table-striped">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th style="text-align: center;" scope="col" class="align-items-center"># Categoria</th>
-                                        <th style="text-align: center;" scope="col">Nombre</th>
-                                        <th style="text-align: center;" scope="col">Acciones</th>
+                                        <th style="text-align: center;" scope="col">FECHA</th>
+                                        <th style="text-align: center;" scope="col">TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr></tr>
+                                    <tr v-for="elemento in resumen">
+                                        <td>{{ formatFecha(elemento.fecha) }}</td>
+                                        <td>{{ "$ " + elemento.total}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
