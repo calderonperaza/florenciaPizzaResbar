@@ -117,7 +117,7 @@
                                                         <td class="text-center px-0 ">
                                                             <!-- se ha hecho bind entre el input y la cantidad dentro de detalle producto-->
                                                             <button type="button" class="btn btn-secondary btn-sm p-1" @click="decProducto(producto)">-</button>
-                                                            <input type="number" class="inp-cantidad input-sm" v-model.lazy.number="producto.cantidad" min="0" max="99" step="1" disabled>
+                                                            <input type="number" class="inp-cantidad input-sm" v-model.lazy.number="producto.cantidad" min="0" max="99" step="1" :disabled="producto.cantidad==0" :class="{'font-weight-bold' : producto.cantidad>0}">
                                                             <button type="button" class="btn btn-primary btn-sm p-1" @click="incProducto(producto)">+</button>
 
                                                         </td>

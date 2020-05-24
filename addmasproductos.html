@@ -89,6 +89,7 @@
                                     <td>${{producto.precio}}</td>
                                     <td>
                                         <button type="button " class="btn btn-secondary btn-sm" v-on:click="productoSelected.cantidad =+1" @click="productoSelected=index; quitarAdetalle(productoSelected); findCantidad(index)">-</button> {{findCantidad(index)}}
+
                                         <button type="button" class="btn btn-secondary btn-sm" @click="productoSelected=index; agregarAdetalle(productoSelected); findCantidad(index)">+</button></td>
                                     </td>
                                 </tr>
