@@ -48,11 +48,29 @@
                     <div class="row my-4">
                         <h3 class="text-center col-12">RESUMEN DE LAS VENTAS DEL MES ACTUAL</h3>
                     </div>
+                    <div class="div-encapsula-dates row">
+                        <div class="espacio-divs col-md-3">
+                            Desde:
+                            <div class="div-date animated bounceIn">
+                                <input type="date" id="start" class="date-css" v-model="desde"><br>
+                            </div>
+                        </div>
+                        <div class="espacio-divs col-md-3">
+                            Hasta:
+                            <div class="div-date animated bounceIn delay1">
+                                <input type="date" id="end" class="date-css" v-model="hasta"><br>
+                            </div>
+                        </div>
 
+                    </div>
+                    <p>
+                        <button class="btn-hover btn-primary " @click="cargardatos()">ACEPTAR</button>
+
+                    </p>
                     <div class="row my-5">
 
                         <!-- Incia Tabla -->
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive col-md-6">
+                        <div class="table-wrapper-scroll-y table-responsive col-md-6">
                             <table class="table table-md table-bordered table-hover table-striped">
                                 <thead class="bg-primary text-white">
                                     <tr>
