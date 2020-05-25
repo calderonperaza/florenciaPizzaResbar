@@ -120,10 +120,11 @@ new Vue({
                     if (this.resumenDeVenta.length == 0) {
                         console.log('vacio');
                         this.createResumenDeVentas();
-                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+
                     } else {
+                        console.log("AQUI LO LLAMARE updateResumenDeVentas");
                         this.updateResumenDeVentas();
-                        window.location = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+
                     }
                     console.log("estoy aqui");
                 })
@@ -132,6 +133,8 @@ new Vue({
 
         //Si aun no hay un resumen de ventas creamos uno nuevo.
         createResumenDeVentas() {
+            let efectivo = document.getElementById("lblEfectivo").value;
+            let cambio = efectivo - this.ordenSelected.total;
             let fechaResumen = this.convertDate();
             let productosOrden = this.ordenSelected.detalleOrden;
             let totalOrden = parseFloat((this.ordenSelected.total).toFixed(2));
@@ -143,15 +146,22 @@ new Vue({
             this.nuevoResumen.fecha = fechaResumen;
             this.nuevoResumen.total = totalOrden;
             this.nuevoResumen.productos = obj;
-            axios.post(this.uriVentas, this.nuevoResumen)
+            var cadena = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+            axios.post(this.uriVentas, JSON.stringify(this.nuevoResumen), { headers: { 'content-type': 'application/json', } })
                 .then(response => {
-                    this.resumenDeVenta = response.data;
-                })
-                .catch(e => { console.log(e) });
+                    window.location = cadena;
+                }).catch(ex => {
+                    console.log(ex)
+                });
+
+
         },
 
         //Si ya hay un resumen solo lo actualizamos
         updateResumenDeVentas() {
+            let efectivo = document.getElementById("lblEfectivo").value;
+            let cambio = efectivo - this.ordenSelected.total;
+            console.log("updateResumenDeVentas");
             let obj = [];
             for (let i = 0; i < this.ordenSelected.detalleOrden.length; i++) {
                 let array = { "nombre": this.ordenSelected.detalleOrden[i].nombre, "cantidad": this.ordenSelected.detalleOrden[i].cantidad };
@@ -164,9 +174,9 @@ new Vue({
                 for (let j = 0; j < this.resumenDeVenta[0].productos.length; j++) {
                     if (obj[i].nombre == this.resumenDeVenta[0].productos[j].nombre) {
                         flag = 1;
-                        let cantidad = this.resumenDeVenta[0].productos[j].cantidad;
-                        cantidad += obj[i].cantidad;
-                        this.resumenDeVenta[0].productos[j].cantidad = cantidad;
+                        let cantidad2 = this.resumenDeVenta[0].productos[j].cantidad;
+                        cantidad2 += obj[i].cantidad;
+                        this.resumenDeVenta[0].productos[j].cantidad = cantidad2;
                     } else if (j == (this.resumenDeVenta[0].productos.length) - 1 && flag == 0) {
                         console.log(obj[i].nombre);
                         objResumen.unshift(obj[i]);
@@ -186,9 +196,10 @@ new Vue({
             };
             let uriId = this.uriVentas + "/" + this.resumenDeVenta[0].id;
             console.log(JSON.stringify(datos));
-            axios.put(uriId, datos)
+            var cad2 = "./ordenes.html?alert=Orden%20cobrada:%20" + this.ordenSelected.id.substr(-4) + ",%20con%20un%20total%20de:%20$" + this.ordenSelected.total + ",%20efectivo%20de:%20$" + efectivo + "%20y%20cambio%20de:%20$" + cambio.toFixed(2);
+            axios.put(uriId, JSON.stringify(datos), { headers: { 'content-type': 'application/json', } })
                 .then(response => {
-                    console.log(response);
+                    window.location = cad2
                 })
                 .catch(e => { console.log(e) });
         },
