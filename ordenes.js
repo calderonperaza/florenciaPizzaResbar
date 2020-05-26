@@ -14,14 +14,14 @@ new Vue({
     methods: {
         //cargando la fecha de forma horario local
         ajustarFechas: function() {
-            alert(this.ordenes);
+            alert(this.lactivos);
         },
         //Obtiene todas las ordenes 
         obtenerOrdenes: function() {
             axios.get(this.uri)
                 .then(response => {
                     this.ordenes = response.data
-                    this.ajustarFechas();
+
                 })
                 .catch(e => { console.log(e) })
 
