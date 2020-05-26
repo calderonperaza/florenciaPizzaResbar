@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RESBAR</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/googlefonts.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Inicia navbar lateral -->
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-glass-martini"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>RESBAR</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="ordenes.html"><i
+                                class="fas fa-list-ol"></i><span>ORDENES</span></a>
+                        <a class="nav-link active" href="productos.html"><i
+                                class="fas fa-box"></i><span>PRODUCTOS</span></a>
+                        <a class="nav-link active" href="categorias.html"><i
+                                class="fas fa-sitemap"></i><span>CATEGORÍAS</span></a>
+                        <a class="nav-link active" href="informes.html"><i
+                                class="fas fa-file-alt"></i><span>INFORMES</span></a>
+                    </li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <!-- Termina navbar lateral -->
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+
+                <!-- Inicia el contenedor de la pagina (Codigo nuevo aquí)-->
+                <div class="container-fluid" id="appRESBAR">
+
+                    <!-- TITULO -->
+                    <div class="row my-4">
+                        <h3 class="text-center col-12">RESUMEN DE LAS VENTAS DEL MES ACTUAL</h3>
+                    </div>
+                    <div class="div-encapsula-dates row">
+                        <div class="espacio-divs col-md-3">
+                            Desde:
+                            <div class="div-date animated bounceIn">
+                                <input type="date" id="start" class="date-css" v-model="desde"><br>
+                            </div>
+                        </div>
+                        <div class="espacio-divs col-md-3">
+                            Hasta:
+                            <div class="div-date animated bounceIn delay1">
+                                <input type="date" id="end" class="date-css" v-model="hasta"><br>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p>
+                        <button class="btn-hover btn-primary " @click="cargardatos()">ACEPTAR</button>
+
+                    </p>
+                    <div class="row my-5">
+
+                        <!-- Incia Tabla -->
+                        <div class="table-wrapper-scroll-y table-responsive col-md-6">
+                            <table class="table table-md table-bordered table-hover table-striped">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th style="text-align: center;" scope="col">PRODUCTO</th>
+                                        <th style="text-align: center;" scope="col">CANTIDAD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="elemento in resumen">
+                                        <td>{{ elemento._id }}</td>
+                                        <td>{{ elemento.Total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Termina Tabla -->
+
+
+
+
+
+                        <!--Solo para depuracion y desarrollo mostramos el vue.Data-->
+                        <!--Despues borramos esto-
+                    <br>
+                    <h5>Solo para mostrar vue.Data mientras se desarrolla</h5>
+                    -->
+                    </div>
+                    <!-- Termina el contenedor de la pagina y el dominio de VUE-->
+
+                </div>
+
+                <!-- Inicia el pie de pagina -->
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Diseño I 2020</span></div>
+                    </div>
+                </footer>
+                <!-- Termina el pie de pagina -->
+
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.easing.js"></script>
+        <script src="assets/js/vue.js "></script>
+        <script src="assets/js/axios.min.js "></script>
+        <script src="assets/js/theme.js"></script>
+        <script src="assets/js/Script.js"></script>
+        <!--Aqui va tu codigo de vue js-->
+        <script src="./config.js"></script>
+        <script src="./informeproductos.js"></script>
+
+
+</body>
+
+</html>
