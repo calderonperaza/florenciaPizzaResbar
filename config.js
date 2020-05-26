@@ -2,5 +2,6 @@
 //archivo html, todo el codigo comun va aqui
 
 //Direccion URL de la api rest que se va a consumir por la aplicacion
-const ApiRestUrl = "http://localhost:3000"
+//OJO SIN la pleca al final
+const ApiRestUrl = "https://pupuseriapattybackend.us-south.cf.appdomain.cloud"
     // https://pupuseriapattybackend.us-south.cf.appdomain.cloud
