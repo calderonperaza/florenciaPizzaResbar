@@ -12,10 +12,7 @@ new Vue({
         uri: ApiRestUrl + '/ordenes'
     },
     methods: {
-        //cargando la fecha de forma horario local
-        ajustarFechas: function() {
-            alert(this.lactivos);
-        },
+
         //Obtiene todas las ordenes 
         obtenerOrdenes: function() {
             axios.get(this.uri)
@@ -54,6 +51,7 @@ new Vue({
                             this.uri + '?filter=%7B%0A%20%20%22order%22%3A%20%5B%0A%20%20%20%20%22mesa%20DESC%22%0A%20%20%5D%0A%7D')
                         .then(response => {
                             this.ordenes = response.data
+                            this.ajustarFechas()
                         }).catch(e => { console.log(e) })
 
                 } else {
