@@ -70,18 +70,20 @@
                     <div class="row my-5">
 
                         <!-- Incia Tabla -->
-                        <div class="table-wrapper-scroll-y table-responsive col-md-6">
+                        <div class="table-wrapper-scroll-y table-responsive col-md-8">
                             <table class="table table-md table-bordered table-hover table-striped">
                                 <thead class="bg-primary text-white">
                                     <tr>
+                                        <th style="text-align: center;" scope="col">N</th>
                                         <th style="text-align: center;" scope="col">PRODUCTO</th>
                                         <th style="text-align: center;" scope="col">CANTIDAD</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="elemento in resumen">
+                                    <tr v-for="(elemento, n) in resumen">
+                                        <td>{{ n+1 }}</td>
                                         <td>{{ elemento._id }}</td>
-                                        <td>{{ elemento.Total}}</td>
+                                        <td style="text-align: center; font-weight: bold">{{ elemento.Total}}</td>
                                     </tr>
                                 </tbody>
                             </table>
